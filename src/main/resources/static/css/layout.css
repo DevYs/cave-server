@@ -58,3 +58,9 @@ a, a:focus, a:hover {
     display:block;
     margin:0px 5px;
 }
+
+.idx-thumb a img {
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:5px;
+}

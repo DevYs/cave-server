@@ -1,10 +1,48 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Off Canvas Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/offcanvas.css}" rel="stylesheet" />
+    <link th:href="@{/css/layout.css}" rel="stylesheet" />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script th:src="@{/js/ie8-responsive-file-warning.js}"></script><![endif]-->
+    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv-3.7.2.min.js}"></script>
+    <script th:src="@{/js/respond-1.4.2.min.js}"></script>
+    <![endif]-->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+
+    <script th:src="@{/js/offcanvas.js}"></script>
 </head>
 <body>
-    <h1 style="margin:0px auto; margin-top:300px; width:100px;">KAVE</h1>
+    <div class="container">
+        <div class="row">
+            <h1 class="col-xs-12">Kave</h1>
+        </div>
+    </div>
 </body>
 </html>

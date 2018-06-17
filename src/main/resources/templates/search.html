@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="default">
+<head>
+    <title>검색</title>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{search.searching(${param.srchTpNm == null} ? '전체' : ${param.srchTpNm}, ${param.srchWd == null ? '' : param.srchWd})}"></h3>
+        <div class="row">
+            <!--<p class="idx-lst-empt-msg">감상중인 콘텐츠가 없습니다.</p>-->
+
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
+                <a href="#">
+                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                </a>
+                <a class="idx-thumb-tl" href="#">퀵</a>
+                <a class="idx-thumb-tl" href="#">2012</a>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
