@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-default}">
+<head>
+    <title>사용자관리</title>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
+        <h3 class="idx-h3 idx-h3-frst">사용자정보 삭제</h3>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <p>사용자 hanys1042를 삭제하시겠습니까? <br /> 확인을 선택할 경우 사용자 정보는 영구적으로 삭제됩니다.</p>
+
+                <form>
+                    <input type="hidden" name="userId" value="1234" />
+
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-danger">삭제</button>
+                        <a th:href="@{~/admin/user}" type="submit" class="btn btn-warning" role="button">취소</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

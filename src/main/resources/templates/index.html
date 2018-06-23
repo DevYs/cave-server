@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="default">
+      layout:decorate="~{default}">
 <head>
-    <title>Kave</title>
+    <title>Video Cave</title>
 </head>
 
 <body>
@@ -20,12 +20,12 @@
         <div class="row">
             <p th:if="false" class="idx-lst-empt-msg" th:text="#{index.afterwards.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
 
-            <div class="idx-thumb col-xs-4 col-sm-3 col-lg-2">
-                <a href="#">
+            <div class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+                <a th:href="@{~/contents}">
                     <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" />
                 </a>
-                <a class="idx-thumb-tl" href="#">퀵</a>
-                <a class="idx-thumb-tl" href="#">2012</a>
+                <a class="idx-thumb-tl" th:href="@{~/contents}">퀵</a>
+                <a class="idx-thumb-tl" th:href="@{~/contents}">2012</a>
             </div>
         </div>
     </div>

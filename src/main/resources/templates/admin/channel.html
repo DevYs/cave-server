@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-default}">
+<head>
+    <title>채널관리</title>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
+        <h3 class="idx-h3 idx-h3-frst">채널관리</h3>
+
+        <div class="row">
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <div class="jumbotron">
+                    <a class="add" th:href="@{~/admin/channel/add}">+</a>
+                </div>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">한국영화</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">영미권영화</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">중화권영화</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">프랑스영화</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">한국드라마</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">미국드라마</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">일본드라마</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-sm-4 col-md-3">
+                <ul class="jumbotron">
+                    <li class="v-title text-center">중국드라마</li>
+                    <li class="text-center">
+                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

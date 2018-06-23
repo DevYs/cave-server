@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-default}">
+<head>
+    <title>콘텐츠관리</title>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
+        <h3 class="idx-h3 idx-h3-frst">콘텐츠정보 추가</h3>
+
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="poster" class="col-sm-2 control-label">포스터 URL</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="poster" name="poster" placeholder="포스터 URL을 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="contentsName" class="col-sm-2 control-label">콘텐츠명</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="contentsName" name="contentsName" placeholder="콘텐츠명을 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="genre" class="col-sm-2 control-label">장르</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="genre" name="genre" placeholder="장르을 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nation" class="col-sm-2 control-label">국가</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="nation" name="nation" placeholder="국가를 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="releaseDate" class="col-sm-2 control-label">개봉일</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="releaseDate" name="releaseDate" placeholder="개봉일를 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="runningTime" class="col-sm-2 control-label">상영시간</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="runningTime" name="runningTime" placeholder="상영시간을 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="director" class="col-sm-2 control-label">감독</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="director" name="director" placeholder="감독을 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="actor" class="col-sm-2 control-label">주연</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="actor" name="actors" placeholder="주연을 입력하세요." />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="story" class="col-sm-2 control-label">줄거리</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="story" name="story" placeholder="줄거리를 입력하세요."></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">추가</button>
+                    <a th:href="@{~/admin/contents}" type="button" class="btn btn-warning">취소</a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</body>
+</html>

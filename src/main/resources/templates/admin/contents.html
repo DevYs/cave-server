@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-default}">
+<head>
+    <title>콘텐츠관리</title>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
+        <h3 class="idx-h3 idx-h3-frst">콘텐츠관리</h3>
+
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="channelNo" class="col-sm-2 control-label">채널</label>
+                <div class="col-sm-10">
+                    <select id="channelNo" name="channelNo" class="form-control">
+                        <option>전체</option>
+                        <option>한국영화</option>
+                        <option>영미권영화</option>
+                        <option>중화권영화</option>
+                        <option>일본영화</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="srchWd" class="col-sm-2 control-label">검색어</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="srchWd" name="srchWd" placeholder="검색어를 입력하세요" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary">검색</button>
+                </div>
+            </div>
+        </form>
+
+        <hr class="px1" />
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <!--<p class="idx-lst-empt-msg">감상중인 콘텐츠가 없습니다.</p>-->
+
+                    <div class="cont-thumb col-xs-4 col-sm-3 col-md-2">
+                        <a class="contents-add" th:href="@{~/admin/contents/add}">
+                            <img class="img-responsive" th:src="@{~/img/contents-add.png}" />
+                        </a>
+                        <a class="idx-thumb-tl text-center" th:href="@{~/admin/contents/add}">콘텐츠추가</a>
+                    </div>
+
+                    <div th:each="i : ${#numbers.sequence(1, 32)}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
+                        <a th:href="@{~/admin/contents/view}">
+                            <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" />
+                        </a>
+                        <a class="idx-thumb-tl" th:href="@{~/admin/contents/view}">퀵</a>
+                        <a class="idx-thumb-tl" th:href="@{~/admin/contents/view}">2012</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

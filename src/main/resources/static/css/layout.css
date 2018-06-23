@@ -3,6 +3,113 @@ body {
     color: #fff;
 }
 
+#story {
+    height: 200px;
+}
+
+hr.px1 {
+    border-top: 1px solid #fff !important;
+    border-bottom: 0px solid #fff !important;
+}
+
+hr {
+    border: 1px solid #fff !important;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.n-left {
+    padding-left:0px !important;
+}
+
+.jumbotron {
+    background-color: #222;
+    padding:10px !important;
+    margin-bottom: 20px !important;
+    min-height:145px;
+}
+
+.jumbotron .add {
+    display: block;
+    text-align:center;
+    font-size: 80px;
+}
+
+.jumbotron li {
+    overflow-x:hidden;
+    padding-top:5px;
+}
+
+.jumbotron li.v-title {
+    padding:20px 0px;
+}
+
+.nav-tabs {
+    border-bottom: 2px solid #fff !important;
+}
+
+.cont-tab {
+    padding-top:20px !important;
+}
+
+.cont-tab .nav-tabs>li>a:hover,
+ .cont-tab .nav-tabs>li>a:focus{
+    color: #555 !important;
+}
+
+.cont-video {
+    padding: 0px 15px;
+}
+
+.cont-thumb {
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.cont-thumb img {
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:5px;
+}
+
+.idx-thumb a.contents-add:hover,
+ .idx-thumb a.contents-add:active{
+    border: 1px solid #fff;
+    display: block;
+}
+
+.cont-thumb a.contents-add:hover,
+ .cont-thumb a.contents-add:active{
+    border: 1px solid #fff;
+    display: block;
+}
+
+.cont-thumb .b-icon {
+    padding:2px 5px;
+    background-color:#000;
+    opacity:0.8;
+    position: absolute;
+}
+
+ul.cont-info {
+    padding-left:0px;
+    padding-right:0px;
+}
+
+ul.cont-info li {
+    padding:3px 0px;
+}
+
+.cont-img {
+    padding: 10px 0px !important;
+}
+
+.cont-story {
+    padding: 20px 20px;
+}
+
 a, a:focus, a:hover {
     color: #fff;
 }
@@ -31,11 +138,6 @@ a, a:focus, a:hover {
     border-color: #191919 !important;
 }
 
-.jumbotron {
-    background-color: #222;
-    padding:10px;
-}
-
 .idx-h3-frst {
     margin-top:0px !important;
 }
@@ -51,10 +153,11 @@ a, a:focus, a:hover {
 }
 
 .idx-thumb {
-    text-align:left; padding-bottom:10px;
+    text-align:left;
+    padding-bottom:10px;
 }
 
-.idx-thumb .idx-thumb-tl {
+.idx-thumb-tl {
     display:block;
     margin:0px 5px;
 }
@@ -63,4 +166,8 @@ a, a:focus, a:hover {
     margin-left:auto;
     margin-right:auto;
     margin-bottom:5px;
+}
+
+#player {
+    background-color: #000;
 }

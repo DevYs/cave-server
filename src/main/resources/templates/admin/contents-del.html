@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/admin-default}">
+<head>
+    <title>콘텐츠관리</title>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
+        <h3 class="idx-h3 idx-h3-frst">콘텐츠정보 삭제</h3>
+
+        <div class="col-xs-12">
+            <p>콘텐츠 퀵을 삭제하시겠습니까? <br /> 확인을 선택할 경우 퀵과 관련된 모든 정보와 영상 링크는 영구적으로 삭제됩니다.</p>
+
+            <form>
+                <input type="hidden" name="userId" value="1234" />
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-danger">삭제</button>
+                    <a th:href="@{~/admin/contents/view}" type="submit" class="btn btn-warning" role="button">취소</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>
