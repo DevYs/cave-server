@@ -1,4 +1,4 @@
-package devy.kave.server.domain;
+package devy.kave.server.db.model;
 
 import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;

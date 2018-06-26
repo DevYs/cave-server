@@ -1,6 +1,5 @@
-package devy.kave.server.domain;
+package devy.kave.server.db.model;
 
-import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
@@ -41,7 +40,7 @@ public class Channel implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.channelNo = tupleInput.readInt();
+        this.channelNo = tupleInput.readLong();
     }
 
     @Override
@@ -52,42 +51,6 @@ public class Channel implements Serializable, MarshalledTupleKeyEntity {
     @Override
     public boolean nullifyForeignKey(String keyName) {
         throw new UnsupportedOperationException(keyName);
-    }
-
-    public class ChannelKey implements MarshalledTupleEntry {
-
-        private long channelNo;
-
-        public ChannelKey(long channelNo) {
-            this.channelNo = channelNo;
-        }
-
-        public final long getChannelNo() {
-            return channelNo;
-        }
-
-        @Override
-        public String toString() {
-            return "ChannelKey{" +
-                    "channelNo=" + channelNo +
-                    '}';
-        }
-
-        // --- MarshalledTupleEntry implementation ---
-        public ChannelKey() {
-            // A no-argument constructor is necessary only to allow the binding to
-            // instantiate objects of this class.
-        }
-
-        @Override
-        public void marshalEntry(TupleOutput tupleOutput) {
-            tupleOutput.writeLong(this.channelNo);
-        }
-
-        @Override
-        public void unmarshalEntry(TupleInput tupleInput) {
-            this.channelNo = tupleInput.readLong();
-        }
     }
 
 }

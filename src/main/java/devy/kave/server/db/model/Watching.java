@@ -1,4 +1,4 @@
-package devy.kave.server.domain;
+package devy.kave.server.db.model;
 
 import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
@@ -7,20 +7,22 @@ import com.sleepycat.bind.tuple.TupleOutput;
 
 import java.io.Serializable;
 
-public class Deck implements Serializable, MarshalledTupleKeyEntity {
+public class Watching implements Serializable, MarshalledTupleKeyEntity {
 
-    private transient long deckNo;
+    private transient long watchingNo;
     private long userNo;
     private Contents contents;
+    private Video video;
 
-    public Deck(long userNo, long deckNo, Contents contents) {
+    public Watching(long watchingNo, long userNo, Contents contents, Video video) {
+        this.watchingNo = watchingNo;
         this.userNo = userNo;
-        this.deckNo = deckNo;
         this.contents = contents;
+        this.video = video;
     }
 
-    public final long getDeckNo() {
-        return deckNo;
+    public final long getWatchingNo() {
+        return watchingNo;
     }
 
     public final long getUserNo() {
@@ -31,23 +33,28 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
         return contents;
     }
 
+    public final Video getVideo() {
+        return video;
+    }
+
     @Override
     public String toString() {
-        return "Deck{" +
-                "userNo=" + userNo +
-                ", deckNo=" + deckNo +
+        return "Watching{" +
+                "watchingNo=" + watchingNo +
+                ", userNo=" + userNo +
                 ", contents=" + contents +
+                ", video=" + video +
                 '}';
     }
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.userNo);
+        tupleOutput.writeLong(this.watchingNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.userNo = tupleInput.readLong();
+        this.watchingNo = tupleInput.readLong();
     }
 
     @Override
@@ -60,36 +67,35 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
         throw new UnsupportedOperationException(s);
     }
 
-    public class DeckKey implements MarshalledTupleEntry {
+    public class WatchingKey implements MarshalledTupleEntry {
 
-        private long deckNo;
+        private long watchingNo;
 
-        public DeckKey(long deckNo) {
-            this.deckNo = deckNo;
+        public WatchingKey(long watchingNo) {
+            this.watchingNo = watchingNo;
         }
 
-        public final long getDeckNo() {
-            return deckNo;
+        public final long getWatchingNo() {
+            return watchingNo;
         }
 
         @Override
         public String toString() {
-            return "DeckKey{" +
-                    "deckNo=" + deckNo +
+            return "WatchingNo{" +
+                    "watchingNo=" + watchingNo +
                     '}';
         }
 
-        public DeckKey() {}
+        public WatchingKey() {}
 
         @Override
         public void marshalEntry(TupleOutput tupleOutput) {
-            tupleOutput.writeLong(this.deckNo);
+            tupleOutput.writeLong(this.watchingNo);
         }
 
         @Override
         public void unmarshalEntry(TupleInput tupleInput) {
-            this.deckNo = tupleInput.readLong();
+            this.watchingNo = tupleInput.readLong();
         }
     }
-
 }

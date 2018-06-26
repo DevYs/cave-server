@@ -1,4 +1,4 @@
-package devy.kave.server.domain;
+package devy.kave.server.db.model;
 
 import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
@@ -9,18 +9,14 @@ import java.io.Serializable;
 
 public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
 
-    private transient long configNo;
-    private String configName;
+    private transient String configName;
     private String configValue;
+    private long modDateTime;
 
-    public DefaultConfig(long configNo, String configName, String configValue) {
-        this.configNo = configNo;
+    public DefaultConfig(String configName, String configValue, long modDateTime) {
         this.configName = configName;
         this.configValue = configValue;
-    }
-
-    public final long getConfigNo() {
-        return configNo;
+        this.modDateTime = modDateTime;
     }
 
     public final String getConfigName() {
@@ -31,23 +27,27 @@ public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
         return configValue;
     }
 
+    public long getModDateTime() {
+        return modDateTime;
+    }
+
     @Override
     public String toString() {
         return "DefaultConfig{" +
-                "configNo=" + configNo +
-                ", configName='" + configName + '\'' +
+                "configName='" + configName + '\'' +
                 ", configValue='" + configValue + '\'' +
+                ", modDateTime=" + modDateTime +
                 '}';
     }
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.configNo);
+        tupleOutput.writeString(this.configName);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.configNo = tupleInput.readLong();
+        this.configName = tupleInput.readString();
     }
 
     @Override
@@ -62,20 +62,20 @@ public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
 
     public class DefaultConfigKey implements MarshalledTupleEntry {
 
-        private long configNo;
+        private String configName;
 
-        public DefaultConfigKey(long configNo) {
-            this.configNo = configNo;
+        public DefaultConfigKey(String configName) {
+            this.configName = configName;
         }
 
-        public final long getConfigNo() {
-            return configNo;
+        public final String getConfigName() {
+            return configName;
         }
 
         @Override
         public String toString() {
             return "DefaultConfigKey{" +
-                    "configNo=" + configNo +
+                    "configName='" + configName + '\'' +
                     '}';
         }
 
@@ -83,12 +83,12 @@ public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
 
         @Override
         public void marshalEntry(TupleOutput tupleOutput) {
-            tupleOutput.writeLong(this.configNo);
+            tupleOutput.writeString(this.configName);
         }
 
         @Override
         public void unmarshalEntry(TupleInput tupleInput) {
-            this.configNo = tupleInput.readLong();
+            this.configName = tupleInput.readString();
         }
     }
 }
