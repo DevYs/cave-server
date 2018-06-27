@@ -1,16 +1,15 @@
 package devy.kave.server.config;
 
 import devy.kave.server.db.DatabaseAccessObjectManager;
-import devy.kave.server.db.DatabaseSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class DbConfig {
+public class BerkeleyDbConfig {
 
-    private Logger logger = LoggerFactory.getLogger(DbConfig.class);
+    private Logger logger = LoggerFactory.getLogger(BerkeleyDbConfig.class);
 
     @Bean
     public DatabaseAccessObjectManager databaseAccessObjectManager() {
