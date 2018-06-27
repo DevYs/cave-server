@@ -118,37 +118,4 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
         throw new UnsupportedOperationException(s);
     }
 
-    public class ContentsKey implements MarshalledTupleEntry {
-
-        private long contentsNo;
-
-        public ContentsKey(long contentsNo) {
-            this.contentsNo = contentsNo;
-        }
-
-        public final long getContentsNo() {
-            return contentsNo;
-        }
-
-        @Override
-        public String toString() {
-            return "ContentsKey{" +
-                    "contentsNo=" + contentsNo +
-                    '}';
-        }
-
-        public ContentsKey() {}
-
-        @Override
-        public void marshalEntry(TupleOutput tupleOutput) {
-            tupleOutput.writeLong(this.contentsNo);
-        }
-
-        @Override
-        public void unmarshalEntry(TupleInput tupleInput) {
-            this.contentsNo = tupleInput.readLong();
-        }
-    }
-
-
 }

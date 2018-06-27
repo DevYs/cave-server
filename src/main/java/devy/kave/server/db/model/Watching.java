@@ -67,35 +67,4 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
         throw new UnsupportedOperationException(s);
     }
 
-    public class WatchingKey implements MarshalledTupleEntry {
-
-        private long watchingNo;
-
-        public WatchingKey(long watchingNo) {
-            this.watchingNo = watchingNo;
-        }
-
-        public final long getWatchingNo() {
-            return watchingNo;
-        }
-
-        @Override
-        public String toString() {
-            return "WatchingNo{" +
-                    "watchingNo=" + watchingNo +
-                    '}';
-        }
-
-        public WatchingKey() {}
-
-        @Override
-        public void marshalEntry(TupleOutput tupleOutput) {
-            tupleOutput.writeLong(this.watchingNo);
-        }
-
-        @Override
-        public void unmarshalEntry(TupleInput tupleInput) {
-            this.watchingNo = tupleInput.readLong();
-        }
-    }
 }
