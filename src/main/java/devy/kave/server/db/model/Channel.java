@@ -8,20 +8,38 @@ import java.io.Serializable;
 
 public class Channel implements Serializable, MarshalledTupleKeyEntity {
 
+    private static final long serialVersionUID = 1L;
+
+    public static final String DB_CHANNEL = "db_channel";
+
     private transient long channelNo;
     private String channelName;
+
+    public Channel() {}
+
+    public Channel(String channelName) {
+        this.channelName = channelName;
+    }
 
     public Channel(long channelNo, String channelName) {
         this.channelNo = channelNo;
         this.channelName = channelName;
     }
 
-    public final long getChannelNo() {
+    public long getChannelNo() {
         return channelNo;
     }
 
-    public final String getChannelName() {
+    public void setChannelNo(long channelNo) {
+        this.channelNo = channelNo;
+    }
+
+    public String getChannelName() {
         return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
     }
 
     @Override

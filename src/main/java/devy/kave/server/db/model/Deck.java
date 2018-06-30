@@ -1,6 +1,5 @@
 package devy.kave.server.db.model;
 
-import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
@@ -8,6 +7,12 @@ import com.sleepycat.bind.tuple.TupleOutput;
 import java.io.Serializable;
 
 public class Deck implements Serializable, MarshalledTupleKeyEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    public static final String DB_DECK = "db_deck";
+    public static final String SEC_DB_DECK_BY_USER_NO = "deck_by_user_no";
+    public static final String KEY_USER_NO = "key_user_no";
 
     private transient long deckNo;
     private long userNo;
@@ -42,17 +47,22 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.userNo);
+        tupleOutput.writeLong(this.deckNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.userNo = tupleInput.readLong();
+        this.deckNo = tupleInput.readLong();
     }
 
     @Override
-    public boolean marshalSecondaryKey(String s, TupleOutput tupleOutput) {
-        throw new UnsupportedOperationException(s);
+    public boolean marshalSecondaryKey(String keyName, TupleOutput keyOutput) {
+        if (keyName.equals(KEY_USER_NO)) {
+            keyOutput.writeLong(this.userNo);
+            return true;
+        } else {
+            throw new UnsupportedOperationException(keyName);
+        }
     }
 
     @Override

@@ -1,6 +1,5 @@
 package devy.kave.server.db.model;
 
-import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
@@ -8,6 +7,8 @@ import com.sleepycat.bind.tuple.TupleOutput;
 import java.io.Serializable;
 
 public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
+
+    private static final long serialVersionUID = 1L;
 
     private transient String configName;
     private String configValue;
