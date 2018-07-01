@@ -8,11 +8,6 @@
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
-        <div class="row">
-            <ul class="col-xs-12">
-                <li th:each="channel : ${channels}" th:text="${channel.channelName}"></li>
-            </ul>
-        </div>
         <h3 class="idx-h3 idx-h3-frst" th:text="#{index.watching}">감상중인 콘텐츠</h3>
         <div class="row">
             <p class="idx-lst-empt-msg" th:text="#{index.watching.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
