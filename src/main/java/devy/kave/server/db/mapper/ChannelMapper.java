@@ -31,7 +31,7 @@ public class ChannelMapper implements Mapper {
     @Override
     public Object mod(MarshalledTupleKeyEntity entity) {
         Channel channel = (Channel) entity;
-        return map().replace(new ChannelKey(channel.getChannelNo()), channel);
+        return map().replace(new ChannelKey(channel.getChannelNo()), entity);
     }
 
     @Override
