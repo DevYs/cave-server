@@ -1,15 +1,11 @@
 package devy.kave.server.db;
 
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
-import com.sleepycat.collections.StoredMap;
-import com.sleepycat.collections.StoredSortedMap;
-import com.sleepycat.collections.StoredSortedValueSet;
-import com.sleepycat.collections.StoredValueSet;
+import com.sleepycat.collections.*;
 import com.sleepycat.je.Database;
 import com.sleepycat.je.SecondaryDatabase;
 import devy.kave.server.db.model.Query;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,6 +104,10 @@ public class DatabaseAccessObjectManager {
 
     public StoredSortedValueSet sortedSet(Query query) {
         return this.databaseViewFactory.sortedSet(this.databaseSource.getFactory(), getDatabase(query), query.getKeyClass(), query.getValueBaseClass(), query.isWriteAllowed());
+    }
+
+    public TransactionRunner getTransactionRunner() {
+        return this.databaseSource.getTxnRunner();
     }
 
 }
