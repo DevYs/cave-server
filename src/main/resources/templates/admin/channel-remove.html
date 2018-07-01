@@ -12,10 +12,10 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <p>채널 프랑스영화를 삭제하시겠습니까? <br /> 확인을 선택할 경우 채널 정보는 영구적으로 삭제됩니다.</p>
+                <p>채널 [[${channel.channelName}]]를 삭제하시겠습니까? <br /> 확인을 선택할 경우 채널 정보는 영구적으로 삭제됩니다.</p>
 
-                <form>
-                    <input type="hidden" name="userId" value="1234" />
+                <form th:action="@{~/admin/channel/del}" method="post">
+                    <input type="hidden" name="channelNo" th:value="${channel.channelNo}" />
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-danger">삭제</button>

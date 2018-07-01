@@ -18,82 +18,12 @@
                 </div>
             </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="col-xs-6 col-sm-4 col-md-3" th:each="channel : ${channels}">
                 <ul class="jumbotron">
-                    <li class="v-title text-center">한국영화</li>
+                    <li class="v-title text-center" th:text="${channel.channelName}">채널명</li>
                     <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <ul class="jumbotron">
-                    <li class="v-title text-center">영미권영화</li>
-                    <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <ul class="jumbotron">
-                    <li class="v-title text-center">중화권영화</li>
-                    <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <ul class="jumbotron">
-                    <li class="v-title text-center">프랑스영화</li>
-                    <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <ul class="jumbotron">
-                    <li class="v-title text-center">한국드라마</li>
-                    <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <ul class="jumbotron">
-                    <li class="v-title text-center">미국드라마</li>
-                    <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <ul class="jumbotron">
-                    <li class="v-title text-center">일본드라마</li>
-                    <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <ul class="jumbotron">
-                    <li class="v-title text-center">중국드라마</li>
-                    <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del}" class="btn btn-danger" role="button">삭제</a>
+                        <a th:href="@{~/admin/channel/mod(channelNo=${channel.channelNo})}" class="btn btn-warning" role="button">수정</a>
+                        <a th:href="@{~/admin/channel/del(channelNo=${channel.channelNo})}" class="btn btn-danger" role="button">삭제</a>
                     </li>
                 </ul>
             </div>
