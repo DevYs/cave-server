@@ -82,18 +82,8 @@
                 </form>
 
                 <div class="list-group">
-                    <a th:href="@{/search(srchTpNm='전체', srchTp=0)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '0') or #strings.equals(param.srchTp, null)}? 'active'">전체</a>
-                    <a th:href="@{/search(srchTpNm='한국영화', srchTp=1)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '1')}? 'active'">한국영화</a>
-                    <a th:href="@{/search(srchTpNm='한국드라마', srchTp=2)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '2')}? 'active'">한국드라마</a>
-                    <a th:href="@{/search(srchTpNm='한국예능', srchTp=3)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '3')}? 'active'">한국예능</a>
-                    <a th:href="@{/search(srchTpNm='헐리웃영화', srchTp=4)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '4')}? 'active'">헐리웃영화</a>
-                    <a th:href="@{/search(srchTpNm='미국드라마', srchTp=5)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '5')}? 'active'">미국드라마</a>
-                    <a th:href="@{/search(srchTpNm='미국예능', srchTp=6)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '6')}? 'active'">미국예능</a>
-                    <a th:href="@{/search(srchTpNm='일본영화', srchTp=7)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '7')}? 'active'">일본영화</a>
-                    <a th:href="@{/search(srchTpNm='일본드라마', srchTp=8)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '8')}? 'active'">일본드라마</a>
-                    <a th:href="@{/search(srchTpNm='일본예능', srchTp=9)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '9')}? 'active'">일본예능</a>
-                    <a th:href="@{/search(srchTpNm='중국영화', srchTp=10)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '10')}? 'active'">중국영화</a>
-                    <a th:href="@{/search(srchTpNm='중국드라마', srchTp=11)}" class="list-group-item" th:classappend="${#strings.equals(param.srchTp, '11')}? 'active'">중국드라마</a>
+                    <a th:href="@{/search(channelName='전체', channelNo=0)}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, '0') or #strings.equals(param.channelNo, null)}? 'active'">전체</a>
+                    <a th:each="channel : ${channels}" th:text="${channel.channelName}" th:href="@{~/search(channelNo=${channel.channelNo}, channelName=${channel.channelName})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, channel.channelNo)}? 'active'"></a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->
