@@ -5,19 +5,22 @@ import com.sleepycat.collections.*;
 import com.sleepycat.je.Database;
 import com.sleepycat.je.SecondaryDatabase;
 import devy.kave.server.db.model.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class DatabaseAccessObjectManager {
 
+    @Autowired
     private DatabaseSource databaseSource;
     private DatabaseFactory databaseFactory;
     private DatabaseViewFactory databaseViewFactory;
     private Map<String, Database> databaseMap;
 
     public DatabaseAccessObjectManager() {
-        this.databaseSource = new DatabaseSource();
         this.databaseFactory = new DatabaseFactory();
         this.databaseViewFactory = new DatabaseViewFactory();
         this.databaseMap = new HashMap();

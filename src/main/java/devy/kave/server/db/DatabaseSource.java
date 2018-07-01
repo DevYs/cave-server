@@ -3,7 +3,9 @@ package devy.kave.server.db;
 import com.sleepycat.collections.TransactionRunner;
 import com.sleepycat.collections.TupleSerialFactory;
 import com.sleepycat.je.*;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DatabaseSource {
 
     private final Environment env = new EnvironmentBuilder().build();
