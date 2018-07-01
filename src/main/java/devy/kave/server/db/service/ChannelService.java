@@ -4,6 +4,7 @@ import com.sleepycat.collections.StoredSortedValueSet;
 import devy.kave.server.db.DatabaseKeyCreator;
 import devy.kave.server.db.mapper.ChannelMapper;
 import devy.kave.server.db.model.Channel;
+import devy.kave.server.db.model.ChannelKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,35 +18,25 @@ public class ChannelService {
     @Autowired
     private ChannelMapper channelMapper;
 
-    public void add(Channel channel) {
+    public boolean add(Channel channel) {
         long key = DatabaseKeyCreator.createKey();
         channel.setChannelNo(key);
-
-        try {
-            channelMapper.addChannel(channel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        return channelMapper.add(channel);
     }
 
-    public void remove(long channelNo) {
-        try {
-            channelMapper.removeChannel(channelNo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Channel remove(long channelNo) {
+        return (Channel) channelMapper.remove(channelNo);
     }
 
-    public void modify(Channel channel) {
-        try {
-            channelMapper.modifyChannel(channel);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Channel mod(Channel channel) {
+        return (Channel) channelMapper.mod(channel);
     }
 
     public Channel getChannel(long channelNo) {
-        return channelMapper.getChannelByChannelNo(channelNo);
+        return (Channel) channelMapper.sortedMap().duplicates(new ChannelKey(channelNo)).iterator().next();
+    }
+
+    public StoredSortedValueSet<Channel> channelList() {
+        return channelMapper.sortedSet();
     }
 }

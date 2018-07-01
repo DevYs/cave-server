@@ -19,7 +19,7 @@ public class AdminChannelController {
     private ChannelService channelService;
 
     @GetMapping("/admin/channel")
-    public String channel(Model model) {
+    public String channel() {
         return "admin/channel";
     }
 
@@ -30,20 +30,24 @@ public class AdminChannelController {
 
     @PostMapping("/admin/channel/add")
     public String add(Channel channel) {
-        channelService.add(channel);
+        boolean add = channelService.add(channel);
+        if(add) {
+            logger.info("added " + channel.toString());
+        }
         return "redirect:/admin/channel";
     }
 
     @GetMapping("/admin/channel/mod")
     public String mod(long channelNo, Model model) {
-        Channel channel = channelService.getChannel(channelNo);
-        model.addAttribute("channel", channel);
+        model.addAttribute("channel", channelService.getChannel(channelNo));
         return "admin/channel-mod";
     }
 
     @PostMapping("/admin/channel/mod")
     public String mod(Channel channel) {
-        channelService.modify(channel);
+        Channel mod = channelService.mod(channel);
+        logger.info("modified from " + channel.toString());
+        logger.info("to " + mod.toString());
         return "redirect:/admin/channel";
     }
 
@@ -56,7 +60,8 @@ public class AdminChannelController {
 
     @PostMapping("/admin/channel/del")
     public String del(long channelNo) {
-        channelService.remove(channelNo);
+        Channel remove = channelService.remove(channelNo);
+        logger.info("removed " + remove.toString());
         return "redirect:/admin/channel";
     }
 
