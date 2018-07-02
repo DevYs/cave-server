@@ -108,6 +108,7 @@ ul.cont-info li {
 
 .cont-story {
     padding: 20px 20px;
+    white-space: pre-line;
 }
 
 a, a:focus, a:hover {
