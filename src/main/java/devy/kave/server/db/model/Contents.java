@@ -10,6 +10,8 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String DB_CONTENTS = "db_contents";
+
     private transient long contentsNo;
     private long channelNo;
     private String contentsPosterUrl;
@@ -21,6 +23,21 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
     private String director;
     private String actor;
     private String story;
+
+    public Contents() {}
+
+    public Contents(long channelNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story) {
+        this.channelNo = channelNo;
+        this.contentsPosterUrl = contentsPosterUrl;
+        this.contentsName = contentsName;
+        this.genre = genre;
+        this.nation = nation;
+        this.releaseDate = releaseDate;
+        this.runningTime = runningTime;
+        this.director = director;
+        this.actor = actor;
+        this.story = story;
+    }
 
     public Contents(long contentsNo, long channelNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story) {
         this.contentsNo = contentsNo;
@@ -40,44 +57,88 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
         return contentsNo;
     }
 
+    public void setContentsNo(long contentsNo) {
+        this.contentsNo = contentsNo;
+    }
+
     public final long getChannelNo() {
         return channelNo;
+    }
+
+    public void setChannelNo(long channelNo) {
+        this.channelNo = channelNo;
     }
 
     public final String getContentsPosterUrl() {
         return contentsPosterUrl;
     }
 
+    public void setContentsPosterUrl(String contentsPosterUrl) {
+        this.contentsPosterUrl = contentsPosterUrl;
+    }
+
     public final String getContentsName() {
         return contentsName;
+    }
+
+    public void setContentsName(String contentsName) {
+        this.contentsName = contentsName;
     }
 
     public final String getGenre() {
         return genre;
     }
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public final String getNation() {
         return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
     }
 
     public final String getReleaseDate() {
         return releaseDate;
     }
 
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
     public final String getRunningTime() {
         return runningTime;
+    }
+
+    public void setRunningTime(String runningTime) {
+        this.runningTime = runningTime;
     }
 
     public final String getDirector() {
         return director;
     }
 
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
     public final String getActor() {
         return actor;
     }
 
+    public void setActor(String actor) {
+        this.actor = actor;
+    }
+
     public final String getStory() {
         return story;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
     }
 
     @Override
@@ -99,13 +160,11 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.channelNo);
         tupleOutput.writeLong(this.contentsNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.channelNo = tupleInput.readLong();
         this.contentsNo = tupleInput.readLong();
     }
 
