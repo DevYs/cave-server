@@ -8,56 +8,61 @@
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">콘텐츠 '퀵'의 영상 정보 변경</h3>
+        <h3 class="idx-h3 idx-h3-frst">콘텐츠 '[[${video.contents.contentsName}]]'의 영상 '[[${video.videoName}]]' 정보 변경</h3>
 
         <div class="row">
             <div class="col-xs-3">
-                <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" alt="이미지" />
+                <img class="img-responsive" th:src="${video.videoPosterUrl}" th:alt="${video.videoName} + '포스터 이미지'" />
             </div>
             <div class="col-xs-9">
                 <div id="embed" class="embed-responsive embed-responsive-16by9">
-                    <video id="player" controls="true" autoplay="true" class="embed-responsive-item" src="https://lh3.googleusercontent.com/bk07jrMrfsSLEhR82DMCwpKrBqmJV3NjOMrqaJdAdm1yQOOYUfISq4YOviCo5m95BuSgCJnklcVmEsfmpPh2ddkiwAXWl8rOR5bgE_QMkIGQ3b6VQM_aC-e1K68OXRrXEPwsD5ZqfD3W3r_joD69w1R2sMoYqWrufsnicUVi5IZbk1Sb51TG_M0wWux8x4gpo8M_k8t08eHdOoJ74nev0CUwxnZ8VmgHNtxdpxRySdaGbM8p-bST2lhOZ_Npg5bx1j7Nv44f2YL-qHnYx5JlIld3tn-izXW6nyrzqQQJb_C9GWgw_CgKvtWn9pPOi5OkupNimJujgaatUtbRmMMKe5wxnulT43i0eI8HT7wVjIYAkPcld1oxuQSmvJBRjHwEUnsEYxJYX_-Qeah58mF9yLx8gO3A-KR8hMgU3fUQ3EiDWPHoINzOOY23_SOVBO5Q78V5mLSzCD83eY4fJqmMOYsr1NqfG4vReKS8Yg4if7iy0BZqDe_cOQRtAE4Up0HMnvAU-lit9N6Ohx_OdODWHFSUVEgnsyIE5jq_qIRVeagfPrSEqeVw3A44NJBPBH6u7qO63gTNtZX14muQci1GuIbM4Y-UAVRXvvHSYON1fzH5n55ldFkljtxxiJunGrr3b6C3szhkvRuwNa9M1ikiqoVP6vRcf_i2_lkIIgxCl0E=m18?cpn=4Tjd1VNNTcWSH6LN&amp;c=WEB&amp;cver=1.20161207"></video>
+                    <video id="player" controls="controls" autoplay="autoplay" class="embed-responsive-item">
+                        <source th:src="${video.videoUrl}" />
+                        <track kind="subtitles" srclang="ko" label="한국어" th:src="@{~/subtitle(videoNo=${video.videoNo})}" default="default" />
+                    </video>
                 </div>
             </div>
         </div>
 
         <hr />
 
-        <form class="form-horizontal">
+        <form th:action="@{~/admin/contents/video/mod}" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <input type="hidden" name="videoNo" th:value="${video.videoNo}" />
+            <input type="hidden" name="contentsNo" th:value="${video.contentsNo}" />
             <div class="form-group">
                 <label for="videoPosterUrl" class="col-sm-2 control-label">포스터 URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoPosterUrl" name="videoPosterUrl" value="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" placeholder="포스터 URL을 입력하세요." />
+                    <input type="text" class="form-control" id="videoPosterUrl" name="videoPosterUrl" th:value="${video.videoPosterUrl}" placeholder="포스터 URL을 입력하세요." />
                 </div>
             </div>
             <div class="form-group">
                 <label for="videoUrl" class="col-sm-2 control-label">영상 URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoUrl" name="videoUrl" value="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" placeholder="영상 URL을 입력하세요." />
+                    <input type="text" class="form-control" id="videoUrl" name="videoUrl" th:value="${video.videoUrl}" placeholder="영상 URL을 입력하세요." />
                 </div>
             </div>
             <div class="form-group">
                 <label for="videoName" class="col-sm-2 control-label">영상명</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoName" name="videoName" value="1회" placeholder="영상명을 입력하세요." />
+                    <input type="text" class="form-control" id="videoName" name="videoName" th:value="${video.videoName}" placeholder="영상명을 입력하세요." />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">자막</label>
-                <div class="col-sm-10"><p class="help-block">1회.tt</p></div>
+                <div class="col-sm-10"><p class="help-block" th:text="1">1회.tt</p></div>
             </div>
             <div class="form-group">
                 <label for="subtitle" class="col-sm-2 control-label">자막변경</label>
                 <div class="col-sm-10">
-                    <input type="file" id="subtitle" class="form-control" />
+                    <input type="file" id="subtitle" name="subtitleFile" class="form-control" />
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary">변경</button>
-                    <a th:href="@{~/admin/contents/video/del}" class="btn btn-danger">삭제</a>
-                    <a th:href="@{~/admin/contents/view}" class="btn btn-warning">취소</a>
+                    <a th:href="@{~/admin/contents/video/remove(videoNo=${video.videoNo})}" class="btn btn-danger">삭제</a>
+                    <a th:href="@{~/admin/contents/view(contentsNo=${video.contentsNo})}" class="btn btn-warning">취소</a>
                 </div>
             </div>
         </form>

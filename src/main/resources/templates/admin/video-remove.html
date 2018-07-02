@@ -12,14 +12,14 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <p>콘텐츠 '퀵'의 영상 '1회'를 삭제하시겠습니까? <br /> 확인을 선택할 경우 콘텐츠 '퀵'의 영상 '1회'는 영구적으로 삭제됩니다.</p>
+                <p>콘텐츠 '[[${video.contents.contentsName}]]'의 영상 '[[${video.videoName}]]'를 삭제하시겠습니까? <br /> 확인을 선택할 경우 콘텐츠 영상 정보는 영구적으로 삭제됩니다.</p>
 
-                <form>
-                    <input type="hidden" name="userId" value="1234" />
+                <form th:action="@{~/admin/contents/video/remove}" method="post">
+                    <input type="hidden" name="videoNo" th:value="${video.videoNo}" />
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-danger">삭제</button>
-                        <a th:href="@{~/admin/contents/video/mod}" type="submit" class="btn btn-warning" role="button">취소</a>
+                        <a th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}" type="submit" class="btn btn-warning" role="button">취소</a>
                     </div>
                 </form>
             </div>
