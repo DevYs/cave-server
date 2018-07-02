@@ -58,7 +58,7 @@
                 <ul class="nav navbar-nav">
                     <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/index')}? 'active'"><a th:href="@{~/index}" th:text="#{default.home}"></a></li>
                     <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/config')}? 'active'"><a th:href="@{~/config}" th:text="#{default.config}">설정</a></li>
-                    <li sec:authorize="hasRole('ROLE_ADMIN')" th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/admin')}? 'active'"><a th:href="@{~/admin}" th:text="#{default.admin}">관리</a></li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')" th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/admin')}? 'active'"><a th:href="@{~/admin/user}" th:text="#{default.admin}">관리</a></li>
                     <li><a th:href="@{~/logout}" th:text="#{default.logout}">로그아웃</a></li>
                 </ul>
             </div><!-- /.nav-collapse -->
