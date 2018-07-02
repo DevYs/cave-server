@@ -35,14 +35,10 @@ public class DatabaseAccessObjectManager {
     }
 
     public Database getDatabase(String dbName) {
-        if(this.databaseMap.containsKey(dbName)) {
-            return this.databaseMap.get(dbName);
+        if(!this.databaseMap.containsKey(dbName)) {
+            Database database = this.databaseFactory.openDatabase(databaseSource.getEnv(), databaseSource.getDbConfig(), dbName);
+            this.databaseMap.put(dbName, database);
         }
-
-        Database database
-                = this.databaseFactory.openDatabase(databaseSource.getEnv(), databaseSource.getDbConfig(), dbName);
-        this.databaseMap.put(dbName, database);
-
         return this.databaseMap.get(dbName);
     }
 
