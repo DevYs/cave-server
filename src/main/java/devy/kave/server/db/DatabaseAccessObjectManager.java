@@ -27,37 +27,30 @@ public class DatabaseAccessObjectManager {
     }
 
     public Database getDatabase(Query query) {
-        if (query.getPrimaryDbName().isEmpty()) {
-            return getPrimaryDatabase(query);
+        if(!query.getPrimaryDbName().isEmpty()) {
+            return getSecondaryDatabase(query);
         }
-        return getSecondaryDatabase(query);
+
+        return getDatabase(query.getDbName());
     }
 
     public Database getDatabase(String dbName) {
-        if (this.databaseMap.containsKey(dbName)) {
+        if(this.databaseMap.containsKey(dbName)) {
             return this.databaseMap.get(dbName);
         }
-        return null;
-    }
 
-    public Database getPrimaryDatabase(Query query) {
-        return getPrimaryDatabase(query.getPrimaryDbName());
-    }
+        Database database
+                = this.databaseFactory.openDatabase(databaseSource.getEnv(), databaseSource.getDbConfig(), dbName);
+        this.databaseMap.put(dbName, database);
 
-    public Database getPrimaryDatabase(String primaryDbName) {
-        if (!this.databaseMap.containsKey(primaryDbName)) {
-            Database database
-                    = this.databaseFactory.openDatabase(databaseSource.getEnv(), databaseSource.getDbConfig(), primaryDbName);
-            this.databaseMap.put(primaryDbName, database);
-        }
-        return this.databaseMap.get(primaryDbName);
+        return this.databaseMap.get(dbName);
     }
 
     public SecondaryDatabase getSecondaryDatabase(Query query) {
         if (query.getForeignKeyDbName().isEmpty()) {
             return getSecondaryDatabase(query.getValueBaseClass(), query.getKeyName(), query.getDbName(), query.getPrimaryDbName());
         }
-        return getSecondaryDatabaseForeignKey(query);
+        return getSecondaryDatabaseForeignKey(query.getForeignKeyDbName(), query.getValueBaseClass(), query.getKeyName(), query.getDbName(), query.getPrimaryDbName());
     }
 
     public <V extends MarshalledTupleKeyEntity> SecondaryDatabase getSecondaryDatabase(Class<V> valueBaseClass,
@@ -65,16 +58,12 @@ public class DatabaseAccessObjectManager {
                                                                                        String secDbName,
                                                                                        String primaryDbName) {
         if (!this.databaseMap.containsKey(secDbName)) {
-            Database primaryDatabase = getPrimaryDatabase(primaryDbName);
+            Database primaryDatabase = getDatabase(primaryDbName);
             SecondaryDatabase secondaryDatabase
                     = this.databaseFactory.openSecDatabase(this.databaseSource.getEnv(), this.databaseSource.getFactory(), valueBaseClass, keyName, secDbName, primaryDatabase);
             this.databaseMap.put(secDbName, secondaryDatabase);
         }
         return (SecondaryDatabase) this.databaseMap.get(secDbName);
-    }
-
-    public SecondaryDatabase getSecondaryDatabaseForeignKey(Query query) {
-        return getSecondaryDatabaseForeignKey(query.getForeignKeyDbName(), query.getValueBaseClass(), query.getKeyName(), query.getDbName(), query.getPrimaryDbName());
     }
 
     public <V extends MarshalledTupleKeyEntity> SecondaryDatabase getSecondaryDatabaseForeignKey(String foreignKeyDbName,
@@ -83,8 +72,8 @@ public class DatabaseAccessObjectManager {
                                                                                                  String secDbName,
                                                                                                  String primaryDbName) {
         if (!this.databaseMap.containsKey(secDbName)) {
-            Database primaryDatabase = getPrimaryDatabase(primaryDbName);
-            Database foreignKeyDatabase = getPrimaryDatabase(foreignKeyDbName);
+            Database primaryDatabase = getDatabase(primaryDbName);
+            Database foreignKeyDatabase = getDatabase(foreignKeyDbName);
             SecondaryDatabase secondaryDatabase
                     = this.databaseFactory.openSecDatabaseForeignKeyDb(this.databaseSource.getEnv(), this.databaseSource.getFactory(), valueBaseClass, keyName, secDbName, foreignKeyDatabase, primaryDatabase);
             this.databaseMap.put(secDbName, secondaryDatabase);
@@ -107,10 +96,6 @@ public class DatabaseAccessObjectManager {
 
     public StoredSortedValueSet sortedSet(Query query) {
         return this.databaseViewFactory.sortedSet(this.databaseSource.getFactory(), getDatabase(query), query.getKeyClass(), query.getValueBaseClass(), query.isWriteAllowed());
-    }
-
-    public TransactionRunner getTransactionRunner() {
-        return this.databaseSource.getTxnRunner();
     }
 
 }
