@@ -13,12 +13,12 @@
         <div class="col-xs-12">
             <p>콘텐츠 [[${contents.contentsName}]]을/를 삭제하시겠습니까? <br /> 확인을 선택할 경우 콘텐츠 [[${contents.contentsName}]]과/와 관련된 모든 정보와 영상 링크는 영구적으로 삭제됩니다.</p>
 
-            <form th:action="@{~/admin/contents/del}" method="post">
+            <form th:action="@{~/admin/contents/remove}" method="post">
                 <input type="hidden" name="contentsNo" th:value="${contents.contentsNo}" />
 
                 <div class="text-right">
                     <button type="submit" class="btn btn-danger">삭제</button>
-                    <a th:href="@{~/admin/contents/view}" type="submit" class="btn btn-warning" role="button">취소</a>
+                    <a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" type="submit" class="btn btn-warning" role="button">취소</a>
                 </div>
             </form>
         </div>

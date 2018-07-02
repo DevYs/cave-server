@@ -3,8 +3,6 @@ package devy.kave.server.db.mapper;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.collections.*;
 import devy.kave.server.db.DatabaseAccessObjectManager;
-import devy.kave.server.db.DatabaseKeyCreator;
-import devy.kave.server.db.model.Channel;
 import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.model.ContentsKey;
 import devy.kave.server.db.model.Query;

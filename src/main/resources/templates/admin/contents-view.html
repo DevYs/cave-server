@@ -26,7 +26,7 @@
                     <li>
                         <a th:href="@{~/admin/contents}" type="button" class="btn btn-primary">목록</a>
                         <a th:href="@{~/admin/contents/mod(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-warning">변경</a>
-                        <a th:href="@{~/admin/contents/del(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-danger">삭제</a>
+                        <a th:href="@{~/admin/contents/remove(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-danger">삭제</a>
                     </li>
                 </ul>
             </div>
@@ -46,17 +46,17 @@
             <ul class="cont-video" th:if="${#strings.equals(tab, 'cont')}">
 
                 <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a class="contents-add" th:href="@{~/admin/contents/video/add}">
+                    <a class="contents-add" th:href="@{~/admin/contents/video/add(contentsNo=${contents.contentsNo})}">
                         <img class="img-responsive" th:src="@{~/img/video-add.png}" />
                     </a>
                     <a class="idx-thumb-tl text-center" th:href="@{~/admin/contents/video/add(contentsNo=${contents.contentsNo})}">영상추가</a>
                 </li>
 
-                <li th:each="i : ${#numbers.sequence(1, 20)}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/admin/contents/video/mod}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" />
+                <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
+                    <a th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}">
+                        <img class="img-responsive" th:src="${video.videoPosterUrl}" />
                     </a>
-                    <a class="idx-thumb-tl" th:href="@{~/admin/contents/video/mod}" th:text="|${i}회|"></a>
+                    <a class="idx-thumb-tl" th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}" th:text="${video.videoName}"></a>
                 </li>
 
             </ul>

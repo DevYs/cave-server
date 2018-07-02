@@ -4,11 +4,15 @@ import com.sleepycat.collections.StoredSortedValueSet;
 import devy.kave.server.db.DatabaseKeyCreator;
 import devy.kave.server.db.mapper.ChannelMapper;
 import devy.kave.server.db.mapper.ContentsMapper;
+import devy.kave.server.db.mapper.VideoMapper;
 import devy.kave.server.db.model.Channel;
 import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.model.ContentsKey;
+import devy.kave.server.db.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Iterator;
 
 @Component
 public class ContentsService {
@@ -18,6 +22,9 @@ public class ContentsService {
 
     @Autowired
     private ContentsMapper contentsMapper;
+
+    @Autowired
+    private VideoMapper videoMapper;
 
     public StoredSortedValueSet<Channel> channelList() {
         return channelMapper.sortedSet();
@@ -44,4 +51,7 @@ public class ContentsService {
         return (Contents) contentsMapper.map().duplicates(new ContentsKey(contentsNo)).iterator().next();
     }
 
+    public Iterator<Video> videoList(long contentsNo) {
+        return videoMapper.sortedSetByContentsNo().duplicates(new Long(contentsNo)).iterator();
+    }
 }
