@@ -11,9 +11,9 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
     private static final long serialVersionUID = 1L;
 
     public static final String DB_VIDEO = "db_video";
-    public static final String DB_VIDEO_BY_CONTENTS_NO = "db_video_by_contents_no";
+    public static final String INDEX_VIDEO_CONTENTS_NO = "index_video_by_contents_no";
 
-    public static final String VIDEO_KEY_CONTENTS_NO = "video_key_contents_no";
+    public static final String KEY_VIDEO_CONTENTS_NO = "key_video_contents_no";
 
     private transient long videoNo;
     private long contentsNo;
@@ -125,11 +125,12 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public boolean marshalSecondaryKey(String s, TupleOutput keyOutput) {
-        if(s.equals(VIDEO_KEY_CONTENTS_NO)) {
+        if(s.equals(KEY_VIDEO_CONTENTS_NO)) {
             keyOutput.writeLong(this.contentsNo);
             return true;
+        } else {
+            throw new UnsupportedOperationException(s);
         }
-        throw new UnsupportedOperationException(s);
     }
 
     @Override

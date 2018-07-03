@@ -10,19 +10,33 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
 
     private static final long serialVersionUID = 1L;
 
-    public static final String DBNAME_USER = "user";
+    public static final String DB_USER = "db_user";
+    public static final String INDEX_USER_USER_ID = "index_user_user_id";
+    public static final String KEY_USER_USER_ID = "key_user_user_id";
 
     private transient long userNo;
     private String userId;
     private String password;
     private String email;
+    private String userName;
     private boolean isAdmin;
 
-    public User(long userNo, String userId, String password, String email, boolean isAdmin) {
+    public User() {}
+
+    public User(String userId, String password, String email, String userName, boolean isAdmin) {
+        this.userId = userId;
+        this.password = password;
+        this.email = email;
+        this.userName = userName;
+        this.isAdmin = isAdmin;
+    }
+
+    public User(long userNo, String userId, String password, String email, String userName, boolean isAdmin) {
         this.userNo = userNo;
         this.userId = userId;
         this.password = password;
         this.email = email;
+        this.userName = userName;
         this.isAdmin = isAdmin;
     }
 
@@ -30,20 +44,52 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
         return userNo;
     }
 
+    public void setUserNo(long userNo) {
+        this.userNo = userNo;
+    }
+
     public final String getUserId() {
         return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public final String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public final String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public final String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public final boolean isAdmin() {
         return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public static User emptyUser() {
+        return new User("anonymous", "", null, null ,false);
     }
 
     @Override
@@ -68,8 +114,17 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
     }
 
     @Override
-    public boolean marshalSecondaryKey(String s, TupleOutput tupleOutput) {
-        throw new UnsupportedOperationException(s);
+    public boolean marshalSecondaryKey(String s, TupleOutput keyOutput) {
+        if(s.equals(KEY_USER_USER_ID)) {
+            if (this.userId != null) {
+                keyOutput.writeString(this.userId);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            throw new UnsupportedOperationException(s);
+        }
     }
 
     @Override

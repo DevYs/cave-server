@@ -3,17 +3,17 @@ package devy.kave.server.db.mapper;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.collections.*;
 import devy.kave.server.db.DatabaseAccessObjectManager;
+import devy.kave.server.db.QueryMap;
 import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.model.ContentsKey;
-import devy.kave.server.db.model.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ContentsMapper implements Mapper {
 
-    private final Query qContents
-            = new Query().setDbName(Contents.DB_CONTENTS).setKeyClass(ContentsKey.class).setValueBaseClass(Contents.class);
+    @Autowired
+    private QueryMap queryMap;
 
     @Autowired
     private DatabaseAccessObjectManager manager;
@@ -36,21 +36,21 @@ public class ContentsMapper implements Mapper {
 
     @Override
     public StoredValueSet set() {
-        return manager.set(qContents);
+        return manager.set(queryMap.get(Contents.DB_CONTENTS));
     }
 
     @Override
     public StoredSortedValueSet sortedSet() {
-        return manager.sortedSet(qContents);
+        return manager.sortedSet(queryMap.get(Contents.DB_CONTENTS));
     }
 
     @Override
     public StoredMap map() {
-        return manager.map(qContents);
+        return manager.map(queryMap.get(Contents.DB_CONTENTS));
     }
 
     @Override
     public StoredSortedMap sortedMap() {
-        return manager.sortedMap(qContents);
+        return manager.sortedMap(queryMap.get(Contents.DB_CONTENTS));
     }
 }

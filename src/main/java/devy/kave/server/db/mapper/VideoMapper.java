@@ -6,8 +6,7 @@ import com.sleepycat.collections.StoredSortedMap;
 import com.sleepycat.collections.StoredSortedValueSet;
 import com.sleepycat.collections.StoredValueSet;
 import devy.kave.server.db.DatabaseAccessObjectManager;
-import devy.kave.server.db.model.Contents;
-import devy.kave.server.db.model.Query;
+import devy.kave.server.db.QueryMap;
 import devy.kave.server.db.model.Video;
 import devy.kave.server.db.model.VideoKey;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +15,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class VideoMapper implements Mapper {
 
-    private final Query qVideo
-            = new Query().setDbName(Video.DB_VIDEO).setKeyClass(VideoKey.class).setValueBaseClass(Video.class);
-
-    private final Query qVideoForContentsNo
-            = new Query()
-            .setDbName(Video.DB_VIDEO_BY_CONTENTS_NO)
-            .setKeyClass(Long.class)
-            .setValueBaseClass(Video.class)
-            .setPrimaryDbName(Video.DB_VIDEO)
-            .setForeignKeyDbName(Contents.DB_CONTENTS)
-            .setKeyName(Video.VIDEO_KEY_CONTENTS_NO);
+    @Autowired
+    private QueryMap queryMap;
 
     @Autowired
     private DatabaseAccessObjectManager manager;
@@ -49,25 +39,25 @@ public class VideoMapper implements Mapper {
 
     @Override
     public StoredValueSet set() {
-        return manager.set(qVideo);
+        return manager.set(queryMap.get(Video.DB_VIDEO));
     }
 
     @Override
     public StoredSortedValueSet sortedSet() {
-        return manager.sortedSet(qVideo);
+        return manager.sortedSet(queryMap.get(Video.DB_VIDEO));
     }
 
     @Override
     public StoredMap map() {
-        return manager.map(qVideo);
+        return manager.map(queryMap.get(Video.DB_VIDEO));
     }
 
     @Override
     public StoredSortedMap sortedMap() {
-        return manager.sortedMap(qVideo);
+        return manager.sortedMap(queryMap.get(Video.DB_VIDEO));
     }
 
     public StoredSortedMap sortedSetByContentsNo() {
-        return manager.sortedMap(qVideoForContentsNo);
+        return manager.sortedMap(queryMap.get(Video.INDEX_VIDEO_CONTENTS_NO));
     }
 }
