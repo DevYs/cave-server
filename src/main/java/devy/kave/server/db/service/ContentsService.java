@@ -10,11 +10,11 @@ import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.model.ContentsKey;
 import devy.kave.server.db.model.Video;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 
-@Component
+@Service
 public class ContentsService {
 
     @Autowired
