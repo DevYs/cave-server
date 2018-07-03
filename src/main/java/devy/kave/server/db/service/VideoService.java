@@ -8,9 +8,9 @@ import devy.kave.server.db.model.ContentsKey;
 import devy.kave.server.db.model.Video;
 import devy.kave.server.db.model.VideoKey;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class VideoService {
 
     @Autowired
