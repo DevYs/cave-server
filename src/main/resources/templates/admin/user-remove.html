@@ -12,10 +12,10 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <p>사용자 hanys1042를 삭제하시겠습니까? <br /> 확인을 선택할 경우 사용자 정보는 영구적으로 삭제됩니다.</p>
+                <p>사용자 [[${user.userId}]]([[${user.userName}]])의 정보를 삭제하시겠습니까? <br /> 확인을 선택할 경우 사용자 정보는 영구적으로 삭제됩니다.</p>
 
-                <form>
-                    <input type="hidden" name="userId" value="1234" />
+                <form th:action="@{~/admin/user/remove}" method="post">
+                    <input type="hidden" name="userNo" th:value="${user.userNo}" />
 
                     <div class="text-right">
                         <button type="submit" class="btn btn-danger">삭제</button>

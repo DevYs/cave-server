@@ -10,7 +10,7 @@
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
         <h3 class="idx-h3 idx-h3-frst">사용자정보 등록</h3>
 
-        <form class="form-horizontal">
+        <form th:action="@{~/admin/user/add}" method="post" class="form-horizontal">
             <div class="form-group">
                 <label for="userId" class="col-sm-2 control-label">아이디</label>
                 <div class="col-sm-10">
@@ -24,22 +24,22 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="userName" class="col-sm-2 control-label">사용자이름</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="사용자이름을 입력하세요" />
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="password" class="col-sm-2 control-label">비밀번호</label>
                 <div class="col-sm-10">
                     <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" />
                 </div>
             </div>
             <div class="form-group">
-                <label for="password2" class="col-sm-2 control-label">비밀번호 확인</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="password2" name="password2" placeholder="비밀번호 확인" />
-                </div>
-            </div>
-            <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="isAdmin" name="isAdmin" /> 관리자
+                            <input type="checkbox" id="admin" name="admin" value="true" /> 관리자
                         </label>
                     </div>
                 </div>

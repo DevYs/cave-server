@@ -35,14 +35,14 @@
                 </div>
             </div>
 
-            <div class="col-xs-6 col-sm-4 col-md-3">
+            <div th:each="user : ${userList}" class="col-xs-6 col-sm-4 col-md-3">
                 <ul class="jumbotron">
-                    <li>한영수</li>
-                    <li>hanys1042</li>
-                    <li>hanys1042@naver.com</li>
+                    <li th:text="${user.userName}">사용자이름</li>
+                    <li th:text="${user.userId}">사용자아이디</li>
+                    <li th:text="${user.email}">이메일주소</li>
                     <li class="text-center">
-                        <a th:href="@{~/admin/user/mod}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/user/del}" class="btn btn-danger" role="button">삭제</a>
+                        <a th:href="@{~/admin/user/mod(userNo=${user.userNo})}" class="btn btn-warning" role="button">수정</a>
+                        <a th:if="${!#strings.equals(user.userId, 'admin')}" th:href="@{~/admin/user/remove(userNo=${user.userNo})}" class="btn btn-danger" role="button">삭제</a>
                     </li>
                 </ul>
             </div>
