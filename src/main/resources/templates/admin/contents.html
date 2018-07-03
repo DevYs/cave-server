@@ -16,7 +16,7 @@
                 <div class="col-sm-10">
                     <select id="channelNo" name="channelNo" class="form-control">
                         <option value="0" th:selected="${#strings.equals(param.channelNo, '0')}">전체</option>
-                        <option th:each="channel : ${channels}" th:value="${channel.channelNo}" th:text="${channel}" th:selected="${#strings.equals(channel.channelNo, param.channelNo)}"></option>
+                        <option th:each="channel : ${channels}" th:value="${channel.channelNo}" th:text="${channel.channelName}" th:selected="${#strings.equals(channel.channelNo, param.channelNo)}"></option>
                     </select>
                 </div>
             </div>
