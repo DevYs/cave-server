@@ -20,7 +20,7 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     private long channelNo;
 
-    @Size(max = 500)
+    @Size(max = 2000)
     private String contentsPosterUrl;
 
     @NotNull
