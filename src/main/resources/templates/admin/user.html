@@ -4,17 +4,19 @@
       layout:decorate="~{admin/admin-default}">
 <head>
     <title>사용자관리</title>
+    <script th:src="@{~/js/admin/user.js}"></script>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
         <h3 class="idx-h3 idx-h3-frst">사용자관리</h3>
 
-        <form class="form-horizontal">
+        <form th:action="@{~/admin/user}" method="get" class="form-horizontal">
             <div class="form-group">
-                <label for="srchWd" class="col-sm-2 control-label">사용자검색</label>
+                <input type="hidden" id="srchWd" th:value="${searchWord}" />
+                <label for="searchWord" class="col-sm-2 control-label">사용자검색</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="srchWd" name="srchWd" placeholder="검색어를 입력하세요" />
+                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${searchWord}" placeholder="검색어를 입력하세요" />
                 </div>
             </div>
 
@@ -27,7 +29,7 @@
 
         <hr class="px1" />
 
-        <div class="row">
+        <div id="userList" class="row">
 
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <div class="jumbotron">
@@ -48,6 +50,9 @@
             </div>
 
         </div>
+
+        <button id="next" class="col-xs-12 btn btn-primary">다음페이지</button>
+
     </div>
 </body>
 </html>

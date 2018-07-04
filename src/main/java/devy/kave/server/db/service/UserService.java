@@ -1,7 +1,5 @@
 package devy.kave.server.db.service;
 
-import com.sleepycat.collections.StoredMap;
-import com.sleepycat.collections.StoredSortedMap;
 import com.sleepycat.collections.StoredSortedValueSet;
 import devy.kave.server.db.DatabaseKeyCreator;
 import devy.kave.server.db.DatabaseSource;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -80,6 +79,37 @@ public class UserService implements UserDetailsService {
 
     public StoredSortedValueSet<User> userList() {
         return userMapper.sortedSet();
+    }
+
+    public List<User> userList(int pageNo, String searchWord) {
+
+        List<User> userList = new ArrayList<>();
+        Iterator iterator = userMapper.sortedSet().iterator();
+        while(iterator.hasNext()) {
+            User user = (User) iterator.next();
+
+            boolean r = (-1 < user.getUserId().indexOf(searchWord)) ||
+                    (-1 < user.getUserName().indexOf(searchWord)) ||
+                    (-1 < user.getEmail().indexOf(searchWord));
+
+            if(r) {
+                userList.add(user);
+            }
+        }
+
+
+        int s = ((pageNo - 1) * 10) + 1;
+        int e = s + 9;
+
+        if(userList.size() < s) {
+            return new ArrayList<>();
+        }
+
+        if(userList.size() < e) {
+            e = userList.size();
+        }
+
+        return userList.subList(s - 1, e);
     }
 
     public User getUser(long userNo) {

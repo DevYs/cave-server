@@ -7,8 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class AdminUserController {
@@ -19,9 +20,15 @@ public class AdminUserController {
     private UserService userService;
 
     @GetMapping("/admin/user")
-    public String user(Model model) {
-        model.addAttribute("userList", userService.userList());
+    public String user(@RequestParam(defaultValue = "") String searchWord, Model model) {
+        model.addAttribute("userList", userService.userList(1, searchWord));
+        model.addAttribute("searchWord", searchWord);
         return "admin/user";
+    }
+
+    @RequestMapping(value = "/api/admin/user", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List user(@RequestParam(defaultValue = "1") int pageNo, String searchWord) {
+        return userService.userList(pageNo, searchWord);
     }
 
     @GetMapping("/admin/user/add")
@@ -54,6 +61,7 @@ public class AdminUserController {
 
     @GetMapping("/admin/user/remove")
     public String remove(long userNo, Model model) {
+        logger.info("userNo << " + userNo);
         model.addAttribute("user", userService.getUser(userNo));
         return "admin/user-remove";
     }
