@@ -4,6 +4,8 @@ import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Contents implements Serializable, MarshalledTupleKeyEntity {
@@ -15,15 +17,34 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
     public static final String KEY_CONTENTS_CHANNEL_NO = "key_contents_channel_no";
 
     private transient long contentsNo;
+
     private long channelNo;
+
+    @Size(max = 500)
     private String contentsPosterUrl;
+
+    @NotNull
+    @Size(min = 1, max = 50)
     private String contentsName;
+
+    @Size(max = 20)
     private String genre;
+
+    @Size(max = 50)
     private String nation;
+
+    @Size(max = 20)
     private String releaseDate;
+
+    @Size(max = 20)
     private String runningTime;
+
+    @Size(max = 50)
     private String director;
+
+    @Size(max = 100)
     private String actor;
+
     private String story;
 
     public Contents() {}

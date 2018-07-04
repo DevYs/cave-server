@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -43,12 +45,17 @@ public class AdminContentsController {
     }
 
     @GetMapping("/admin/contents/add")
-    public String add(Model model) {
+    public String add(Contents contents, Model model) {
         return "admin/contents-add";
     }
 
     @PostMapping("/admin/contents/add")
-    public String add(Contents contents) {
+    public String add(@Valid Contents contents, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "admin/contents-add";
+        }
+
         boolean isAdded = contentsService.add(contents);
         if(isAdded) {
             logger.info("added " + contents.toString());
@@ -63,7 +70,12 @@ public class AdminContentsController {
     }
 
     @PostMapping("/admin/contents/mod")
-    public String mod(Contents contents) {
+    public String mod(@Valid Contents contents, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "admin/contents-mod";
+        }
+
         Contents mod = contentsService.mod(contents);
         logger.info("modified from " + contents.toString());
         logger.info("to " + mod.toString());
