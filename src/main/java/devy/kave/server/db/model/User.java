@@ -4,6 +4,7 @@ import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
 
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 public class User implements Serializable, MarshalledTupleKeyEntity {
@@ -15,11 +16,23 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
     public static final String KEY_USER_USER_ID = "key_user_user_id";
 
     private transient long userNo;
+
+    @NotNull
+    @Size(min = 4, max = 16)
     private String userId;
+
+    @NotNull
+    @Size(min = 4, max = 16)
     private String password;
+
+    @Size(max = 30)
     private String email;
+
+    @NotNull
+    @Size(min = 2, max = 20)
     private String userName;
-    private boolean isAdmin;
+
+    private boolean isAdmin = false;
 
     public User() {}
 
@@ -92,12 +105,18 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
         return new User("anonymous", "", null, null ,false);
     }
 
+    public User setNewPassword(String newPassword) {
+        this.password = newPassword;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userNo=" + userNo +
                 ", userId='" + userId + '\'' +
                 ", password='" + password + '\'' +
+                ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
