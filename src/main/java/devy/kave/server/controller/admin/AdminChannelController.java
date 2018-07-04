@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class AdminChannelController {
@@ -24,12 +27,17 @@ public class AdminChannelController {
     }
 
     @GetMapping("/admin/channel/add")
-    public String add() {
+    public String add(Channel channel) {
         return "admin/channel-add";
     }
 
     @PostMapping("/admin/channel/add")
-    public String add(Channel channel) {
+    public String add(@Valid Channel channel, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin/channel-add";
+        }
+
         boolean add = channelService.add(channel);
         if(add) {
             logger.info("added " + channel.toString());
@@ -44,7 +52,7 @@ public class AdminChannelController {
     }
 
     @PostMapping("/admin/channel/mod")
-    public String mod(Channel channel) {
+    public String mod(@Valid Channel channel) {
         Channel mod = channelService.mod(channel);
         logger.info("modified from " + channel.toString());
         logger.info("to " + mod.toString());

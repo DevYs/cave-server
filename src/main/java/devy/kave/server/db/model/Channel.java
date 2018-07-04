@@ -4,6 +4,8 @@ import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Channel implements Serializable, MarshalledTupleKeyEntity {
@@ -13,6 +15,9 @@ public class Channel implements Serializable, MarshalledTupleKeyEntity {
     public static final String DB_CHANNEL = "db_channel";
 
     private transient long channelNo;
+
+    @NotNull
+    @Size(min=2, max=10)
     private String channelName;
 
     public Channel() {}
