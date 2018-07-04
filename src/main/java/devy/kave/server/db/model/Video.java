@@ -4,6 +4,8 @@ import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 public class Video implements Serializable, MarshalledTupleKeyEntity {
@@ -17,10 +19,18 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     private transient long videoNo;
     private long contentsNo;
+
+    @Size(max = 2000)
     private String videoPosterUrl;
+
+    @NotEmpty
     private String videoUrl;
+
+    @NotEmpty
     private String videoName;
+
     private String subtitle;
+
     private Contents contents;
 
     public Video() {}

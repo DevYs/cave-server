@@ -10,37 +10,41 @@
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
         <h3 class="idx-h3 idx-h3-frst">콘텐츠 '[[${contents.contentsName}]]'에 영상 정보 추가</h3>
 
-        <form th:action="@{~/admin/contents/video/add}" method="post" enctype="multipart/form-data" class="form-horizontal">
-            <input type="hidden" name="contentsNo" th:value="${param.contentsNo}" />
+        <form th:action="@{~/admin/contents/video/add}" method="post" enctype="multipart/form-data" th:object="${video}" class="form-horizontal">
+            <input type="hidden" name="contentsNo" th:value="*{contentsNo}" />
             <div class="form-group">
                 <label for="videoPosterUrl" class="col-sm-2 control-label">포스터 URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoPosterUrl" name="videoPosterUrl" placeholder="포스터 URL을 입력하세요." />
+                    <input type="text" class="form-control" id="videoPosterUrl" th:field="*{videoPosterUrl}" placeholder="포스터 URL을 입력하세요." />
+                    <p th:if="${#fields.hasErrors('videoPosterUrl')}" th:errors="*{videoPosterUrl}">영상 포스터 URL 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="videoUrl" class="col-sm-2 control-label">영상 URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoUrl" name="videoUrl" placeholder="영상 URL을 입력하세요." />
+                    <input type="text" class="form-control" id="videoUrl" th:field="*{videoUrl}" placeholder="영상 URL을 입력하세요." />
+                    <p th:if="${#fields.hasErrors('videoUrl')}" th:errors="*{videoUrl}">영상 URL 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="videoName" class="col-sm-2 control-label">영상명</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoName" name="videoName" placeholder="영상명을 입력하세요." />
+                    <input type="text" class="form-control" id="videoName" th:field="*{videoName}" placeholder="영상명을 입력하세요." />
+                    <p th:if="${#fields.hasErrors('videoName')}" th:errors="*{videoName}">영상명 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
                 <label for="subtitle" class="col-sm-2 control-label">자막</label>
                 <div class="col-sm-10">
                     <input type="file" id="subtitle" name="subtitleFile" class="form-control" />
+                    <p th:if="${errProcSubtitle} != null" th:text="${errProcSubtitle}">자막 처리 오류 메세지</p>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary">추가</button>
-                    <a th:href="@{~/admin/contents/view}" class="btn btn-warning">취소</a>
+                    <a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" class="btn btn-warning">취소</a>
                 </div>
             </div>
         </form>
