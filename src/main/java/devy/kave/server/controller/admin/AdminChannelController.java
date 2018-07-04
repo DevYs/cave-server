@@ -52,10 +52,16 @@ public class AdminChannelController {
     }
 
     @PostMapping("/admin/channel/mod")
-    public String mod(@Valid Channel channel) {
+    public String mod(@Valid Channel channel, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "admin/channel-mod";
+        }
+
         Channel mod = channelService.mod(channel);
         logger.info("modified from " + channel.toString());
         logger.info("to " + mod.toString());
+
         return "redirect:/admin/channel";
     }
 
