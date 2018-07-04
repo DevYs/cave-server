@@ -1,18 +1,15 @@
 package devy.kave.server.controller.admin;
 
 import devy.kave.server.db.model.Contents;
-import devy.kave.server.db.model.Video;
 import devy.kave.server.db.service.ContentsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Iterator;
+import java.util.List;
 
 @Controller
 public class AdminContentsController {
@@ -23,14 +20,18 @@ public class AdminContentsController {
     private ContentsService contentsService;
 
     @GetMapping("/admin/contents")
-    public String contents(Model model) {
-        model.addAttribute("contentsList", contentsService.contentsList());
+    public String contents(@RequestParam(defaultValue = "1", required = false) int pageNo, @RequestParam(defaultValue = "", required = false) String searchWord, @RequestParam(defaultValue = "0", required = false) long channelNo, Model model) {
+        model.addAttribute("contentsList", contentsService.contentsList(pageNo, searchWord, channelNo));
+        model.addAttribute("channelNo", channelNo);
+        model.addAttribute("searchWord", searchWord);
         return "admin/contents";
     }
 
-    @PostMapping("/admin/contents")
-    public String contents(@RequestParam(name = "channelNo", defaultValue = "0", required = false) long channelNo, String searchWord, Model model) {
-        return "admin/contents";
+    @RequestMapping(value = "/api/admin/contents", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Contents> contents(@RequestParam(defaultValue = "1", required = false) int pageNo, @RequestParam(defaultValue = "", required = false) String searchWord, @RequestParam(defaultValue = "0", required = false) long channelNo) {
+        logger.info("pageNo : " + pageNo + ", searchWord : " + searchWord + ", channelNo : " + channelNo);
+        return contentsService.contentsList(pageNo, searchWord, channelNo);
     }
 
     @GetMapping("/admin/contents/view")

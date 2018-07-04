@@ -53,4 +53,8 @@ public class ContentsMapper implements Mapper {
     public StoredSortedMap sortedMap() {
         return manager.sortedMap(queryMap.get(Contents.DB_CONTENTS));
     }
+
+    public StoredSortedMap sortedMapByChannelNo () {
+        return manager.sortedMap(queryMap.get(Contents.INDEX_CONTENTS_CHANNEL_NO));
+    }
 }

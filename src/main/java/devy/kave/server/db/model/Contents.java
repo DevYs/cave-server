@@ -11,6 +11,8 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
     private static final long serialVersionUID = 1L;
 
     public static final String DB_CONTENTS = "db_contents";
+    public static final String INDEX_CONTENTS_CHANNEL_NO = "index_contents_channel_no";
+    public static final String KEY_CONTENTS_CHANNEL_NO = "key_contents_channel_no";
 
     private transient long contentsNo;
     private long channelNo;
@@ -170,7 +172,12 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public boolean marshalSecondaryKey(String s, TupleOutput tupleOutput) {
-        throw new UnsupportedOperationException(s);
+        if(s.equals(Contents.KEY_CONTENTS_CHANNEL_NO)) {
+            tupleOutput.writeLong(this.channelNo);
+            return true;
+        } else {
+            throw new UnsupportedOperationException(s);
+        }
     }
 
     @Override

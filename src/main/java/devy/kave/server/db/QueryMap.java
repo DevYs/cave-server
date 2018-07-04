@@ -19,6 +19,13 @@ public class QueryMap extends HashMap<String, Query> {
 
     private void contents() {
         put(Contents.DB_CONTENTS, new Query().setDbName(Contents.DB_CONTENTS).setKeyClass(ContentsKey.class).setValueBaseClass(Contents.class));
+        put(Contents.INDEX_CONTENTS_CHANNEL_NO, new Query()
+                .setDbName(Contents.INDEX_CONTENTS_CHANNEL_NO)
+                .setKeyClass(Long.class)
+                .setValueBaseClass(Contents.class)
+                .setPrimaryDbName(Contents.DB_CONTENTS)
+                .setForeignKeyDbName(Channel.DB_CHANNEL)
+                .setKeyName(Contents.KEY_CONTENTS_CHANNEL_NO));
     }
 
     private void video() {

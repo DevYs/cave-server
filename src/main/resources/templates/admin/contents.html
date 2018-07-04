@@ -4,13 +4,14 @@
       layout:decorate="~{admin/admin-default}">
 <head>
     <title>콘텐츠관리</title>
+    <script th:src="@{~/js/admin/contents.js}"></script>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
         <h3 class="idx-h3 idx-h3-frst">콘텐츠관리</h3>
 
-        <form th:action="@{~/admin/contents}" method="post" class="form-horizontal">
+        <form th:action="@{~/admin/contents}" method="get" class="form-horizontal">
             <div class="form-group">
                 <label for="channelNo" class="col-sm-2 control-label">채널</label>
                 <div class="col-sm-10">
@@ -38,7 +39,7 @@
 
         <div class="row">
             <div class="col-xs-12">
-                <div class="row">
+                <div id="contentsList" class="row">
                     <div class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                         <a class="contents-add" th:href="@{~/admin/contents/add}">
                             <img class="img-responsive" th:src="@{~/img/contents-add.png}" />
@@ -57,6 +58,8 @@
                 </div>
             </div>
         </div>
+
+        <button id="next" class="col-xs-12 btn btn-info"><span class="caret"></span>&nbsp;&nbsp;다음페이지</button>
 
     </div>
 </body>
