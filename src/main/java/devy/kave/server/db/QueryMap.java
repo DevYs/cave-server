@@ -21,7 +21,7 @@ public class QueryMap extends HashMap<String, Query> {
         put(Contents.DB_CONTENTS, new Query().setDbName(Contents.DB_CONTENTS).setKeyClass(ContentsKey.class).setValueBaseClass(Contents.class));
         put(Contents.INDEX_CONTENTS_CHANNEL_NO, new Query()
                 .setDbName(Contents.INDEX_CONTENTS_CHANNEL_NO)
-                .setKeyClass(Long.class)
+                .setKeyClass(String.class)
                 .setValueBaseClass(Contents.class)
                 .setPrimaryDbName(Contents.DB_CONTENTS)
                 .setForeignKeyDbName(Channel.DB_CHANNEL)
@@ -32,7 +32,7 @@ public class QueryMap extends HashMap<String, Query> {
         put(Video.DB_VIDEO, new Query().setDbName(Video.DB_VIDEO).setKeyClass(VideoKey.class).setValueBaseClass(Video.class));
         put(Video.INDEX_VIDEO_CONTENTS_NO, new Query()
                 .setDbName(Video.INDEX_VIDEO_CONTENTS_NO)
-                .setKeyClass(Long.class)
+                .setKeyClass(String.class)
                 .setValueBaseClass(Video.class)
                 .setPrimaryDbName(Video.DB_VIDEO)
                 .setForeignKeyDbName(Contents.DB_CONTENTS)
