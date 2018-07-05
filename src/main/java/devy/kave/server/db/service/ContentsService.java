@@ -59,6 +59,9 @@ public class ContentsService {
             }
         }
 
+        // 내림차순으로 정렬
+        contentsList = Sort.reverse(contentsList);
+
         int pagePerSize = 20;
         int s = ((pageNo - 1) * pagePerSize) + 1;
         int e = s + (pagePerSize - 1);
@@ -71,7 +74,7 @@ public class ContentsService {
             e = contentsList.size();
         }
 
-        return Sort.reverse(contentsList.subList(s - 1, e));
+        return contentsList.subList(s - 1, e);
     }
 
     public boolean add(Contents contents) {

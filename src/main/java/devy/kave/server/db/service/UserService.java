@@ -98,6 +98,9 @@ public class UserService implements UserDetailsService {
             }
         }
 
+        // 내림차순 정렬
+        userList = Sort.reverse(userList);
+
         int pagePerSize = 20;
         int s = ((pageNo - 1) * pagePerSize) + 1;
         int e = s + (pagePerSize - 1);
@@ -110,7 +113,7 @@ public class UserService implements UserDetailsService {
             e = userList.size();
         }
 
-        return Sort.reverse(userList.subList(s - 1, e));
+        return userList.subList(s - 1, e);
     }
 
     public User getUser(long userNo) {
