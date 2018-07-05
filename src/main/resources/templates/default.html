@@ -76,7 +76,7 @@
                     <span class="input-group-btn">
                         <button type="submit" class="btn" th:text="#{default.srchBtTxt}">검색</button>
                     </span>
-                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${param.searchWord == null ? '' : param.searchWord}" placeholder="한국예능에서..." />
+                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${param.searchWord == null ? '' : param.searchWord}" th:placeholder="(${searchChannel} == null) ? '전체에서...' : ${searchChannel.channelName} + '에서...'" />
                 </form>
 
                 <div class="list-group">
