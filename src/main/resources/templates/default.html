@@ -20,25 +20,25 @@
     <link th:href="@{/css/layout.css}" rel="stylesheet" />
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script th:src="@{/js/ie8-responsive-file-warning.js}"></script><![endif]-->
-    <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+    <!--[if lt IE 9]><script th:src="@{/js/default/ie8-responsive-file-warning.js}"></script><![endif]-->
+    <script th:src="@{/js/default/ie-emulation-modes-warning.js}"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script th:src="@{/js/html5shiv-3.7.2.min.js}"></script>
-    <script th:src="@{/js/respond-1.4.2.min.js}"></script>
+    <script th:src="@{/js/default/html5shiv-3.7.2.min.js}"></script>
+    <script th:src="@{/js/default/respond-1.4.2.min.js}"></script>
     <![endif]-->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script th:src="@{/js/jquery-1.11.2.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/default/jquery-1.11.2.min.js}"></script>
+    <script th:src="@{/js/default/bootstrap.min.js}"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+    <script th:src="@{/js/default/ie10-viewport-bug-workaround.js}"></script>
 
-    <script th:src="@{/js/offcanvas.js}"></script>
+    <script th:src="@{/js/default/offcanvas.js}"></script>
 </head>
 
 <body>
@@ -68,22 +68,20 @@
     <div class="container">
 
         <div class="row row-offcanvas row-offcanvas-right">
-
             <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}"></div>
 
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
                 <form th:action="@{/search}" method="get" class="search input-group btn">
-                    <input type="hidden" name="srchTpNm" th:value="${param.srchTpNm == null ? '전체' : param.srchTpNm}" />
-                    <input type="hidden" name="srchTp" th:value="${param.srchTp == null ? 0 : param.srchTp}" />
+                    <input type="hidden" id="channelNo" name="channelNo" th:value="${param.channelNo == null ? 0 : param.channelNo}" />
                     <span class="input-group-btn">
                         <button type="submit" class="btn" th:text="#{default.srchBtTxt}">검색</button>
                     </span>
-                    <input type="text" class="form-control" name="srchWd" th:value="${param.srchWd == null ? '' : param.srchWd}" placeholder="한국예능에서..." />
+                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${param.searchWord == null ? '' : param.searchWord}" placeholder="한국예능에서..." />
                 </form>
 
                 <div class="list-group">
-                    <a th:href="@{/search(channelName='전체', channelNo=0)}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, '0') or #strings.equals(param.channelNo, null)}? 'active'">전체</a>
-                    <a th:each="channel : ${channels}" th:text="${channel.channelName}" th:href="@{~/search(channelNo=${channel.channelNo}, channelName=${channel.channelName})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, channel.channelNo)}? 'active'"></a>
+                    <a th:href="@{/search(channelNo=0, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, '0') or #strings.equals(param.channelNo, null)}? 'active'">전체</a>
+                    <a th:each="channel : ${channels}" th:text="${channel.channelName}" th:href="@{~/search(channelNo=${channel.channelNo}, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, channel.channelNo)}? 'active'"></a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->

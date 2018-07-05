@@ -165,6 +165,8 @@ a, a:focus, a:hover {
 .idx-thumb-tl {
     display:block;
     margin:0px 5px;
+    height: 20px;
+    overflow: hidden;
 }
 
 .idx-thumb a img {

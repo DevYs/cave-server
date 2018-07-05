@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="default">
+      layout:decorate="~{default}">
 <head>
     <title>검색</title>
+    <script th:src="@{~/js/contents.js}"></script>
 </head>
 
 <body>
-    <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
-        <h3 class="idx-h3 idx-h3-frst" th:text="#{search.searching(${param.srchTpNm == null} ? '전체' : ${param.srchTpNm}, ${param.srchWd == null ? '' : param.srchWd})}"></h3>
-        <div class="row">
-            <!--<p class="idx-lst-empt-msg">감상중인 콘텐츠가 없습니다.</p>-->
-
-            <div th:each="i : ${#numbers.sequence(1, 32)}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
-                <a th:href="@{~/contents}">
-                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                </a>
-                <a class="idx-thumb-tl" th:href="@{~/contents}">퀵</a>
-                <a class="idx-thumb-tl" th:href="@{~/contents}">2012</a>
-            </div>
-
+<div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
+    <h3 class="idx-h3 idx-h3-frst" th:text="#{search.searching(${searchChannel.channelName}, ${searchWord})}"></h3>
+    <div id="contentsList" class="row">
+        <div th:each="contents : ${contentsList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+            <a th:href="@{~/contents(contentsNo=${contents.contentsNo})}">
+                <img th:src="${contents.contentsPosterUrl}" class="img-responsive" th:alt="${contents.contentsName} + ' 포스터 이미지'" />
+            </a>
+            <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${contents.contentsNo})}" th:text="${contents.contentsName}">콘텐츠명</a>
+            <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${contents.contentsNo})}" th:text="${contents.releaseDate}">개봉일</a>
         </div>
+        <p th:if="${#strings.equals(contentsSize, '0')}" class="idx-lst-empt-msg">검색된 콘텐츠가 없습니다.</p>
     </div>
+
+    <button th:if="${!#strings.equals(contentsSize, '0')}" id="next" class="col-xs-12 btn btn-info"><span class="caret"></span>&nbsp;&nbsp;다음페이지</button>
+</div>
 </body>
 </html>
