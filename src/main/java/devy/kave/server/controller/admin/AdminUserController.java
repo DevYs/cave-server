@@ -59,7 +59,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/admin/user/mod")
-    public String mod(long userNo, Model model) {
+    public String mod(String userNo, Model model) {
         model.addAttribute("user", userService.getUser(userNo));
         return "admin/user-mod";
     }
@@ -83,13 +83,13 @@ public class AdminUserController {
     }
 
     @GetMapping("/admin/user/remove")
-    public String remove(long userNo, Model model) {
+    public String remove(String userNo, Model model) {
         model.addAttribute("user", userService.getUser(userNo));
         return "admin/user-remove";
     }
 
     @PostMapping("/admin/user/remove")
-    public String remove(long userNo) {
+    public String remove(String userNo) {
         User remove = userService.remove(userNo);
         logger.info("removed " + remove.toString());
         return "redirect:/admin/user";

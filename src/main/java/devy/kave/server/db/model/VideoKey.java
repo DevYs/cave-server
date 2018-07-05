@@ -6,13 +6,13 @@ import com.sleepycat.bind.tuple.TupleOutput;
 
 public class VideoKey implements MarshalledTupleEntry {
 
-    private long videoNo;
+    private String videoNo;
 
-    public VideoKey(long videoNo) {
+    public VideoKey(String videoNo) {
         this.videoNo = videoNo;
     }
 
-    public final long getVideoNo() {
+    public final String getVideoNo() {
         return videoNo;
     }
 
@@ -27,11 +27,11 @@ public class VideoKey implements MarshalledTupleEntry {
 
     @Override
     public void marshalEntry(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.videoNo);
+        tupleOutput.writeString(this.videoNo);
     }
 
     @Override
     public void unmarshalEntry(TupleInput tupleInput) {
-        this.videoNo = tupleInput.readLong();
+        this.videoNo = tupleInput.readString();
     }
 }

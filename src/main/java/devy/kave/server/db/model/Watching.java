@@ -10,23 +10,23 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private transient long watchingNo;
-    private long userNo;
+    private transient String watchingNo;
+    private String userNo;
     private Contents contents;
     private Video video;
 
-    public Watching(long watchingNo, long userNo, Contents contents, Video video) {
+    public Watching(String watchingNo, String userNo, Contents contents, Video video) {
         this.watchingNo = watchingNo;
         this.userNo = userNo;
         this.contents = contents;
         this.video = video;
     }
 
-    public final long getWatchingNo() {
+    public final String getWatchingNo() {
         return watchingNo;
     }
 
-    public final long getUserNo() {
+    public final String getUserNo() {
         return userNo;
     }
 
@@ -50,12 +50,12 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.watchingNo);
+        tupleOutput.writeString(this.watchingNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.watchingNo = tupleInput.readLong();
+        this.watchingNo = tupleInput.readString();
     }
 
     @Override

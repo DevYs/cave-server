@@ -14,21 +14,21 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
     public static final String SEC_DB_DECK_BY_USER_NO = "deck_by_user_no";
     public static final String KEY_USER_NO = "key_user_no";
 
-    private transient long deckNo;
-    private long userNo;
+    private transient String deckNo;
+    private String userNo;
     private Contents contents;
 
-    public Deck(long userNo, long deckNo, Contents contents) {
+    public Deck(String userNo, String deckNo, Contents contents) {
         this.userNo = userNo;
         this.deckNo = deckNo;
         this.contents = contents;
     }
 
-    public final long getDeckNo() {
+    public final String getDeckNo() {
         return deckNo;
     }
 
-    public final long getUserNo() {
+    public final String getUserNo() {
         return userNo;
     }
 
@@ -47,18 +47,18 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.deckNo);
+        tupleOutput.writeString(this.deckNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.deckNo = tupleInput.readLong();
+        this.deckNo = tupleInput.readString();
     }
 
     @Override
     public boolean marshalSecondaryKey(String keyName, TupleOutput keyOutput) {
         if (keyName.equals(KEY_USER_NO)) {
-            keyOutput.writeLong(this.userNo);
+            keyOutput.writeString(this.userNo);
             return true;
         } else {
             throw new UnsupportedOperationException(keyName);

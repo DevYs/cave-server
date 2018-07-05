@@ -32,15 +32,15 @@ public class VideoService {
         return videoMapper.mod(video);
     }
 
-    public Video remove(long videoNo) {
+    public Video remove(String videoNo) {
         return videoMapper.remove(videoNo);
     }
 
-    public Video getVideo(long videoNo) {
+    public Video getVideo(String videoNo) {
         return (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
     }
 
-    public Contents getContents(long contentsNo) {
+    public Contents getContents(String contentsNo) {
         return (Contents) contentsMapper.map().duplicates(new ContentsKey(contentsNo)).iterator().next();
     }
 }

@@ -107,7 +107,7 @@ public class AdminVideoController {
     }
 
     @GetMapping("/subtitle")
-    public void subtitle(long videoNo, HttpServletResponse response) {
+    public void subtitle(String videoNo, HttpServletResponse response) {
         Video video = videoService.getVideo(videoNo);
 
         if(video.getSubtitle() == null) {
@@ -133,13 +133,13 @@ public class AdminVideoController {
     }
 
     @GetMapping("/admin/contents/video/remove")
-    public String remove(long videoNo, Model model) {
+    public String remove(String videoNo, Model model) {
         model.addAttribute("video", videoService.getVideo(videoNo));
         return "admin/video-remove";
     }
 
     @PostMapping("/admin/contents/video/remove")
-    public String remove(long videoNo) {
+    public String remove(String videoNo) {
         Video remove = videoService.remove(videoNo);
         logger.info("removed " + remove);
         return "redirect:/admin/contents/view?contentsNo=" + remove.getContentsNo();

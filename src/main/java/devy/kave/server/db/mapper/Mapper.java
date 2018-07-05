@@ -7,7 +7,7 @@ public interface Mapper {
 
     boolean add(MarshalledTupleKeyEntity entity);
 
-    Object remove(long key);
+    Object remove(String key);
 
     Object mod(MarshalledTupleKeyEntity entity);
 

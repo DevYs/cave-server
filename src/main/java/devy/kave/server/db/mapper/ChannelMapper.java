@@ -24,7 +24,7 @@ public class ChannelMapper implements Mapper {
     }
 
     @Override
-    public Object remove(long key) {
+    public Object remove(String key) {
         return map().remove(new ChannelKey(key));
     }
 

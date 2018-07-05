@@ -37,12 +37,12 @@ public class ContentsService {
         return channelMapper.sortedSet();
     }
 
-    public List<Contents> contentsList(int pageNo, String searchWord, long channelNo) {
+    public List<Contents> contentsList(int pageNo, String searchWord, String channelNo) {
         List<Contents> contentsList = new ArrayList<>();
 
         Iterator iterator = null;
-        if(0L != channelNo) {
-            iterator = contentsMapper.sortedMapByChannelNo().duplicates(new Long(channelNo)).iterator();
+        if(!channelNo.equals(0)) {
+            iterator = contentsMapper.sortedMapByChannelNo().duplicates(channelNo).iterator();
         } else {
             iterator = contentsMapper.sortedSet().iterator();
         }
@@ -82,7 +82,7 @@ public class ContentsService {
         return contentsMapper.add(contents);
     }
 
-    public Contents remove(long contentsNo) {
+    public Contents remove(String contentsNo) {
         return (Contents) contentsMapper.remove(contentsNo);
     }
 
@@ -90,11 +90,11 @@ public class ContentsService {
         return (Contents) contentsMapper.mod(contents);
     }
 
-    public Contents getContents(long contentsNo) {
+    public Contents getContents(String contentsNo) {
         return (Contents) contentsMapper.map().duplicates(new ContentsKey(contentsNo)).iterator().next();
     }
 
-    public Iterator<Video> videoList(long contentsNo) {
-        return videoMapper.sortedSetByContentsNo().duplicates(new Long(contentsNo)).iterator();
+    public Iterator<Video> videoList(String contentsNo) {
+        return videoMapper.sortedSetByContentsNo().duplicates(contentsNo).iterator();
     }
 }

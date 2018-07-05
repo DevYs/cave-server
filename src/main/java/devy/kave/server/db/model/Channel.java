@@ -14,7 +14,7 @@ public class Channel implements Serializable, MarshalledTupleKeyEntity {
 
     public static final String DB_CHANNEL = "db_channel";
 
-    private transient long channelNo;
+    private transient String channelNo;
 
     @NotNull
     @Size(min=2, max=10)
@@ -26,16 +26,16 @@ public class Channel implements Serializable, MarshalledTupleKeyEntity {
         this.channelName = channelName;
     }
 
-    public Channel(long channelNo, String channelName) {
+    public Channel(String channelNo, String channelName) {
         this.channelNo = channelNo;
         this.channelName = channelName;
     }
 
-    public long getChannelNo() {
+    public String getChannelNo() {
         return channelNo;
     }
 
-    public void setChannelNo(long channelNo) {
+    public void setChannelNo(String channelNo) {
         this.channelNo = channelNo;
     }
 
@@ -58,12 +58,12 @@ public class Channel implements Serializable, MarshalledTupleKeyEntity {
     // --- MarshalledTupleKeyEntity implementation ---
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.channelNo);
+        tupleOutput.writeString(this.channelNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.channelNo = tupleInput.readLong();
+        this.channelNo = tupleInput.readString();
     }
 
     @Override

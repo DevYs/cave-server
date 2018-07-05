@@ -27,7 +27,7 @@ public class VideoMapper implements Mapper {
     }
 
     @Override
-    public Video remove(long key) {
+    public Video remove(String key) {
         return (Video) map().remove(new VideoKey(key));
     }
 

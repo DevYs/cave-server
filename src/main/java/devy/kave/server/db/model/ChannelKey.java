@@ -6,15 +6,15 @@ import com.sleepycat.bind.tuple.TupleOutput;
 
 public class ChannelKey implements MarshalledTupleEntry {
 
-    private long channelNo;
+    private String channelNo;
 
-    public ChannelKey(long channelNo) {
+    public ChannelKey(String channelNo) {
         this.channelNo = channelNo;
     }
 
     public ChannelKey() {}
 
-    public final long getChannelNo() {
+    public final String getChannelNo() {
         return channelNo;
     }
 
@@ -27,12 +27,12 @@ public class ChannelKey implements MarshalledTupleEntry {
 
     @Override
     public void marshalEntry(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.channelNo);
+        tupleOutput.writeString(this.channelNo);
     }
 
     @Override
     public void unmarshalEntry(TupleInput tupleInput) {
-        this.channelNo = tupleInput.readLong();
+        this.channelNo = tupleInput.readString();
     }
 
 }

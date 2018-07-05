@@ -15,7 +15,7 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
     public static final String INDEX_USER_USER_ID = "index_user_user_id";
     public static final String KEY_USER_USER_ID = "key_user_user_id";
 
-    private transient long userNo;
+    private transient String userNo;
 
     @NotNull
     @Size(min = 4, max = 16)
@@ -44,7 +44,7 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
         this.isAdmin = isAdmin;
     }
 
-    public User(long userNo, String userId, String password, String email, String userName, boolean isAdmin) {
+    public User(String userNo, String userId, String password, String email, String userName, boolean isAdmin) {
         this.userNo = userNo;
         this.userId = userId;
         this.password = password;
@@ -53,11 +53,11 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
         this.isAdmin = isAdmin;
     }
 
-    public final long getUserNo() {
+    public final String getUserNo() {
         return userNo;
     }
 
-    public void setUserNo(long userNo) {
+    public void setUserNo(String userNo) {
         this.userNo = userNo;
     }
 
@@ -124,12 +124,12 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.userNo);
+        tupleOutput.writeString(this.userNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.userNo = tupleInput.readLong();
+        this.userNo = tupleInput.readString();
     }
 
     @Override

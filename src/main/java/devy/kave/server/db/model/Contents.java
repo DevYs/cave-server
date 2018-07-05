@@ -16,9 +16,9 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
     public static final String INDEX_CONTENTS_CHANNEL_NO = "index_contents_channel_no";
     public static final String KEY_CONTENTS_CHANNEL_NO = "key_contents_channel_no";
 
-    private transient long contentsNo;
+    private String channelNo;
 
-    private long channelNo;
+    private transient String contentsNo;
 
     @Size(max = 2000)
     private String contentsPosterUrl;
@@ -49,7 +49,7 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     public Contents() {}
 
-    public Contents(long channelNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story) {
+    public Contents(String channelNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story) {
         this.channelNo = channelNo;
         this.contentsPosterUrl = contentsPosterUrl;
         this.contentsName = contentsName;
@@ -62,7 +62,7 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
         this.story = story;
     }
 
-    public Contents(long contentsNo, long channelNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story) {
+    public Contents(String contentsNo, String channelNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story) {
         this.contentsNo = contentsNo;
         this.channelNo = channelNo;
         this.contentsPosterUrl = contentsPosterUrl;
@@ -76,20 +76,20 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
         this.story = story;
     }
 
-    public final long getContentsNo() {
-        return contentsNo;
-    }
-
-    public void setContentsNo(long contentsNo) {
-        this.contentsNo = contentsNo;
-    }
-
-    public final long getChannelNo() {
+    public final String getChannelNo() {
         return channelNo;
     }
 
-    public void setChannelNo(long channelNo) {
+    public void setChannelNo(String channelNo) {
         this.channelNo = channelNo;
+    }
+
+    public final String getContentsNo() {
+        return contentsNo;
+    }
+
+    public void setContentsNo(String contentsNo) {
+        this.contentsNo = contentsNo;
     }
 
     public final String getContentsPosterUrl() {
@@ -183,18 +183,18 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.contentsNo);
+        tupleOutput.writeString(this.contentsNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.contentsNo = tupleInput.readLong();
+        this.contentsNo = tupleInput.readString();
     }
 
     @Override
     public boolean marshalSecondaryKey(String s, TupleOutput tupleOutput) {
         if(s.equals(Contents.KEY_CONTENTS_CHANNEL_NO)) {
-            tupleOutput.writeLong(this.channelNo);
+            tupleOutput.writeString(this.channelNo);
             return true;
         } else {
             throw new UnsupportedOperationException(s);

@@ -10,19 +10,19 @@ public class UserConfig implements Serializable, MarshalledTupleKeyEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private transient long userNo;
+    private transient String userNo;
     private transient String configName;
     private String configValue;
     private long modDateTime;
 
-    public UserConfig(long userNo, String configName, String configValue, long modDateTime) {
+    public UserConfig(String userNo, String configName, String configValue, long modDateTime) {
         this.userNo = userNo;
         this.configName = configName;
         this.configValue = configValue;
         this.modDateTime = modDateTime;
     }
 
-    public final long getUserNo() {
+    public final String getUserNo() {
         return userNo;
     }
 
@@ -50,13 +50,13 @@ public class UserConfig implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.userNo);
+        tupleOutput.writeString(this.userNo);
         tupleOutput.writeString(this.configName);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.userNo = tupleInput.readLong();
+        this.userNo = tupleInput.readString();
         this.configName = tupleInput.readString();
     }
 

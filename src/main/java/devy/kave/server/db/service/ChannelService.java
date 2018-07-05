@@ -19,12 +19,11 @@ public class ChannelService {
     private ChannelMapper channelMapper;
 
     public boolean add(Channel channel) {
-        long key = DatabaseKeyCreator.createKey();
-        channel.setChannelNo(key);
+        channel.setChannelNo(DatabaseKeyCreator.createKey());
         return channelMapper.add(channel);
     }
 
-    public Channel remove(long channelNo) {
+    public Channel remove(String channelNo) {
         return (Channel) channelMapper.remove(channelNo);
     }
 
@@ -32,7 +31,7 @@ public class ChannelService {
         return (Channel) channelMapper.mod(channel);
     }
 
-    public Channel getChannel(long channelNo) {
+    public Channel getChannel(String channelNo) {
         return (Channel) channelMapper.sortedMap().duplicates(new ChannelKey(channelNo)).iterator().next();
     }
 

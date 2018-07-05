@@ -27,7 +27,7 @@ public class UserMapper implements Mapper {
     }
 
     @Override
-    public Object remove(long key) {
+    public Object remove(String key) {
         return map().remove(new UserKey(key));
     }
 

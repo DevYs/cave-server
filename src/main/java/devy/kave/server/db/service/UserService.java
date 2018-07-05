@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
         return (User) userMapper.mod(user);
     }
 
-    public User remove(long userNo) {
+    public User remove(String userNo) {
         return (User) userMapper.remove(userNo);
     }
 
@@ -116,7 +116,7 @@ public class UserService implements UserDetailsService {
         return userList.subList(s - 1, e);
     }
 
-    public User getUser(long userNo) {
+    public User getUser(String userNo) {
         return (User) userMapper.map().duplicates(new UserKey(userNo)).iterator().next();
     }
 

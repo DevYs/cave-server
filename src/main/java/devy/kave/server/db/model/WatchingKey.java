@@ -6,13 +6,13 @@ import com.sleepycat.bind.tuple.TupleOutput;
 
 public class WatchingKey implements MarshalledTupleEntry {
 
-    private long watchingNo;
+    private String watchingNo;
 
-    public WatchingKey(long watchingNo) {
+    public WatchingKey(String watchingNo) {
         this.watchingNo = watchingNo;
     }
 
-    public final long getWatchingNo() {
+    public final String getWatchingNo() {
         return watchingNo;
     }
 
@@ -27,11 +27,11 @@ public class WatchingKey implements MarshalledTupleEntry {
 
     @Override
     public void marshalEntry(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.watchingNo);
+        tupleOutput.writeString(this.watchingNo);
     }
 
     @Override
     public void unmarshalEntry(TupleInput tupleInput) {
-        this.watchingNo = tupleInput.readLong();
+        this.watchingNo = tupleInput.readString();
     }
 }

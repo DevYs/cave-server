@@ -17,8 +17,8 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     public static final String KEY_VIDEO_CONTENTS_NO = "key_video_contents_no";
 
-    private transient long videoNo;
-    private long contentsNo;
+    private transient String videoNo;
+    private String contentsNo;
 
     @Size(max = 2000)
     private String videoPosterUrl;
@@ -35,7 +35,7 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     public Video() {}
 
-    public Video(long videoNo, long contentsNo, String videoPosterUrl, String videoUrl, String videoName, String subtitle) {
+    public Video(String videoNo, String contentsNo, String videoPosterUrl, String videoUrl, String videoName, String subtitle) {
         this.videoNo = videoNo;
         this.contentsNo = contentsNo;
         this.videoPosterUrl = videoPosterUrl;
@@ -44,7 +44,7 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
         this.subtitle = subtitle;
     }
 
-    public Video(long videoNo, long contentsNo, String videoPosterUrl, String videoUrl, String videoName, String subtitle, Contents contents) {
+    public Video(String videoNo, String contentsNo, String videoPosterUrl, String videoUrl, String videoName, String subtitle, Contents contents) {
         this.videoNo = videoNo;
         this.contentsNo = contentsNo;
         this.videoPosterUrl = videoPosterUrl;
@@ -54,19 +54,19 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
         this.contents = contents;
     }
 
-    public final long getVideoNo() {
+    public final String getVideoNo() {
         return videoNo;
     }
 
-    public void setVideoNo(long videoNo) {
+    public void setVideoNo(String videoNo) {
         this.videoNo = videoNo;
     }
 
-    public final long getContentsNo() {
+    public final String getContentsNo() {
         return contentsNo;
     }
 
-    public void setContentsNo(long contentsNo) {
+    public void setContentsNo(String contentsNo) {
         this.contentsNo = contentsNo;
     }
 
@@ -125,18 +125,18 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
-        tupleOutput.writeLong(this.videoNo);
+        tupleOutput.writeString(this.videoNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
-        this.videoNo = tupleInput.readLong();
+        this.videoNo = tupleInput.readString();
     }
 
     @Override
     public boolean marshalSecondaryKey(String s, TupleOutput keyOutput) {
         if(s.equals(KEY_VIDEO_CONTENTS_NO)) {
-            keyOutput.writeLong(this.contentsNo);
+            keyOutput.writeString(this.contentsNo);
             return true;
         } else {
             throw new UnsupportedOperationException(s);
