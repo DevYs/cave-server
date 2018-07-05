@@ -1,11 +1,11 @@
 var page = 1;
 
 var contentsTemp = "<div class='idx-thumb col-xs-4 col-sm-3 col-md-2'>" +
-                    "<a href='/contents?contentsNo=${contentsNo})}'>" +
+                    "<a href='/contents?contentsNo=${contentsNo}'>" +
                         "<img class='img-responsive' src='${contentsPosterUrl}' alt='${alt}' />" +
                     "</a>" +
-                    "<a class='idx-thumb-tl' href='/contents?contentsNo=${contentsNo})}'>${contentsName}</a>" +
-                    "<a class='idx-thumb-tl' href='/contents?contentsNo=${contentsNo})}'>${releaseDate}</a>" +
+                    "<a class='idx-thumb-tl' href='/contents?contentsNo=${contentsNo}'>${contentsName}</a>" +
+                    "<a class='idx-thumb-tl' href='/contents?contentsNo=${contentsNo}'>${releaseDate}</a>" +
                 "</div>";
 
 $(document).ready(function() {
