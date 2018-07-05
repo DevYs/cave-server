@@ -58,8 +58,9 @@ public class ContentsService {
             }
         }
 
-        int s = ((pageNo - 1) * 10) + 1;
-        int e = s + 9;
+        int pagePerSize = 20;
+        int s = ((pageNo - 1) * pagePerSize) + 1;
+        int e = s + (pagePerSize - 1);
 
         if(contentsList.size() < s) {
             return new ArrayList<>();
