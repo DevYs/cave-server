@@ -124,6 +124,9 @@ a, a:focus, a:hover {
     background-color: #222;
     color: #555;
     border: 1px solid #191919;
+    border-right: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .search button:hover {
@@ -132,6 +135,7 @@ a, a:focus, a:hover {
 
 .search input {
     border: 1px solid #191919;
+    border-left:0px;
 }
 
 .list-group-item {
