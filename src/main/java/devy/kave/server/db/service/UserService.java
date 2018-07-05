@@ -6,6 +6,7 @@ import devy.kave.server.db.DatabaseSource;
 import devy.kave.server.db.mapper.UserMapper;
 import devy.kave.server.db.model.User;
 import devy.kave.server.db.model.UserKey;
+import devy.kave.server.util.Sort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +110,7 @@ public class UserService implements UserDetailsService {
             e = userList.size();
         }
 
-        return userList.subList(s - 1, e);
+        return Sort.reverse(userList.subList(s - 1, e));
     }
 
     public User getUser(long userNo) {

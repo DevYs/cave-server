@@ -9,6 +9,7 @@ import devy.kave.server.db.model.Channel;
 import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.model.ContentsKey;
 import devy.kave.server.db.model.Video;
+import devy.kave.server.util.Sort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,7 @@ public class ContentsService {
             e = contentsList.size();
         }
 
-        return contentsList.subList(s - 1, e);
+        return Sort.reverse(contentsList.subList(s - 1, e));
     }
 
     public boolean add(Contents contents) {
