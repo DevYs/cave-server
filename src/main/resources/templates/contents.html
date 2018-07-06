@@ -35,7 +35,6 @@
                 <ul class="nav nav-tabs">
                     <li role="presentation" th:class="${#strings.equals(tab, 'cont')} ? 'active'"><a th:href="@{~/contents(contentsNo=${contents.contentsNo}, tab='cont')}" th:text="#{contents.tabs.cont}">콘텐츠</a></li>
                     <li role="presentation" th:class="${#strings.equals(tab, 'story')} ? 'active'"><a th:href="@{~/contents(contentsNo=${contents.contentsNo}, tab='story')}" th:text="#{contents.tabs.story}">줄거리</a></li>
-                    <li role="presentation" th:class="${#strings.equals(tab, 'etc')} ? 'active'"><a th:href="@{~/contents(contentsNo=${contents.contentsNo}, tab='etc')}" th:text="#{contents.tabs.etc}">기타</a></li>
                 </ul>
             </div>
         </div>
