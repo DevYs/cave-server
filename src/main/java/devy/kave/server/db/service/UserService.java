@@ -99,7 +99,7 @@ public class UserService implements UserDetailsService {
         }
 
         // 내림차순 정렬
-        userList = Sort.reverse(userList);
+        userList.sort(new Sort().descending());
 
         int pagePerSize = 20;
         int s = ((pageNo - 1) * pagePerSize) + 1;
