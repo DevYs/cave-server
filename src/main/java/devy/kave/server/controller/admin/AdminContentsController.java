@@ -39,7 +39,7 @@ public class AdminContentsController {
 
     @GetMapping("/admin/contents/view")
     public String view(@RequestParam(value = "tab", defaultValue = "cont") String tab, String contentsNo, Model model) {
-        model.addAttribute("videoList", contentsService.videoList(contentsNo));
+        model.addAttribute("videoList", contentsService.videoList(contentsNo).iterator());
         model.addAttribute("contents", contentsService.getContents(contentsNo));
         model.addAttribute("tab", tab);
         return "admin/contents-view";

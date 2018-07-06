@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +38,16 @@ public class ContentsService {
         return channelMapper.sortedSet();
     }
 
+    public List<Contents> newContents() {
+        return contentsList(1, "", "0", 12);
+    }
+
     public List<Contents> contentsList(int pageNo, String searchWord, String channelNo) {
+        int defaulatPagePerSize = 12;
+        return contentsList(pageNo, searchWord, channelNo, defaulatPagePerSize);
+    }
+
+    public List<Contents> contentsList(int pageNo, String searchWord, String channelNo, int pagePerSize) {
         List<Contents> contentsList = new ArrayList<>();
 
         Iterator iterator = null;
@@ -50,10 +60,10 @@ public class ContentsService {
         while(iterator.hasNext()) {
             Contents contents = (Contents) iterator.next();
             int indexOf = contents.getContentsName().indexOf(searchWord) +
-                        contents.getDirector().indexOf(searchWord) +
-                        contents.getActor().indexOf(searchWord) +
-                        contents.getNation().indexOf(searchWord) +
-                        contents.getGenre().indexOf(searchWord);
+                    contents.getDirector().indexOf(searchWord) +
+                    contents.getActor().indexOf(searchWord) +
+                    contents.getNation().indexOf(searchWord) +
+                    contents.getGenre().indexOf(searchWord);
             if(-5 < indexOf) {
                 contentsList.add(contents);
             }
@@ -62,7 +72,6 @@ public class ContentsService {
         // 내림차순으로 정렬
         contentsList.sort(new Sort().descending());
 
-        int pagePerSize = 20;
         int s = ((pageNo - 1) * pagePerSize) + 1;
         int e = s + (pagePerSize - 1);
 
@@ -94,7 +103,7 @@ public class ContentsService {
         return (Contents) contentsMapper.map().duplicates(new ContentsKey(contentsNo)).iterator().next();
     }
 
-    public Iterator<Video> videoList(String contentsNo) {
-        return videoMapper.sortedSetByContentsNo().duplicates(contentsNo).iterator();
+    public Collection<Video> videoList(String contentsNo) {
+        return videoMapper.sortedSetByContentsNo().duplicates(contentsNo);
     }
 }
