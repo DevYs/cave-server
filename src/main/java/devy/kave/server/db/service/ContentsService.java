@@ -41,7 +41,7 @@ public class ContentsService {
         List<Contents> contentsList = new ArrayList<>();
 
         Iterator iterator = null;
-        if(!channelNo.equals(0)) {
+        if(!channelNo.equals("0")) {
             iterator = contentsMapper.sortedMapByChannelNo().duplicates(channelNo).iterator();
         } else {
             iterator = contentsMapper.sortedSet().iterator();
