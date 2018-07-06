@@ -8,10 +8,7 @@
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
-        <h3 class="idx-h3 idx-h3-frst" th:text="#{index.watching}">감상중인 콘텐츠</h3>
-        <div class="row">
-            <p class="idx-lst-empt-msg" th:text="#{index.watching.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
-        </div>
+
         <h3 class="idx-h3" th:text="#{index.recently}">최근 추가된 콘텐츠</h3>
         <div class="row">
             <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
@@ -25,6 +22,12 @@
             </div>
 
         </div>
+
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{index.watching}">감상중인 콘텐츠</h3>
+        <div class="row">
+            <p class="idx-lst-empt-msg" th:text="#{index.watching.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
+        </div>
+
         <h3 class="idx-h3" th:text="#{index.afterwards}">나중에 감상할 콘텐츠</h3>
         <div class="row">
             <p th:if="false" class="idx-lst-empt-msg" th:text="#{index.afterwards.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
@@ -37,6 +40,7 @@
                 <a class="idx-thumb-tl" th:href="@{~/contents}">2012</a>
             </div>
         </div>
+
     </div>
 </body>
 </html>
