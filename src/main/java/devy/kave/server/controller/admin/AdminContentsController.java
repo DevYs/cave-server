@@ -1,5 +1,6 @@
 package devy.kave.server.controller.admin;
 
+import devy.kave.server.db.DatabaseKeyCreator;
 import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.service.ContentsService;
 import org.slf4j.Logger;
@@ -94,5 +95,34 @@ public class AdminContentsController {
         logger.info("removed " + remove);
         return "redirect:/admin/contents";
     }
+
+    @GetMapping("/admin/contents/data")
+    public String data() {
+        String[] a = {"20180705174804986", "20180705174809775", "20180705174814112", "20180705174817377", "20180705174821508"};
+        String[] b = {"a", "b", "c", "d", "e", "f", "g", "가", "나", "다", "참치", "햄버거", "피자", "라면", "김치"};
+
+        Contents contents = contentsService.getContents("20180705174851611");
+        for(int i=0; i<150; i++) {
+            Contents c = new Contents();
+            c.setChannelNo(a[i/30]);
+            c.setContentsNo(DatabaseKeyCreator.createKey());
+            c.setContentsName(b[i/10] + contents.getContentsName() + (i+1));
+            c.setStory(contents.getStory());
+            c.setActor(contents.getActor());
+            c.setContentsPosterUrl(contents.getContentsPosterUrl());
+            c.setDirector(contents.getDirector());
+            c.setNation(contents.getNation());
+            c.setGenre(contents.getGenre());
+            c.setReleaseDate(contents.getReleaseDate());
+            c.setRunningTime(contents.getRunningTime());
+            boolean add = contentsService.add(c);
+            if(add) {
+                logger.info(c.toString());
+            }
+        }
+
+        return "redirect:/admin/contents";
+    }
+
 
 }
