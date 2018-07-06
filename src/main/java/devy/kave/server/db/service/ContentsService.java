@@ -63,8 +63,9 @@ public class ContentsService {
                     contents.getDirector().indexOf(searchWord) +
                     contents.getActor().indexOf(searchWord) +
                     contents.getNation().indexOf(searchWord) +
-                    contents.getGenre().indexOf(searchWord);
-            if(-5 < indexOf) {
+                    contents.getGenre().indexOf(searchWord) +
+                    contents.getReleaseDate().indexOf(searchWord);
+            if(-6 < indexOf) {
                 contentsList.add(contents);
             }
         }
