@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="default">
+      layout:decorate="~{default}">
 <head>
     <title>콘텐츠</title>
 </head>
@@ -11,18 +11,17 @@
 
         <div class="row">
             <div class="col-md-3 col-xs-5">
-                <img class="cont-img col-xs-12 img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" alt="이미지" />
+                <img class="cont-img col-xs-12 img-responsive" th:src="${contents.contentsPosterUrl}" th:alt="${contentsName} + ' 포스터 이미지'" />
             </div>
             <div class="col-md-9 col-xs-7">
-                <h3 class="idx-h3 idx-h3-frst" th:text="|퀵 (2016)|"></h3>
+                <h3 class="idx-h3 idx-h3-frst" th:text="${contents.contentsName} + ' (' + ${contents.releaseDate} + ')'">콘텐츠명 (개봉일)</h3>
                 <ul class="cont-info col-xs-12">
-                    <li>코미디/범죄</li>
-                    <li>한국</li>
-                    <li>2016.12.12 개봉</li>
-                    <li>116분</li>
-                    <li>15세이상 관람가</li>
-                    <li>(감독) 이언희</li>
-                    <li>(주연) 성동일, 권상우, 이광수</li>
+                    <li th:text="${contents.genre}">장르</li>
+                    <li th:text="${contents.nation}">국가</li>
+                    <li th:text="${contents.releaseDate}">개봉일</li>
+                    <li th:text="${contents.runningTime}">상영시간</li>
+                    <li th:text="'(감독) ' + ${contents.director}">감독</li>
+                    <li th:text="'(주연) ' + ${contents.actor}">주연</li>
                     <li>
                         <a th:href="@{~/contents/deck}" type="button" class="btn btn-warning">나중에보기</a>
                         <a th:href="@{~/contents/deck/remove}" type="button" class="btn btn-danger">이미 본 콘텐츠</a>
@@ -34,9 +33,9 @@
         <div class="row">
             <div class="cont-tab col-xs-12">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" th:class="${#strings.equals(tab, 'cont')} ? 'active'"><a th:href="@{~/contents(tab='cont')}" th:text="#{contents.tabs.cont}">콘텐츠</a></li>
-                    <li role="presentation" th:class="${#strings.equals(tab, 'story')} ? 'active'"><a th:href="@{~/contents(tab='story')}" th:text="#{contents.tabs.story}">줄거리</a></li>
-                    <li role="presentation" th:class="${#strings.equals(tab, 'etc')} ? 'active'"><a th:href="@{~/contents(tab='etc')}" th:text="#{contents.tabs.etc}">기타</a></li>
+                    <li role="presentation" th:class="${#strings.equals(tab, 'cont')} ? 'active'"><a th:href="@{~/contents(contentsNo=${contents.contentsNo}, tab='cont')}" th:text="#{contents.tabs.cont}">콘텐츠</a></li>
+                    <li role="presentation" th:class="${#strings.equals(tab, 'story')} ? 'active'"><a th:href="@{~/contents(contentsNo=${contents.contentsNo}, tab='story')}" th:text="#{contents.tabs.story}">줄거리</a></li>
+                    <li role="presentation" th:class="${#strings.equals(tab, 'etc')} ? 'active'"><a th:href="@{~/contents(contentsNo=${contents.contentsNo}, tab='etc')}" th:text="#{contents.tabs.etc}">기타</a></li>
                 </ul>
             </div>
         </div>
@@ -44,11 +43,11 @@
         <div class="row">
             <ul class="cont-video" th:if="${#strings.equals(tab, 'cont')}">
 
-                <li th:each="i : ${#numbers.sequence(1, 20)}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
+                <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                     <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                        <img class="img-responsive" th:src="${video.videoPosterUrl}" />
                     </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}" th:text="|${i}회|"></a>
+                    <a class="idx-thumb-tl" th:href="@{~/play}" th:text="${video.videoName}"></a>
                 </li>
 
             </ul>
