@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="default">
+      layout:decorate="~{default}">
 <head>
     <title>콘텐츠 보기</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
-        <h3 class="idx-h3 idx-h3-frst" th:text="퀵">콘텐츠 제목</h3>
-        <h4>1부</h4>
+        <h3 class="idx-h3 idx-h3-frst" th:text="${contents.contentsName}">콘텐츠명</h3>
+        <h4 th:text="${watchingVideo.videoName}">영상이름</h4>
         <div class="row">
             <div class="col-xs-12">
                 <div id="embed" class="embed-responsive embed-responsive-16by9">
-                    <video id="player" controls="true" autoplay="true" class="embed-responsive-item" src="https://lh3.googleusercontent.com/bk07jrMrfsSLEhR82DMCwpKrBqmJV3NjOMrqaJdAdm1yQOOYUfISq4YOviCo5m95BuSgCJnklcVmEsfmpPh2ddkiwAXWl8rOR5bgE_QMkIGQ3b6VQM_aC-e1K68OXRrXEPwsD5ZqfD3W3r_joD69w1R2sMoYqWrufsnicUVi5IZbk1Sb51TG_M0wWux8x4gpo8M_k8t08eHdOoJ74nev0CUwxnZ8VmgHNtxdpxRySdaGbM8p-bST2lhOZ_Npg5bx1j7Nv44f2YL-qHnYx5JlIld3tn-izXW6nyrzqQQJb_C9GWgw_CgKvtWn9pPOi5OkupNimJujgaatUtbRmMMKe5wxnulT43i0eI8HT7wVjIYAkPcld1oxuQSmvJBRjHwEUnsEYxJYX_-Qeah58mF9yLx8gO3A-KR8hMgU3fUQ3EiDWPHoINzOOY23_SOVBO5Q78V5mLSzCD83eY4fJqmMOYsr1NqfG4vReKS8Yg4if7iy0BZqDe_cOQRtAE4Up0HMnvAU-lit9N6Ohx_OdODWHFSUVEgnsyIE5jq_qIRVeagfPrSEqeVw3A44NJBPBH6u7qO63gTNtZX14muQci1GuIbM4Y-UAVRXvvHSYON1fzH5n55ldFkljtxxiJunGrr3b6C3szhkvRuwNa9M1ikiqoVP6vRcf_i2_lkIIgxCl0E=m18?cpn=4Tjd1VNNTcWSH6LN&amp;c=WEB&amp;cver=1.20161207"></video>
+                    <video id="player" controls="controls" autoplay="autoplay" class="embed-responsive-item">
+                        <source th:src="${watchingVideo.videoUrl}" />
+                        <track kind="subtitles" srclang="ko" label="한국어" th:if="${watchingVideo.subtitle} != null" th:src="@{~/subtitle(videoNo=${watchingVideo.videoNo})}" default="default" />
+                    </video>
                 </div>
             </div>
         </div>
@@ -22,125 +25,12 @@
 
         <div class="row">
             <ul class="cont-video">
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
+                <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
+                    <p th:if="${watchingVideo.videoNo == video.videoNo}" class="b-icon">감상중</p>
+                    <a th:href="@{~/play(videoNo=${video.videoNo})}">
+                        <img class="img-responsive" th:src="${video.videoPosterUrl}" th:alt="${contents.contentsName} + ' ' + ${video.videoName} + ' 포스터 이미지'" />
                     </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <p class="b-icon">감상중</p>
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
-                </li>
-                <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play}">
-                        <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" style="margin-left:auto; margin-right:auto; margin-bottom:5px;" />
-                    </a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">퀵</a>
-                    <a class="idx-thumb-tl" th:href="@{~/play}">2012</a>
+                    <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${video.videoNo})}" th:text="${video.videoName}">영상이름</a>
                 </li>
             </ul>
         </div>
