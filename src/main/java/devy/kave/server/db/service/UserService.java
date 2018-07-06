@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
 
         User user = User.emptyUser();
         try {
-            user = (User) userMapper.mapByUserId().duplicates(username).iterator().next();
+            user = getUserByUserId(username);
         } catch(Exception e) {
             user.setPassword(passwordEncoder.encode(""));
             logger.info("'" + username + "' is not User");
@@ -56,6 +56,10 @@ public class UserService implements UserDetailsService {
         }
 
         return new UserInfo(user, authorities);
+    }
+
+    public User getUserByUserId(String userId) {
+        return (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
     }
 
     public boolean add(User user) {
