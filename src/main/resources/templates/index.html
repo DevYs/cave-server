@@ -14,7 +14,16 @@
         </div>
         <h3 class="idx-h3" th:text="#{index.recently}">최근 추가된 콘텐츠</h3>
         <div class="row">
-            <p class="idx-lst-empt-msg" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
+            <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
+
+            <div th:if="0 < ${newContentsSize}" th:each="newContents : ${newContentsList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+                <a th:href="@{~/contents(contentsNo=${newContents.contentsNo})}">
+                    <img class="img-responsive" th:src="${newContents.contentsPosterUrl}" th:alt="${newContents.contentsName} + ' 포스터 이미지'" />
+                </a>
+                <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${newContents.contentsNo})}" th:text="${newContents.contentsName}">콘텐츠명</a>
+                <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${newContents.contentsNo})}" th:text="${newContents.releaseDate}">개봉일</a>
+            </div>
+
         </div>
         <h3 class="idx-h3" th:text="#{index.afterwards}">나중에 감상할 콘텐츠</h3>
         <div class="row">

@@ -1,6 +1,8 @@
 package devy.kave.server.controller;
 
+import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.service.ChannelService;
+import devy.kave.server.db.service.ContentsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -22,6 +25,9 @@ public class IndexController {
     @Autowired
     private ChannelService channelService;
 
+    @Autowired
+    private ContentsService contentsService;
+
     @GetMapping("/")
     public String home() {
         return "home";
@@ -29,7 +35,9 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(Principal principal, Model model) {
-        logger.info(">>>> user : " + principal.getName());
+        List<Contents> newContents = contentsService.newContents();
+        model.addAttribute("newContentsList", newContents);
+        model.addAttribute("newContentsSize", newContents.size());
         return "index";
     }
 
