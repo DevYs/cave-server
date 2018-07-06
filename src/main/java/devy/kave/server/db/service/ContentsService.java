@@ -93,7 +93,7 @@ public class ContentsService {
     }
 
     public Contents remove(String contentsNo) {
-        return (Contents) contentsMapper.remove(contentsNo);
+        return (Contents) contentsMapper.remove(new ContentsKey(contentsNo));
     }
 
     public Contents mod(Contents contents) {

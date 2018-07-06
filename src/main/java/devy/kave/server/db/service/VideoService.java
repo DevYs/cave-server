@@ -33,7 +33,7 @@ public class VideoService {
     }
 
     public Video remove(String videoNo) {
-        return videoMapper.remove(videoNo);
+        return videoMapper.remove(new VideoKey(videoNo));
     }
 
     public Video getVideo(String videoNo) {

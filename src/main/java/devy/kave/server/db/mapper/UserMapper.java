@@ -1,5 +1,6 @@
 package devy.kave.server.db.mapper;
 
+import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.collections.StoredMap;
 import com.sleepycat.collections.StoredSortedMap;
@@ -27,8 +28,8 @@ public class UserMapper implements Mapper {
     }
 
     @Override
-    public Object remove(String key) {
-        return map().remove(new UserKey(key));
+    public Object remove(MarshalledTupleEntry key) {
+        return map().remove(key);
     }
 
     @Override

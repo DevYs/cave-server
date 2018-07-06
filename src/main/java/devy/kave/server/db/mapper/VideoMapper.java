@@ -1,5 +1,6 @@
 package devy.kave.server.db.mapper;
 
+import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.collections.StoredMap;
 import com.sleepycat.collections.StoredSortedMap;
@@ -27,8 +28,8 @@ public class VideoMapper implements Mapper {
     }
 
     @Override
-    public Video remove(String key) {
-        return (Video) map().remove(new VideoKey(key));
+    public Video remove(MarshalledTupleEntry key) {
+        return (Video) map().remove(key);
     }
 
     @Override

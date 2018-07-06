@@ -79,7 +79,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User remove(String userNo) {
-        return (User) userMapper.remove(userNo);
+        return (User) userMapper.remove(new UserKey(userNo));
     }
 
     public StoredSortedValueSet<User> userList() {

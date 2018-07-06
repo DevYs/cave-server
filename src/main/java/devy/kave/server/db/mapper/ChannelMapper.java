@@ -1,5 +1,6 @@
 package devy.kave.server.db.mapper;
 
+import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.collections.*;
 import devy.kave.server.db.DatabaseAccessObjectManager;
@@ -24,8 +25,8 @@ public class ChannelMapper implements Mapper {
     }
 
     @Override
-    public Object remove(String key) {
-        return map().remove(new ChannelKey(key));
+    public Object remove(MarshalledTupleEntry key) {
+        return map().remove(key);
     }
 
     @Override

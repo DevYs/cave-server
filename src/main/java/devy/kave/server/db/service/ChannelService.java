@@ -24,7 +24,7 @@ public class ChannelService {
     }
 
     public Channel remove(String channelNo) {
-        return (Channel) channelMapper.remove(channelNo);
+        return (Channel) channelMapper.remove(new ChannelKey(channelNo));
     }
 
     public Channel mod(Channel channel) {
