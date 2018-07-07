@@ -5,10 +5,7 @@ import devy.kave.server.db.DatabaseKeyCreator;
 import devy.kave.server.db.mapper.ChannelMapper;
 import devy.kave.server.db.mapper.ContentsMapper;
 import devy.kave.server.db.mapper.VideoMapper;
-import devy.kave.server.db.model.Channel;
-import devy.kave.server.db.model.Contents;
-import devy.kave.server.db.model.ContentsKey;
-import devy.kave.server.db.model.Video;
+import devy.kave.server.db.model.*;
 import devy.kave.server.util.Sort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +49,7 @@ public class ContentsService {
 
         Iterator iterator = null;
         if(!channelNo.equals("0")) {
-            iterator = contentsMapper.sortedMapByChannelNo().duplicates(channelNo).iterator();
+            iterator = contentsMapper.sortedMapByChannelNo().duplicates(new ChannelKey(channelNo)).iterator();
         } else {
             iterator = contentsMapper.sortedSet().iterator();
         }
