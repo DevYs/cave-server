@@ -105,6 +105,6 @@ public class ContentsService {
     }
 
     public Collection<Video> videoList(String contentsNo) {
-        return videoMapper.sortedSetByContentsNo().duplicates(contentsNo);
+        return videoMapper.sortedSetByContentsNo().duplicates(new ContentsKey(contentsNo));
     }
 }
