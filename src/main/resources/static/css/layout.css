@@ -178,3 +178,8 @@ a, a:focus, a:hover {
 #player {
     background-color: #000;
 }
+
+.rev-watching-btn {
+    margin-top:10px;
+    margin-bottom:10px;
+}
