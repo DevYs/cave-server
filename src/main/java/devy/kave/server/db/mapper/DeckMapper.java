@@ -35,8 +35,7 @@ public class DeckMapper implements Mapper {
     @Override
     public Deck mod(MarshalledTupleKeyEntity entity) {
         Deck deck = (Deck) entity;
-        DeckKey deckKey = new DeckKey(deck.getUserNo(), deck.getVideoNo());
-        return (Deck) map().replace(deckKey, entity);
+        return (Deck) map().replace(deck.getDeckKey(), entity);
     }
 
     @Override
@@ -58,4 +57,9 @@ public class DeckMapper implements Mapper {
     public StoredSortedMap sortedMap() {
         return manager.sortedMap(queryMap.get(Deck.DB_DECK));
     }
+
+    public StoredSortedMap sortedMapByUserNo() {
+        return manager.sortedMap(queryMap.get(Deck.INDEX_DECK_USER_NO));
+    }
+
 }

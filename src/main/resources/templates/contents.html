@@ -16,16 +16,16 @@
             <div class="col-md-9 col-xs-7">
                 <h3 class="idx-h3 idx-h3-frst" th:text="${contents.contentsName} + ' (' + ${contents.releaseDate} + ')'">콘텐츠명 (개봉일)</h3>
                 <ul class="cont-info col-xs-12">
+                    <li>
+                        <a th:if="!${isDeck}" th:href="@{~/deck/add(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-success">나중에 감상하고 싶습니다.</a>
+                        <a th:if="${isDeck}" th:href="@{~/contents/deck/remove/(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-warning">이미 본 콘텐츠입니다.</a>
+                    </li>
                     <li th:text="${contents.genre}">장르</li>
                     <li th:text="${contents.nation}">국가</li>
                     <li th:text="${contents.releaseDate}">개봉일</li>
                     <li th:text="${contents.runningTime}">상영시간</li>
                     <li th:text="'(감독) ' + ${contents.director}">감독</li>
                     <li th:text="'(주연) ' + ${contents.actor}">주연</li>
-                    <li>
-                        <a th:href="@{~/contents/deck}" type="button" class="btn btn-warning">나중에보기</a>
-                        <a th:href="@{~/contents/deck/remove}" type="button" class="btn btn-danger">이미 본 콘텐츠</a>
-                    </li>
                 </ul>
             </div>
         </div>
