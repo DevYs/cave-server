@@ -53,6 +53,10 @@ public class User implements Serializable, MarshalledTupleKeyEntity {
         this.isAdmin = isAdmin;
     }
 
+    final void setKey(String userNo) {
+        this.userNo = userNo;
+    }
+
     public final String getUserNo() {
         return userNo;
     }

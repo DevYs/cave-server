@@ -29,6 +29,11 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
         this.video = video;
     }
 
+    final void setKey(String userNo, String videoNo) {
+        this.userNo = userNo;
+        this.videoNo = videoNo;
+    }
+
     public final String getUserNo() {
         return userNo;
     }

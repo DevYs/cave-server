@@ -20,6 +20,10 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     private transient String contentsNo;
 
+    final void setKey(String contentsNo) {
+        this.contentsNo = contentsNo;
+    }
+
     @NotNull
     @Size(max = 2000)
     private String contentsPosterUrl;

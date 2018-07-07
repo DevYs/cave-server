@@ -22,6 +22,11 @@ public class UserConfig implements Serializable, MarshalledTupleKeyEntity {
         this.modDateTime = modDateTime;
     }
 
+    final void setKey(String userNo, String configName) {
+        this.userNo = userNo;
+        this.configName = configName;
+    }
+
     public final String getUserNo() {
         return userNo;
     }

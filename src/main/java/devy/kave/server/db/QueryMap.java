@@ -78,12 +78,12 @@ public class QueryMap extends HashMap<String, Query> {
                 .setKeyName(Deck.KEY_DECK_USER_NO)
                 .setForeignKeyDbName(User.DB_USER)
                 .setPrimaryDbName(Deck.DB_DECK));
-        put(Deck.DB_DECK, new Query()
-                .setDbName(Deck.INDEX_DECK_VIDEO_NO)
-                .setKeyClass(VideoKey.class)
+        put(Deck.INDEX_DECK_CONTENTS_NO, new Query()
+                .setDbName(Deck.INDEX_DECK_CONTENTS_NO)
+                .setKeyClass(ContentsKey.class)
                 .setValueBaseClass(Deck.class)
-                .setKeyName(Deck.KEY_DECK_VIDEO_NO)
-                .setForeignKeyDbName(Video.DB_VIDEO)
+                .setKeyName(Deck.KEY_DECK_CONTENTS_NO)
+                .setForeignKeyDbName(Contents.DB_CONTENTS)
                 .setPrimaryDbName(Deck.DB_DECK));
     }
 

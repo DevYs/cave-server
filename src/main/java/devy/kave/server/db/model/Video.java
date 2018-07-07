@@ -54,6 +54,10 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
         this.contents = contents;
     }
 
+    final void setKey(String videoNo) {
+        this.videoNo = videoNo;
+    }
+
     public final String getVideoNo() {
         return videoNo;
     }

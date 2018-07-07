@@ -12,23 +12,26 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
 
     public static final String DB_DECK = "db_deck";
     public static final String INDEX_DECK_USER_NO = "index_deck_user_no";
-    public static final String INDEX_DECK_VIDEO_NO = "index_deck_video_no";
+    public static final String INDEX_DECK_CONTENTS_NO = "index_deck_contents_no";
     public static final String KEY_DECK_USER_NO = "key_deck_user_no";
-    public static final String KEY_DECK_VIDEO_NO = "key_deck_video_no";
+    public static final String KEY_DECK_CONTENTS_NO = "key_deck_contents_no";
 
     private transient String userNo;
-    private transient String videoNo;
-    private Video video;
+    private transient String contentsNo;
     private Contents contents;
 
-    public Deck(String userNo, String videoNo, Video video, Contents contents) {
+    public Deck(String userNo, String contentsNo, Contents contents) {
         this.userNo = userNo;
-        this.videoNo = videoNo;
-        this.video = video;
+        this.contentsNo = contentsNo;
         this.contents = contents;
     }
 
-    public String getUserNo() {
+    final void setKey(String userNo, String contentsNo) {
+        this.userNo = userNo;
+        this.contentsNo = contentsNo;
+    }
+
+    public final String getUserNo() {
         return userNo;
     }
 
@@ -36,23 +39,15 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
         this.userNo = userNo;
     }
 
-    public String getVideoNo() {
-        return videoNo;
+    public final String getContentsNo() {
+        return contentsNo;
     }
 
-    public void setVideoNo(String videoNo) {
-        this.videoNo = videoNo;
+    public void setContentsNo(String contentsNo) {
+        this.contentsNo = contentsNo;
     }
 
-    public Video getVideo() {
-        return video;
-    }
-
-    public void setVideo(Video video) {
-        this.video = video;
-    }
-
-    public Contents getContents() {
+    public final Contents getContents() {
         return contents;
     }
 
@@ -61,19 +56,14 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
     }
 
     public DeckKey getDeckKey() {
-        return new DeckKey(this.userNo, this.videoNo);
-    }
-
-    public WatchingKey getWatchingKey() {
-        return new WatchingKey(this.userNo, this.videoNo);
+        return new DeckKey(this.userNo, this.contentsNo);
     }
 
     @Override
     public String toString() {
         return "Deck{" +
                 "userNo='" + userNo + '\'' +
-                ", videoNo='" + videoNo + '\'' +
-                ", video=" + video +
+                ", contentsNo=" + contentsNo +
                 ", contents=" + contents +
                 '}';
     }
@@ -81,13 +71,13 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
     @Override
     public void marshalPrimaryKey(TupleOutput tupleOutput) {
         tupleOutput.writeString(this.userNo);
-        tupleOutput.writeString(this.videoNo);
+        tupleOutput.writeString(this.contentsNo);
     }
 
     @Override
     public void unmarshalPrimaryKey(TupleInput tupleInput) {
         this.userNo = tupleInput.readString();
-        this.videoNo = tupleInput.readString();
+        this.contentsNo = tupleInput.readString();
     }
 
     @Override
@@ -99,9 +89,9 @@ public class Deck implements Serializable, MarshalledTupleKeyEntity {
             } else {
                 return false;
             }
-        } else if(keyName.equals(KEY_DECK_VIDEO_NO)) {
-            if(this.videoNo != null) {
-                keyOutput.writeString(this.videoNo);
+        } else if(keyName.equals(KEY_DECK_CONTENTS_NO)) {
+            if(this.contentsNo != null) {
+                keyOutput.writeString(this.contentsNo);
                 return true;
             } else {
                 return false;

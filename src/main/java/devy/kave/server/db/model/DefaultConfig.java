@@ -20,6 +20,10 @@ public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
         this.modDateTime = modDateTime;
     }
 
+    final void setKey(String configName) {
+        this.configName = configName;
+    }
+
     public final String getConfigName() {
         return configName;
     }

@@ -31,6 +31,10 @@ public class Channel implements Serializable, MarshalledTupleKeyEntity {
         this.channelName = channelName;
     }
 
+    final void setKey(String contentsNo) {
+        this.channelNo = channelNo;
+    }
+
     public String getChannelNo() {
         return channelNo;
     }
