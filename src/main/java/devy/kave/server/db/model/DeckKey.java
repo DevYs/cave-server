@@ -6,20 +6,35 @@ import com.sleepycat.bind.tuple.TupleOutput;
 
 public class DeckKey implements MarshalledTupleEntry {
 
-    private String deckNo;
+    private String userNo;
+    private String videoNo;
 
-    public DeckKey(String deckNo) {
-        this.deckNo = deckNo;
+    public DeckKey(String userNo, String videoNo) {
+        this.userNo = userNo;
+        this.videoNo = videoNo;
     }
 
-    public final String getDeckNo() {
-        return deckNo;
+    public final String getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(String userNo) {
+        this.userNo = userNo;
+    }
+
+    public final String getVideoNo() {
+        return videoNo;
+    }
+
+    public void setVideoNo(String videoNo) {
+        this.videoNo = videoNo;
     }
 
     @Override
     public String toString() {
         return "DeckKey{" +
-                "deckNo=" + deckNo +
+                "userNo='" + userNo + '\'' +
+                ", videoNo='" + videoNo + '\'' +
                 '}';
     }
 
@@ -27,11 +42,13 @@ public class DeckKey implements MarshalledTupleEntry {
 
     @Override
     public void marshalEntry(TupleOutput tupleOutput) {
-        tupleOutput.writeString(this.deckNo);
+        tupleOutput.writeString(this.userNo);
+        tupleOutput.writeString(this.videoNo);
     }
 
     @Override
     public void unmarshalEntry(TupleInput tupleInput) {
-        this.deckNo = tupleInput.readString();
+        this.userNo = tupleInput.readString();
+        this.videoNo = tupleInput.readString();
     }
 }
