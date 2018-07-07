@@ -13,6 +13,8 @@ import devy.kave.server.db.model.WatchingKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+
 @Component
 public class WatchingMapper implements Mapper {
 
@@ -59,4 +61,7 @@ public class WatchingMapper implements Mapper {
         return manager.sortedMap(queryMap.get(Watching.DB_WATCHING));
     }
 
+    public StoredSortedMap sortedMapByUserNo() {
+        return manager.sortedMap(queryMap.get(Watching.INDEX_WATCHING_USER_NO));
+    }
 }

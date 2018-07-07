@@ -10,6 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 @Service
 public class WatchingService {
 
@@ -21,24 +25,31 @@ public class WatchingService {
     @Autowired
     private DeckMapper deckMapper;
 
-    public boolean add(String userNo, Video video, Contents watchingContents) {
-        Watching newWatching = new Watching(userNo, video.getVideoNo(), watchingContents, video);
+    public Watching getWatching(String userNo, String videoNo) {
+        Watching watching = null;
 
-        boolean isAdded = watchingMapper.add(newWatching);
-        if(isAdded) {
-            boolean isExist = 0 < deckMapper.map().duplicates(newWatching.getDeckKey()).size();
-            if(isExist) {
-                Deck removedDeck = deckMapper.remove(newWatching.getDeckKey());
-                logger.info("removed " + removedDeck);
-            }
+        try {
+            watching = (Watching) watchingMapper.sortedMap().duplicates(new WatchingKey(userNo, videoNo)).iterator().next();
+        } catch (NoSuchElementException e) {
+            logger.info("감상중인 콘텐츠가 아닙니다. " + userNo + ", " + videoNo);
+            watching = null;
         }
 
-        return isAdded;
+        return watching;
+    }
+
+    public boolean add(String userNo, Video video, Contents watchingContents) {
+        Watching newWatching = new Watching(userNo, video.getVideoNo(), watchingContents, video);
+        return watchingMapper.add(newWatching);
     }
 
     public Watching remove(String userNo, String videoNo) {
         WatchingKey watchingKey = new WatchingKey(userNo, videoNo);
         return watchingMapper.remove(watchingKey);
+    }
+
+    public Collection<Watching> watchingList(String userNo) {
+        return watchingMapper.sortedMapByUserNo().duplicates(new UserKey(userNo));
     }
 
 }

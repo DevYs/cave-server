@@ -21,6 +21,8 @@
             </div>
         </div>
 
+        <a th:if="${isWatching}" th:href="@{~/watching/remove(videoNo=${watchingVideo.videoNo})}" type="button" class="btn btn-warning rev-watching-btn">이미 감상한 콘텐츠입니다.</a>
+
         <h4 class="idx-h3" th:text="#{play.contents.list}">관련 콘텐츠</h4>
 
         <div class="row">
