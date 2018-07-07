@@ -9,7 +9,7 @@
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
 
-        <h3 class="idx-h3" th:text="#{index.recently}">최근 추가된 콘텐츠</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{index.recently}">최근 추가된 콘텐츠</h3>
         <div class="row">
             <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
 
@@ -23,21 +23,35 @@
 
         </div>
 
-        <h3 class="idx-h3 idx-h3-frst" th:text="#{index.watching}">감상중인 콘텐츠</h3>
+        <h3 class="idx-h3" th:text="#{index.watching}">감상중인 콘텐츠</h3>
         <div class="row">
-            <p class="idx-lst-empt-msg" th:text="#{index.watching.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
+            <p th:if="${watchingSize} == 0" class="idx-lst-empt-msg" th:text="#{index.watching.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
+
+            <div th:if="0 < ${watchingSize}" th:each="watching : ${watchingList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+                <a th:href="@{~/watching/remove(videoNo=${watching.videoNo})}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </a>
+                <a th:href="@{~/play(videoNo=${watching.videoNo})}">
+                    <img class="img-responsive" th:src="${watching.video.videoPosterUrl}" th:alt="${watching.contents.contentsName} + ' ' + ${watching.video.videoName} + ' 포스터 이미지'" />
+                </a>
+                <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${watching.videoNo})}" th:text="${watching.contents.contentsName}">콘텐츠명</a>
+                <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${watching.videoNo})}" th:text="${watching.video.videoName}">영상명</a>
+            </div>
         </div>
 
         <h3 class="idx-h3" th:text="#{index.afterwards}">나중에 감상할 콘텐츠</h3>
         <div class="row">
-            <p th:if="false" class="idx-lst-empt-msg" th:text="#{index.afterwards.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
+            <p th:if="${deckSize} == 0" class="idx-lst-empt-msg" th:text="#{index.afterwards.emptMsg}">나중에 감상할 콘텐츠</p>
 
-            <div class="idx-thumb col-xs-4 col-sm-3 col-md-2">
-                <a th:href="@{~/contents}">
-                    <img class="img-responsive" src="http://img1.daumcdn.net/thumb/C155x225/?fname=http%3A%2F%2Fcfile79.uf.daum.net%2Fimage%2F175AEE4C4E1EABA1382421" />
+            <div th:if="0 < ${deckSize}" th:each="deck : ${deckList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+                <a th:href="@{~/deck/remove(contentsNo=${deck.contentsNo})}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
-                <a class="idx-thumb-tl" th:href="@{~/contents}">퀵</a>
-                <a class="idx-thumb-tl" th:href="@{~/contents}">2012</a>
+                <a th:href="@{~/contents(contentsNo=${deck.contentsNo})}">
+                    <img class="img-responsive" th:src="${deck.contents.contentsPosterUrl}" th:alt="${deck.contents.contentsName} + ' 포스터 이미지'" />
+                </a>
+                <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${deck.contentsNo})}" th:text="${deck.contents.contentsName}">콘텐츠명</a>
+                <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${deck.contentsNo})}" th:text="${deck.contents.releaseDate}">상영일</a>
             </div>
         </div>
 
