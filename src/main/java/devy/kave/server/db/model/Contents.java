@@ -20,6 +20,7 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     private transient String contentsNo;
 
+    @NotNull
     @Size(max = 2000)
     private String contentsPosterUrl;
 
