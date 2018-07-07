@@ -98,10 +98,10 @@ public class AdminContentsController {
 
     @GetMapping("/admin/contents/data")
     public String data() {
-        String[] a = {"20180705174804986", "20180705174809775", "20180705174814112", "20180705174817377", "20180705174821508"};
-        String[] b = {"a", "b", "c", "d", "e", "f", "g", "가", "나", "다", "참치", "햄버거", "피자", "라면", "김치"};
+        String[] a = {"20180707091229904", "20180707091234599", "20180707091241303", "20180707091249074", "20180707091252737"};
+        String[] b = {"a", "b", "c", "d", "e", "f", "g", "가", "나", "다", "참", "햄", "피", "라", "치"};
 
-        Contents contents = contentsService.getContents("20180705174851611");
+        Contents contents = contentsService.getContents("20180707091441554");
         for(int i=0; i<150; i++) {
             Contents c = new Contents();
             c.setChannelNo(a[i/30]);
