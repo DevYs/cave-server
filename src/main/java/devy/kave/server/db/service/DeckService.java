@@ -41,13 +41,15 @@ public class DeckService {
         return deck;
     }
 
-    public boolean add(String userNo, String contentsNo) {
+    public boolean add(String userId, String contentsNo) {
+        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
         Contents contents = (Contents) contentsMapper.map().duplicates(new ContentsKey(contentsNo)).iterator().next();
-        return deckMapper.add(new Deck(userNo, contentsNo , contents));
+        return deckMapper.add(new Deck(user.getUserNo(), contentsNo , contents));
     }
 
-    public Deck remove(String userNo, String videoNo) {
-        DeckKey deckKey = new DeckKey(userNo, videoNo);
+    public Deck remove(String userId, String videoNo) {
+        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
+        DeckKey deckKey = new DeckKey(user.getUserNo(), videoNo);
         return deckMapper.remove(deckKey);
     }
 

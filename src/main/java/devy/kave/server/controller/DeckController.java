@@ -25,28 +25,19 @@ public class DeckController {
     @Autowired
     private DeckService deckService;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private ContentsService contentsService;
-
     @GetMapping("/deck/add")
     public String add(Principal principal, String contentsNo) {
-        User user = userService.getUserByUserId(principal.getName());
-        boolean isAdded = deckService.add(user.getUserNo(), contentsNo);
+        boolean isAdded = deckService.add(principal.getName(), contentsNo);
         if(isAdded) {
-            logger.info("added Deck userName " + user.getUserName() + ", userNo " + user.getUserNo() + ", contentsNo " + contentsNo);
+            logger.info("added Deck userName " + principal.getName() + ", contentsNo " + contentsNo);
         }
         return "redirect:/contents?contentsNo=" + contentsNo;
     }
 
     @GetMapping("/deck/remove")
     public String remove(Principal principal, String contentsNo, HttpServletRequest request, Model model) {
-        User user = userService.getUserByUserId(principal.getName());
-        Contents deckContents = contentsService.getContents(contentsNo);
-
-        model.addAttribute("userName", user.getUserName());
+        Contents deckContents = deckService.getContents(contentsNo);
+        model.addAttribute("userName", principal.getName());
         model.addAttribute("deckContents", deckContents);
         model.addAttribute("referer", request.getHeader("referer"));
 
@@ -55,8 +46,7 @@ public class DeckController {
 
     @PostMapping("/deck/remove")
     public String remove(Principal principal, String contentsNo) {
-        User user = userService.getUserByUserId(principal.getName());
-        Deck remove = deckService.remove(user.getUserNo(), contentsNo);
+        Deck remove = deckService.remove(principal.getName(), contentsNo);
         logger.info("removed " + remove.toString());
         return "redirect:/index";
     }
