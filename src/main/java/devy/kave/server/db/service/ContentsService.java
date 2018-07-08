@@ -35,10 +35,6 @@ public class ContentsService {
         return channelMapper.sortedSet();
     }
 
-    public List<Contents> newContents() {
-        return contentsList(1, "", "0", 12);
-    }
-
     public List<Contents> contentsList(int pageNo, String searchWord, String channelNo) {
         int defaulatPagePerSize = 12;
         return contentsList(pageNo, searchWord, channelNo, defaulatPagePerSize);
