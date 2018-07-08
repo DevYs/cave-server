@@ -66,8 +66,9 @@ public class AdminVideoController {
 
     @GetMapping("/admin/contents/video/mod")
     public String mod(Video video, Model model) {
-        model.addAttribute("video", videoService.getVideo(video.getVideoNo()));
-        model.addAttribute("storedVideo", videoService.getVideo(video.getVideoNo()));
+        Video storedVideo = videoService.getVideo(video.getVideoNo());
+        model.addAttribute("video", storedVideo);
+        model.addAttribute("storedVideo", storedVideo);
         return "admin/video-mod";
     }
 
