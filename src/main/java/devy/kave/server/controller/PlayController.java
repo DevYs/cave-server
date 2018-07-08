@@ -28,7 +28,7 @@ public class PlayController {
         Contents contents = playService.getContents(video.getContentsNo());
         Collection<Video> videoList = playService.videoList(video.getContentsNo());
 
-        boolean isAdded = playService.add(principal.getName(), videoNo, contents, "0");
+        boolean isAdded = playService.addWatching(principal.getName(), videoNo, contents, "0");
         if(isAdded) {
             logger.info("'" + principal.getName() + "'님 " + contents.getContentsName() + " " + video.getVideoName() + " 시작");
         }
