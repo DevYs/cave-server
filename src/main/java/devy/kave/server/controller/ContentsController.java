@@ -3,7 +3,7 @@ package devy.kave.server.controller;
 import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.model.Deck;
 import devy.kave.server.db.model.Video;
-import devy.kave.server.db.service.DeckService;
+import devy.kave.server.db.service.ContentsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +22,13 @@ public class ContentsController {
     private final Logger logger = LoggerFactory.getLogger(ContentsController.class);
 
     @Autowired
-    private DeckService deckService;
+    private ContentsService contentsService;
 
     @GetMapping("/contents")
     public String contents(Principal principal, String contentsNo, @RequestParam(value = "tab", defaultValue = "cont") String tab, Model model) {
-        Deck deck = deckService.getDeck(principal.getName(), contentsNo);
-        Collection<Video> videoList = deckService.videoList(contentsNo);
-        Contents contents = deckService.getContents(contentsNo);
+        Deck deck = contentsService.getDeck(principal.getName(), contentsNo);
+        Collection<Video> videoList = contentsService.videoList(contentsNo);
+        Contents contents = contentsService.getContents(contentsNo);
 
         boolean isDeck = deck != null;
         model.addAttribute("isDeck", isDeck);
@@ -42,7 +42,7 @@ public class ContentsController {
 
     @GetMapping("/contents/deck/remove")
     public String remove(Principal principal, String contentsNo, HttpServletRequest httpServletRequest, Model model) {
-        Deck remove = deckService.remove(principal.getName(), contentsNo);
+        Deck remove = contentsService.remove(principal.getName(), contentsNo);
         logger.info("removed " + remove.toString());
         return "redirect:" + httpServletRequest.getHeader("referer");
     }

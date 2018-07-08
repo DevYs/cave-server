@@ -2,9 +2,7 @@ package devy.kave.server.db.service;
 
 import com.sleepycat.collections.StoredSortedValueSet;
 import devy.kave.server.db.DatabaseKeyCreator;
-import devy.kave.server.db.mapper.ChannelMapper;
-import devy.kave.server.db.mapper.ContentsMapper;
-import devy.kave.server.db.mapper.VideoMapper;
+import devy.kave.server.db.mapper.*;
 import devy.kave.server.db.model.*;
 import devy.kave.server.util.Sort;
 import org.slf4j.Logger;
@@ -12,15 +10,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ContentsService {
 
     private final Logger logger = LoggerFactory.getLogger(ContentsService.class);
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private ChannelMapper channelMapper;
@@ -30,6 +28,9 @@ public class ContentsService {
 
     @Autowired
     private VideoMapper videoMapper;
+
+    @Autowired
+    private DeckMapper deckMapper;
 
     public StoredSortedValueSet<Channel> channelList() {
         return channelMapper.sortedSet();
@@ -99,5 +100,25 @@ public class ContentsService {
 
     public Collection<Video> videoList(String contentsNo) {
         return videoMapper.sortedSetByContentsNo().duplicates(new ContentsKey(contentsNo));
+    }
+
+    public Deck getDeck(String userId, String contentsNo) {
+        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
+
+        Deck deck = null;
+        try {
+            deck = (Deck) deckMapper.map().duplicates(new DeckKey(user.getUserNo(), contentsNo)).iterator().next();
+        } catch (NoSuchElementException e) {
+            logger.info("다음에 보기 목록에 없습니다. " + user.getUserNo() + ", " + contentsNo);
+            deck = null;
+        }
+
+        return deck;
+    }
+
+    public Deck remove(String userId, String videoNo) {
+        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
+        DeckKey deckKey = new DeckKey(user.getUserNo(), videoNo);
+        return deckMapper.remove(deckKey);
     }
 }
