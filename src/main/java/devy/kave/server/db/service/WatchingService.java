@@ -3,6 +3,7 @@ package devy.kave.server.db.service;
 import devy.kave.server.db.DatabaseKeyCreator;
 import devy.kave.server.db.mapper.ContentsMapper;
 import devy.kave.server.db.mapper.DeckMapper;
+import devy.kave.server.db.mapper.UserMapper;
 import devy.kave.server.db.mapper.WatchingMapper;
 import devy.kave.server.db.model.*;
 import org.slf4j.Logger;
@@ -18,6 +19,9 @@ import java.util.NoSuchElementException;
 public class WatchingService {
 
     private final Logger logger = LoggerFactory.getLogger(WatchingService.class);
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private WatchingMapper watchingMapper;
@@ -38,18 +42,26 @@ public class WatchingService {
         return watching;
     }
 
-    public boolean add(String userNo, Video video, Contents watchingContents) {
-        Watching newWatching = new Watching(userNo, video.getVideoNo(), watchingContents, video);
+    public boolean add(String userNo, Video video, Contents watchingContents, String watchingTime) {
+        Watching watching = getWatching(userNo, video.getVideoNo());
+
+        if(watching != null) {
+            watching.setWatchingTime(watchingTime);
+            Watching modifiedWatching = (Watching) watchingMapper.map().replace(watching.getWatchingKey(), watching);
+            return modifiedWatching.equals(watchingTime);
+        }
+
+        Watching newWatching = new Watching(userNo, video.getVideoNo(), watchingContents, video, "0");
         return watchingMapper.add(newWatching);
+    }
+
+    public boolean add(String userNo, Video video, Contents watchingContents) {
+        return add(userNo, video, watchingContents, "0");
     }
 
     public Watching remove(String userNo, String videoNo) {
         WatchingKey watchingKey = new WatchingKey(userNo, videoNo);
         return watchingMapper.remove(watchingKey);
-    }
-
-    public Collection<Watching> watchingList(String userNo) {
-        return watchingMapper.sortedMapByUserNo().duplicates(new UserKey(userNo));
     }
 
 }

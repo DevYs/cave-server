@@ -26,6 +26,9 @@ public class IndexController {
     private final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
+    private IndexService indexService;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -47,10 +50,9 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(Principal principal, Model model) {
-        User user = userService.getUserByUserId(principal.getName());
-        List<Contents> newContentList = contentsService.newContents();
-        Collection<Watching> watchingList = watchingService.watchingList(user.getUserNo());
-        Collection<Deck> deckList = deckService.deckList(user.getUserNo());
+        List<Contents> newContentList = indexService.newContents();
+        Collection<Watching> watchingList = indexService.watchingList(principal.getName());
+        Collection<Deck> deckList = indexService.deckList(principal.getName());
 
         model.addAttribute("deckList", deckList);
         model.addAttribute("deckSize", deckList.size());
@@ -64,12 +66,11 @@ public class IndexController {
 
     @GetMapping("/remove/watching")
     public String removeWatching(Principal principal, String videoNo) {
-        User user = userService.getUserByUserId(principal.getName());
-        Watching remove = watchingService.remove(user.getUserNo(), videoNo);
+        Watching remove = indexService.remove(principal.getName(), videoNo);
         if(remove != null) {
             logger.info("removed " + remove.toString());
         } else {
-            logger.info("not removed Watching " + user.getUserName() + ", " + user.getUserNo() + ", " + videoNo);
+            logger.info("not removed Watching " + principal.getName() + ", " + videoNo);
         }
         return "redirect:/index";
     }

@@ -53,10 +53,6 @@ public class DeckService {
         return deckMapper.remove(deckKey);
     }
 
-    public Collection<Deck> deckList(String userNo) {
-        return deckMapper.sortedMapByUserNo().duplicates(new UserKey(userNo));
-    }
-
     public Collection<Video> videoList(String contentsNo) {
         return videoMapper.sortedSetByContentsNo().duplicates(new ContentsKey(contentsNo));
     }
