@@ -1,8 +1,6 @@
 package devy.kave.server.db.service;
 
-import devy.kave.server.db.mapper.ContentsMapper;
-import devy.kave.server.db.mapper.DeckMapper;
-import devy.kave.server.db.mapper.WatchingMapper;
+import devy.kave.server.db.mapper.*;
 import devy.kave.server.db.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,17 +16,25 @@ public class DeckService {
     private final Logger logger = LoggerFactory.getLogger(DeckService.class);
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private DeckMapper deckMapper;
 
     @Autowired
     private ContentsMapper contentsMapper;
 
-    public Deck getDeck(String userNo, String contentsNo) {
+    @Autowired
+    private VideoMapper videoMapper;
+
+    public Deck getDeck(String userId, String contentsNo) {
+        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
+
         Deck deck = null;
         try {
-            deck = (Deck) deckMapper.map().duplicates(new DeckKey(userNo, contentsNo)).iterator().next();
+            deck = (Deck) deckMapper.map().duplicates(new DeckKey(user.getUserNo(), contentsNo)).iterator().next();
         } catch (NoSuchElementException e) {
-            logger.info("다음에 보기 목록에 없습니다. " + userNo + ", " + contentsNo);
+            logger.info("다음에 보기 목록에 없습니다. " + user.getUserNo() + ", " + contentsNo);
             deck = null;
         }
 
@@ -47,6 +53,14 @@ public class DeckService {
 
     public Collection<Deck> deckList(String userNo) {
         return deckMapper.sortedMapByUserNo().duplicates(new UserKey(userNo));
+    }
+
+    public Collection<Video> videoList(String contentsNo) {
+        return videoMapper.sortedSetByContentsNo().duplicates(new ContentsKey(contentsNo));
+    }
+
+    public Contents getContents(String contentsNo) {
+        return (Contents) contentsMapper.map().duplicates(new ContentsKey(contentsNo)).iterator().next();
     }
 
 }
