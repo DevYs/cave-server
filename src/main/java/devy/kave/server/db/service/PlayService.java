@@ -55,7 +55,7 @@ public class PlayService {
     public boolean addWatching(String userId, String videoNo, Contents watchingContents, String watchingTime) {
         User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
         Video video = (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
-        Watching watching = getWatching(user.getUserNo(), video.getVideoNo());
+        Watching watching = getWatching(userId, video.getVideoNo());
 
         boolean isWatching = watching != null;
         if(isWatching) {
