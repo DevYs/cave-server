@@ -24,23 +24,6 @@ public class DeckService {
     @Autowired
     private ContentsMapper contentsMapper;
 
-    @Autowired
-    private VideoMapper videoMapper;
-
-    public Deck getDeck(String userId, String contentsNo) {
-        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
-
-        Deck deck = null;
-        try {
-            deck = (Deck) deckMapper.map().duplicates(new DeckKey(user.getUserNo(), contentsNo)).iterator().next();
-        } catch (NoSuchElementException e) {
-            logger.info("다음에 보기 목록에 없습니다. " + user.getUserNo() + ", " + contentsNo);
-            deck = null;
-        }
-
-        return deck;
-    }
-
     public boolean add(String userId, String contentsNo) {
         User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
         Contents contents = (Contents) contentsMapper.map().duplicates(new ContentsKey(contentsNo)).iterator().next();
@@ -51,10 +34,6 @@ public class DeckService {
         User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
         DeckKey deckKey = new DeckKey(user.getUserNo(), videoNo);
         return deckMapper.remove(deckKey);
-    }
-
-    public Collection<Video> videoList(String contentsNo) {
-        return videoMapper.sortedSetByContentsNo().duplicates(new ContentsKey(contentsNo));
     }
 
     public Contents getContents(String contentsNo) {
