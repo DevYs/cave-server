@@ -34,8 +34,7 @@ public class IndexService {
         List<Contents> contentsList = new ArrayList<>();
 
         Iterator iterator = contentsMapper.sortedSet().iterator();
-        int i = 1;
-        while(iterator.hasNext() && i <= 12) {
+        while(iterator.hasNext()) {
             Contents contents = (Contents) iterator.next();
             contentsList.add(contents);
         }
@@ -43,7 +42,7 @@ public class IndexService {
         // 내림차순으로 정렬
         contentsList.sort(new Sort().descending());
 
-        return contentsList;
+        return contentsList.subList(0, size);
     }
 
     public Collection<Watching> watchingList(String userId) {
