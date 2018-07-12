@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Video Cave</title>
+    <title th:text="#{common.title}">Cave</title>
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
@@ -51,13 +51,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-toggle-inverse" th:href="@{/index}">Video Cave</a>
-                <a class="navbar-brand navbar-toggle-title" data-toggle="collapse" data-target="#navbar" href="#">Video Cave</a>
+                <a class="navbar-brand navbar-toggle-inverse" th:href="@{/index}" th:text="#{common.title}">Cave</a>
+                <a class="navbar-brand navbar-toggle-title" data-toggle="collapse" data-target="#navbar" href="#" th:text="#{common.title}">Cave</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/index')}? 'active'"><a th:href="@{~/index}" th:text="#{default.home}"></a></li>
-                    <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/config')}? 'active'"><a th:href="@{~/config}" th:text="#{default.config}">설정</a></li>
+                    <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/config')}? 'active'"><a th:href="@{~/config/password/mod}" th:text="#{default.config}">설정</a></li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')" th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/admin')}? 'active'"><a th:href="@{~/admin}" th:text="#{default.admin}">관리</a></li>
                     <li><a th:href="@{~/logout}" th:text="#{default.logout}">로그아웃</a></li>
                 </ul>
@@ -73,7 +73,7 @@
 
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
                 <div class="list-group">
-                    <a th:href="@{~/config}" class="list-group-item">비밀번호변경</a>
+                    <a th:href="@{~/config/password/mod}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/config/password')}? 'active'" th:text="#{config.password.title}">비밀번호 변경</a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->
@@ -81,7 +81,7 @@
         <hr>
 
         <footer>
-            <p>&copy; Created by DevY</p>
+            <p th:utext="#{common.footer}">&copy; Created by DevY</p>
         </footer>
 
     </div><!--/.container-->
