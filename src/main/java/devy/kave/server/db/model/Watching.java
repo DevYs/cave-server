@@ -19,14 +19,18 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
 
     private transient String userNo;
     private transient String videoNo;
+    private String contentsNo;
     private Contents contents;
     private Video video;
+    private String watchingTime;
 
-    public Watching(String userNo, String videoNo, Contents contents, Video video) {
+    public Watching(String userNo, String videoNo, String contentsNo, Contents contents, Video video, String watchingTime) {
         this.userNo = userNo;
         this.videoNo = videoNo;
+        this.contentsNo = contentsNo;
         this.contents = contents;
         this.video = video;
+        this.watchingTime = watchingTime;
     }
 
     final void setKey(String userNo, String videoNo) {
@@ -50,6 +54,14 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
         this.videoNo = videoNo;
     }
 
+    public final String getContentsNo() {
+        return contentsNo;
+    }
+
+    public void setContentsNo(String contentsNo) {
+        this.contentsNo = contentsNo;
+    }
+
     public final Contents getContents() {
         return contents;
     }
@@ -66,12 +78,16 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
         this.video = video;
     }
 
-    public WatchingKey getWatchingKey() {
-        return new WatchingKey(this.userNo, this.videoNo);
+    public String getWatchingTime() {
+        return watchingTime;
     }
 
-    public DeckKey getDeckKey() {
-        return new DeckKey(this.userNo, this.videoNo);
+    public void setWatchingTime(String watchingTime) {
+        this.watchingTime = watchingTime;
+    }
+
+    public WatchingKey getWatchingKey() {
+        return new WatchingKey(this.userNo, this.videoNo);
     }
 
     @Override
@@ -79,6 +95,8 @@ public class Watching implements Serializable, MarshalledTupleKeyEntity {
         return "Watching{" +
                 "userNo=" + userNo +
                 ", videoNo=" + videoNo +
+                ", contentsNo=" + contentsNo +
+                ", watchingTime=" + watchingTime +
                 ", contents=" + contents +
                 ", video=" + video +
                 '}';
