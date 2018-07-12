@@ -58,6 +58,11 @@ public class UserService implements UserDetailsService {
         return new UserInfo(user, authorities);
     }
 
+    public User isValidPasswordAndUser(String userId, String inputPassword) {
+        User user = getUserByUserId(userId);
+        return passwordEncoder.matches(inputPassword, user.getPassword()) ? user : null;
+    }
+
     public User getUserByUserId(String userId) {
         return (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
     }

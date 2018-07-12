@@ -73,7 +73,7 @@
 
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
                 <div class="list-group">
-                    <a th:href="@{~/config/password/mod}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/config/password')}? 'active'" th:text="#{config.password.title}">비밀번호 변경</a>
+                    <a th:href="@{~/config/password/change}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/config/password')}? 'active'" th:text="#{config.password.title}">비밀번호 변경</a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->
