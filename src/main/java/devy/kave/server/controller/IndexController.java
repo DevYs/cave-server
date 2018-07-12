@@ -51,8 +51,8 @@ public class IndexController {
     @GetMapping("/index")
     public String index(Principal principal, Model model) {
         List<Contents> newContentList = indexService.newContents();
-        Collection<Watching> watchingList = indexService.watchingList(principal.getName());
-        Collection<Deck> deckList = indexService.deckList(principal.getName());
+        List<Watching> watchingList = indexService.watchingList(principal.getName());
+        List<Deck> deckList = indexService.deckList(principal.getName());
 
         model.addAttribute("deckList", deckList);
         model.addAttribute("deckSize", deckList.size());

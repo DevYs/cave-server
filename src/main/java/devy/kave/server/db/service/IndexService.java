@@ -1,9 +1,6 @@
 package devy.kave.server.db.service;
 
-import devy.kave.server.db.mapper.ContentsMapper;
-import devy.kave.server.db.mapper.DeckMapper;
-import devy.kave.server.db.mapper.UserMapper;
-import devy.kave.server.db.mapper.WatchingMapper;
+import devy.kave.server.db.mapper.*;
 import devy.kave.server.db.model.*;
 import devy.kave.server.util.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,9 @@ public class IndexService {
     @Autowired
     private DeckMapper deckMapper;
 
+    @Autowired
+    private VideoMapper videoMapper;
+
     public List<Contents> newContents() {
         int size = 12;
         List<Contents> contentsList = new ArrayList<>();
@@ -46,17 +46,35 @@ public class IndexService {
             return contentsList;
         }
 
+        if(contentsList.size() < size) {
+            size = contentsList.size();
+        }
+
         return contentsList.subList(0, size);
     }
 
-    public Collection<Watching> watchingList(String userId) {
+    public List<Watching> watchingList(String userId) {
+        List<Watching> watchingList = new ArrayList<>();
         User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
-        return watchingMapper.sortedMapByUserNo().duplicates(new UserKey(user.getUserNo()));
+        Collection<Watching> watchingCollection = watchingMapper.sortedMapByUserNo().duplicates(new UserKey(user.getUserNo()));
+        for(Watching watching : watchingCollection) {
+            Video video = (Video) videoMapper.map().duplicates(new VideoKey(watching.getVideoNo())).iterator().next();
+            watching.setVideo(video);
+            watchingList.add(watching);
+        }
+        return watchingList;
     }
 
-    public Collection<Deck> deckList(String userId) {
+    public List<Deck> deckList(String userId) {
+        List<Deck> deckList = new ArrayList<>();
         User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
-        return deckMapper.sortedMapByUserNo().duplicates(new UserKey(user.getUserNo()));
+        Collection<Deck> deckCollection = deckMapper.sortedMapByUserNo().duplicates(new UserKey(user.getUserNo()));
+        for(Deck deck : deckCollection) {
+            Contents contents = (Contents) contentsMapper.map().duplicates(new ContentsKey(deck.getContentsNo())).iterator().next();
+            deck.setContents(contents);
+            deckList.add(deck);
+        }
+        return deckList;
     }
 
     public Watching remove(String userId, String videoNo) {
