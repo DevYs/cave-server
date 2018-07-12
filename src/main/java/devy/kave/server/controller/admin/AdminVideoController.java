@@ -67,9 +67,9 @@ public class AdminVideoController {
     @GetMapping("/admin/contents/video/mod")
     public String mod(Video video, Model model) {
 
-        Video storedVideo = null;
+        Video storedVideo = videoService.getVideo(video.getVideoNo());
         try {
-            storedVideo = videoService.getVideo(video.getVideoNo());
+            storedVideo.parseShareLink();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,9 +82,9 @@ public class AdminVideoController {
     @PostMapping("/admin/contents/video/mod")
     public String mod(@Valid Video video, BindingResult bindingResult, @RequestParam("subtitleFile") MultipartFile subtitleFile, Model model) {
 
-        Video storedVideo = null;
+        Video storedVideo = videoService.getVideo(video.getVideoNo());
         try {
-            storedVideo = videoService.getVideo(video.getVideoNo());
+            storedVideo.parseShareLink();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,9 +121,9 @@ public class AdminVideoController {
 
     @GetMapping("/subtitle")
     public void subtitle(String videoNo, HttpServletResponse response) {
-        Video video = null;
+        Video video = videoService.getVideo(videoNo);
         try {
-            video = videoService.getVideo(videoNo);
+            video.parseShareLink();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -152,15 +152,7 @@ public class AdminVideoController {
 
     @GetMapping("/admin/contents/video/remove")
     public String remove(String videoNo, Model model) {
-        Video video = null;
-
-        try {
-            video = videoService.getVideo(videoNo);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        model.addAttribute("video", video);
+        model.addAttribute("video", videoService.getVideo(videoNo));
         return "admin/video-remove";
     }
 

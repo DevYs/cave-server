@@ -3,10 +3,13 @@ package devy.kave.server.db.model;
 import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
+import devy.kave.server.google.photo.ShareLink;
+import devy.kave.server.google.photo.ShareLinkParser;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Video implements Serializable, MarshalledTupleKeyEntity {
@@ -134,6 +137,12 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     public void setContents(Contents contents) {
         this.contents = contents;
+    }
+
+    public void parseShareLink() throws IOException {
+        ShareLink shareLink = ShareLinkParser.parse(this.shareLinkUrl);
+        this.videoUrl = shareLink.getOgVideo();
+        this.image = shareLink.getOgImage();
     }
 
     @Override

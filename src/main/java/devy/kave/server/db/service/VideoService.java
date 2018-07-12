@@ -40,14 +40,8 @@ public class VideoService {
         return videoMapper.remove(new VideoKey(videoNo));
     }
 
-    public Video getVideo(String videoNo) throws IOException {
-        Video video = (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
-        String shareLinkUrl = video.getShareLinkUrl();
-
-        ShareLink shareLink = ShareLinkParser.parse(shareLinkUrl);
-        video.setVideoUrl(shareLink.getOgVideo());
-        video.setImage(shareLink.getOgImage());
-        return video;
+    public Video getVideo(String videoNo) {
+        return (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
     }
 
     public Contents getContents(String contentsNo) {
