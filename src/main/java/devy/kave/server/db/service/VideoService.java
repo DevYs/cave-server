@@ -46,7 +46,7 @@ public class VideoService {
 
         ShareLink shareLink = ShareLinkParser.parse(shareLinkUrl);
         video.setVideoUrl(shareLink.getOgVideo());
-        video.setVideoPosterUrl(shareLink.getOgImage());
+        video.setImage(shareLink.getOgImage());
         return video;
     }
 
