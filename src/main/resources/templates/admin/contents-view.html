@@ -12,14 +12,14 @@
 
         <div class="row">
             <div class="col-md-3 col-xs-5">
-                <img class="cont-img col-xs-12 img-responsive" th:src="${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contents.contentsName})}" />
+                <img class="cont-img col-xs-12 img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contents.contentsName})}" />
             </div>
             <div class="col-md-9 col-xs-7">
                 <h3 th:text="#{common.contents.title.release(${contents.contentsName}, ${contents.releaseDate})}"></h3>
                 <ul class="cont-info col-xs-12">
                     <li th:text="${contents.genre}">장르</li>
                     <li th:text="${contents.nation}">국가</li>
-                    <li th:text="${contents.releaseDate} + ' 개봉'">개봉일</li>
+                    <li th:text="${contents.releaseDate}">개봉일</li>
                     <li th:text="${contents.runningTime}">상영시간</li>
                     <li th:text="#{admin.contents.director.list(${contents.director})}">감독</li>
                     <li th:text="#{admin.contents.actor.list(${contents.actor})}">주연</li>
