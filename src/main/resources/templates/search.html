@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{default}">
 <head>
-    <title>검색</title>
+    <title th:text="#{search.search}">검색</title>
     <script th:src="@{~/js/search.js}"></script>
 </head>
 
@@ -13,15 +13,15 @@
     <div id="contentsList" class="row">
         <div th:each="contents : ${contentsList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
             <a th:href="@{~/contents(contentsNo=${contents.contentsNo})}">
-                <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="${contents.contentsName} + ' 포스터 이미지'" />
+                <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contents.contentsName})}" />
             </a>
             <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${contents.contentsNo})}" th:text="${contents.contentsName}">콘텐츠명</a>
             <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${contents.contentsNo})}" th:text="${contents.releaseDate}">개봉일</a>
         </div>
-        <p th:if="${#strings.equals(contentsSize, '0')}" class="idx-lst-empt-msg">검색된 콘텐츠가 없습니다.</p>
+        <p th:if="${#strings.equals(contentsSize, '0')}" class="idx-lst-empt-msg" th:text="#{search.empty.result}">검색된 콘텐츠가 없습니다.</p>
     </div>
 
-    <button th:if="${!#strings.equals(contentsSize, '0')}" id="next" class="col-xs-12 btn btn-info"><span class="caret"></span>&nbsp;&nbsp;다음페이지</button>
+    <button th:if="${!#strings.equals(contentsSize, '0')}" id="next" class="col-xs-12 btn btn-info"><span class="caret"></span>&nbsp;&nbsp;<span th:text="#{common.next.page}">다음페이지</span></button>
 </div>
 </body>
 </html>

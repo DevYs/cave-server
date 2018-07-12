@@ -3,23 +3,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{default}">
 <head>
-    <title>나중에보기 관리</title>
+    <title th:text="#{deck.remove.title}">나중에보기 삭제</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
-        <h3 class="idx-h3 idx-h3-frst">나중에보기 삭제</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{deck.remove.title}">나중에보기 삭제</h3>
 
         <div class="row">
             <div class="col-xs-12">
-                <p>[[${userName}]]님이 감상중이던 [[${deckContents.contentsName}]]을/를 나중에보기 목록에서 삭제합니다.</p>
+                <p th:text="#{deck.remove.msg(${userName}, ${deckContents.contentsName})}">나중에 보기 삭제 메세지</p>
 
                 <form th:action="@{~/deck/remove}" method="post">
                     <input type="hidden" name="contentsNo" th:value="${deckContents.contentsNo}" />
 
                     <div class="text-right">
-                        <button type="submit" class="btn btn-danger">삭제</button>
-                        <a th:href="${referer}" type="submit" class="btn btn-warning" role="button">취소</a>
+                        <button type="submit" class="btn btn-danger" th:text="#{common.remove}">삭제</button>
+                        <a th:href="${referer}" type="submit" class="btn btn-warning" role="button" th:text="#{common.cancel}">취소</a>
                     </div>
                 </form>
             </div>

@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Video Cave</title>
+    <title th:text="#{default.title}">Cave</title>
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
@@ -51,8 +51,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-toggle-inverse" th:href="@{/index}">Video Cave</a>
-                <a class="navbar-brand navbar-toggle-title" data-toggle="collapse" data-target="#navbar" href="#">Video Cave</a>
+                <a class="navbar-brand navbar-toggle-inverse" th:href="@{/index}" th:text="#{default.title}">Cave</a>
+                <a class="navbar-brand navbar-toggle-title" data-toggle="collapse" data-target="#navbar" href="#" th:text="#{default.title}">Cave</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
@@ -76,12 +76,12 @@
                     <span class="input-group-btn">
                         <button type="submit" class="btn" th:text="#{default.srchBtTxt}">검색</button>
                     </span>
-                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${param.searchWord == null ? '' : param.searchWord}" th:placeholder="(${searchChannel} == null) ? #{search.fromAll} : ${searchChannel.channelName} + '에서...'" />
+                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${param.searchWord == null ? '' : param.searchWord}" th:placeholder="(${searchChannel} == null) ? #{search.fromAll} : #{search.from(${searchChannel.channelName})}" />
                 </form>
 
                 <div class="list-group">
-                    <a th:href="@{/search(channelNo=0, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, '0') or #strings.equals(param.channelNo, null)}? 'active'">[[#{search.all}]]</a>
-                    <a th:each="channel : ${channels}" th:text="${channel.channelName}" th:href="@{~/search(channelNo=${channel.channelNo}, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, channel.channelNo)}? 'active'"></a>
+                    <a th:href="@{/search(channelNo=0, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, '0') or #strings.equals(param.channelNo, null)}? 'active'" th:text="#{search.all}">전체</a>
+                    <a th:each="channel : ${channels}" th:href="@{~/search(channelNo=${channel.channelNo}, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, channel.channelNo)}? 'active'" th:text="${channel.channelName}">채널명</a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->

@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{default}">
 <head>
-    <title>콘텐츠 보기</title>
+    <title th:text="#{play.title(${watching.contents.contentsName}, ${watching.video.videoName})}"></title>
     <script th:src="@{~/js/play.js}"></script>
 </head>
 
@@ -23,16 +23,16 @@
             </div>
         </div>
 
-        <a th:if="${isWatching}" th:href="@{~/watching/remove(videoNo=${watching.videoNo})}" type="button" class="btn btn-warning rev-watching-btn">이미 감상한 콘텐츠입니다.</a>
+        <a th:if="${isWatching}" th:href="@{~/watching/remove(videoNo=${watching.videoNo})}" type="button" class="btn btn-warning rev-watching-btn" th:text="#{common.already.watched}">이미 감상한 콘텐츠입니다.</a>
 
         <h4 class="idx-h3" th:text="#{play.contents.list}">관련 콘텐츠</h4>
 
         <div class="row">
             <ul class="cont-video">
                 <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <p th:if="${watching.videoNo == video.videoNo}" class="b-icon">감상중</p>
+                    <p th:if="${watching.videoNo == video.videoNo}" class="b-icon" th:text="#{common.watching}">감상중</p>
                     <a th:href="@{~/play(videoNo=${video.videoNo})}">
-                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="${watching.contents.contentsName} + ' ' + ${video.videoName} + ' 포스터 이미지'" />
+                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="#{common.contents.video.poster(${watching.contents.contentsName}, ${video.videoName})}" />
                     </a>
                     <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${video.videoNo})}" th:text="${video.videoName}">영상이름</a>
                 </li>

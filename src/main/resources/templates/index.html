@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{default}">
 <head>
-    <title>Video Cave</title>
+    <title th:text="#{index.title}">Cave</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
 
             <div th:if="0 < ${newContentsSize}" th:each="newContents : ${newContentsList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
                 <a th:href="@{~/contents(contentsNo=${newContents.contentsNo})}">
-                    <img class="img-responsive" th:src="${#strings.equals(newContents.contentsPosterUrl, '')} ? '/img/empty.png' : ${newContents.contentsPosterUrl}" th:alt="${newContents.contentsName} + ' 포스터 이미지'" />
+                    <img class="img-responsive" th:src="${#strings.equals(newContents.contentsPosterUrl, '')} ? '/img/empty.png' : ${newContents.contentsPosterUrl}" th:alt="#{common.contents.poster(${newContents.contentsName})}" />
                 </a>
                 <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${newContents.contentsNo})}" th:text="${newContents.contentsName}">콘텐츠명</a>
                 <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${newContents.contentsNo})}" th:text="${newContents.releaseDate}">개봉일</a>
@@ -32,7 +32,7 @@
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
                 <a th:href="@{~/play(videoNo=${watching.videoNo})}">
-                    <img class="img-responsive" th:src="${#strings.equals(watching.video.videoPosterUrl, '')} ? '/img/empty.png' : ${watching.video.videoPosterUrl}" th:alt="${watching.video.videoName} + ' 포스터 이미지'" />
+                    <img class="img-responsive" th:src="${#strings.equals(watching.video.videoPosterUrl, '')} ? '/img/empty.png' : ${watching.video.videoPosterUrl}" th:alt="#{common.contents.video.poster(${watching.contents.contentsName}, ${watching.video.videoName})}" />
                 </a>
                 <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${watching.videoNo})}" th:text="${watching.contents.contentsName}">콘텐츠명</a>
                 <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${watching.videoNo})}" th:text="${watching.video.videoName}">영상명</a>
@@ -48,7 +48,7 @@
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
                 <a th:href="@{~/contents(contentsNo=${deck.contentsNo})}">
-                    <img class="img-responsive" th:src="${#strings.equals(deck.contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${deck.contents.contentsPosterUrl}" th:alt="${deck.contents.contentsName} + ' 포스터 이미지'" />
+                    <img class="img-responsive" th:src="${#strings.equals(deck.contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${deck.contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${deck.contents.contentsName})}" />
                 </a>
                 <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${deck.contentsNo})}" th:text="${deck.contents.contentsName}">콘텐츠명</a>
                 <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${deck.contentsNo})}" th:text="${deck.contents.releaseDate}">상영일</a>

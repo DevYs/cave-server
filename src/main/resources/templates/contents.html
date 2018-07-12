@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{default}">
 <head>
-    <title>콘텐츠</title>
+    <title th:text="#{contents.title(${contents.contentsName})}">콘텐츠명</title>
 </head>
 
 <body>
@@ -11,14 +11,14 @@
 
         <div class="row">
             <div class="col-md-3 col-xs-5">
-                <img class="cont-img col-xs-12 img-responsive" th:src="${contents.contentsPosterUrl}" th:alt="${contentsName} + ' 포스터 이미지'" />
+                <img class="cont-img col-xs-12 img-responsive" th:src="${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contentsName})}" />
             </div>
             <div class="col-md-9 col-xs-7">
-                <h3 class="idx-h3 idx-h3-frst" th:text="${contents.contentsName} + ' (' + ${contents.releaseDate} + ')'">콘텐츠명 (개봉일)</h3>
+                <h3 class="idx-h3 idx-h3-frst" th:text="#{contents.title.release(${contents.contentsName}, ${contents.releaseDate})}">콘텐츠명 (개봉일)</h3>
                 <ul class="cont-info col-xs-12">
                     <li>
-                        <a th:if="!${isDeck}" th:href="@{~/deck/add(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-success">나중에 감상하고 싶습니다.</a>
-                        <a th:if="${isDeck}" th:href="@{~/contents/deck/remove/(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-warning">이미 본 콘텐츠입니다.</a>
+                        <a th:if="!${isDeck}" th:href="@{~/deck/add(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-success" th:text="#{common.keep.deck}">나중에 감상하고 싶습니다.</a>
+                        <a th:if="${isDeck}" th:href="@{~/contents/deck/remove/(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-warning" th:text="#{common.already.watched}">이미 감상한 콘텐츠입니다.</a>
                     </li>
                     <li th:text="${contents.genre}">장르</li>
                     <li th:text="${contents.nation}">국가</li>
@@ -42,11 +42,11 @@
         <div class="row">
             <ul class="cont-video" th:if="${#strings.equals(tab, 'cont')}">
 
-                <p class="idx-lst-empt-msg" th:if="${videoSize} == 0">추가된 영상이 없습니다.</p>
+                <p class="idx-lst-empt-msg" th:if="${videoSize} == 0" th:text="#{contents.empty.video}">추가된 영상이 없습니다.</p>
 
                 <li th:if="0 < ${videoSize}" th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                     <a th:href="@{~/play(videoNo=${video.videoNo})}">
-                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="${video.videoName} + ' 포스터 이미지'" />
+                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="#{common.contents.poster(${video.videoName})}" />
                     </a>
                     <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${video.videoNo})}" th:text="${video.videoName}"></a>
                 </li>

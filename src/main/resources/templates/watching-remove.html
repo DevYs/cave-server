@@ -3,23 +3,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{default}">
 <head>
-    <title>채널관리</title>
+    <title th:text="#{watching.remove.title}">감상중인 콘텐츠 삭제</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
-        <h3 class="idx-h3 idx-h3-frst">감상중인 콘텐츠 삭제</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{watching.remove.title}">감상중인 콘텐츠 삭제</h3>
 
         <div class="row">
             <div class="col-xs-12">
-                <p>[[${userName}]]님이 감상중이던 [[${watchingContents.contentsName}]] [[${watchingVideo.videoName}]]을/를 감상중인 목록에서 삭제합니다.</p>
+                <p th:text="#{watching.remove.msg(${userName}, ${watchingContents.contentsName}, ${watchingVideo.videoName})}">삭제 메세지</p>
 
                 <form th:action="@{~/watching/remove}" method="post">
                     <input type="hidden" name="videoNo" th:value="${watchingVideo.videoNo}" />
 
                     <div class="text-right">
-                        <button type="submit" class="btn btn-danger">삭제</button>
-                        <a th:href="${refer}" type="submit" class="btn btn-warning" role="button">취소</a>
+                        <button type="submit" class="btn btn-danger" th:text="#{common.remove}">삭제</button>
+                        <a th:href="${refer}" type="submit" class="btn btn-warning" role="button" th:text="#{common.cancel}">취소</a>
                     </div>
                 </form>
             </div>
