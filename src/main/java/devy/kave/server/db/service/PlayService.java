@@ -5,11 +5,14 @@ import devy.kave.server.db.mapper.UserMapper;
 import devy.kave.server.db.mapper.VideoMapper;
 import devy.kave.server.db.mapper.WatchingMapper;
 import devy.kave.server.db.model.*;
+import devy.kave.server.google.photo.ShareLink;
+import devy.kave.server.google.photo.ShareLinkParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
@@ -31,20 +34,19 @@ public class PlayService {
     private ContentsMapper contentsMapper;
 
     public Video getVideo(String videoNo) {
-        return (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
-    }
 
-    public boolean isWatching(String userId, String videoNo) {
-        return getWatching(userId, videoNo) != null;
+        return (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
     }
 
     public Watching getWatching(String userId, String videoNo) {
         User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
+        Video video = (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
 
         Watching watching;
         try {
             WatchingKey watchingKey = new WatchingKey(user.getUserNo(), videoNo);
             watching = (Watching) watchingMapper.sortedMap().duplicates(watchingKey).iterator().next();
+            watching.setVideo(video);
         } catch (NoSuchElementException e) {
             watching = null;
         }
@@ -52,20 +54,27 @@ public class PlayService {
         return watching;
     }
 
-    public boolean addWatching(String userId, String videoNo, Contents watchingContents, String watchingTime) {
-        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
-        Video video = (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
-        Watching watching = getWatching(userId, video.getVideoNo());
-
+    public Watching addWatching(String userId, String videoNo, String watchingTime) {
+        Watching watching = getWatching(userId, videoNo);
         boolean isWatching = watching != null;
+
         if(isWatching) {
             watching.setWatchingTime(watchingTime);
             Watching modifiedWatching = (Watching) watchingMapper.map().replace(watching.getWatchingKey(), watching);
-            return modifiedWatching.equals(watchingTime);
+            return modifiedWatching;
         }
 
-        Watching newWatching = new Watching(user.getUserNo(), video.getVideoNo(), watchingContents, video, "0");
-        return watchingMapper.add(newWatching);
+        Video video = (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
+        User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
+        Contents watchingContents = (Contents) contentsMapper.map().duplicates(new ContentsKey(video.getContentsNo())).iterator().next();
+        Watching newWatching = new Watching(user.getUserNo(), video.getVideoNo(), watchingContents.getContentsNo(), watchingContents, video, "0");
+
+        boolean isAdded = watchingMapper.add(newWatching);
+        if(isAdded) {
+            return newWatching;
+        }
+
+        return null;
     }
 
     public Contents getContents(String contentsNo) {
