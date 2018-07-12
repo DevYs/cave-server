@@ -11,9 +11,7 @@
         <h3 class="idx-h3 idx-h3-frst">콘텐츠 '[[${storedVideo.contents.contentsName}]]'의 영상 '[[${storedVideo.videoName}]]' 정보 변경</h3>
 
         <div class="row">
-            <div class="col-xs-3">
-                <img class="img-responsive" th:src="${video.videoPosterUrl}" th:alt="${storedVideo.videoName} + '포스터 이미지'" />
-            </div>
+                <img class="col-xs-3 img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="${storedVideo.videoName} + ' 포스터 이미지'" />
             <div class="col-xs-9">
                 <div id="embed" class="embed-responsive embed-responsive-16by9">
                     <video id="player" controls="controls" autoplay="autoplay" class="embed-responsive-item">

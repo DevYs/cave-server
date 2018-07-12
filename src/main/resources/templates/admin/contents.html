@@ -49,7 +49,7 @@
 
                     <div th:each="contents : ${contentsList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                         <a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}">
-                            <img class="img-responsive" th:src="${contents.contentsPosterUrl}" th:alt="${contents.contentsName} + '포스터 이미지'" />
+                            <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="${contents.contentsName} + '포스터 이미지'" />
                         </a>
                         <a class="idx-thumb-tl" th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" th:text="${contents.contentsName}"></a>
                         <a class="idx-thumb-tl" th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" th:text="${contents.releaseDate}"></a>

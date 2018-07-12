@@ -32,7 +32,7 @@
                 <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                     <p th:if="${watching.videoNo == video.videoNo}" class="b-icon">감상중</p>
                     <a th:href="@{~/play(videoNo=${video.videoNo})}">
-                        <img class="img-responsive" th:src="${video.videoPosterUrl}" th:alt="${watching.contents.contentsName} + ' ' + ${video.videoName} + ' 포스터 이미지'" />
+                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="${watching.contents.contentsName} + ' ' + ${video.videoName} + ' 포스터 이미지'" />
                     </a>
                     <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${video.videoNo})}" th:text="${video.videoName}">영상이름</a>
                 </li>

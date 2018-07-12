@@ -13,7 +13,7 @@
     <div id="contentsList" class="row">
         <div th:each="contents : ${contentsList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
             <a th:href="@{~/contents(contentsNo=${contents.contentsNo})}">
-                <img th:src="${contents.contentsPosterUrl}" class="img-responsive" th:alt="${contents.contentsName} + ' 포스터 이미지'" />
+                <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="${contents.contentsName} + ' 포스터 이미지'" />
             </a>
             <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${contents.contentsNo})}" th:text="${contents.contentsName}">콘텐츠명</a>
             <a class="idx-thumb-tl" th:href="@{~/contents(contentsNo=${contents.contentsNo})}" th:text="${contents.releaseDate}">개봉일</a>

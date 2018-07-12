@@ -54,7 +54,7 @@
 
                 <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                     <a th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}">
-                        <img class="img-responsive" th:src="${video.videoPosterUrl}" />
+                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="${contents.contentsName} + ' ' + ${video.videoName} + '포스터 이미지'" />
                     </a>
                     <a class="idx-thumb-tl" th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}" th:text="${video.videoName}"></a>
                 </li>
