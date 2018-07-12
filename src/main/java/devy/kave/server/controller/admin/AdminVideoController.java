@@ -66,7 +66,6 @@ public class AdminVideoController {
 
     @GetMapping("/admin/contents/video/mod")
     public String mod(Video video, Model model) {
-
         Video storedVideo = videoService.getVideo(video.getVideoNo());
         try {
             storedVideo.parseShareLink();
@@ -81,13 +80,7 @@ public class AdminVideoController {
 
     @PostMapping("/admin/contents/video/mod")
     public String mod(@Valid Video video, BindingResult bindingResult, @RequestParam("subtitleFile") MultipartFile subtitleFile, Model model) {
-
         Video storedVideo = videoService.getVideo(video.getVideoNo());
-        try {
-            storedVideo.parseShareLink();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         boolean errProcSubtitle = false;
         if(!subtitleFile.isEmpty()) {
