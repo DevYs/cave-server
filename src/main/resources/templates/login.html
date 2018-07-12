@@ -1,21 +1,57 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Spring Security Example </title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{~/css/bootstrap.min.css}" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{~/css/signin.css}" rel="stylesheet" />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script th:src="@{~/js/default/ie8-responsive-file-warning.js}"></script><![endif]-->
+    <script th:src="@{~/js/default/ie-emulation-modes-warning.js}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script th:src="@{~/js/default/html5shiv-3.7.2.min.js}"></script>
+    <script th:src="@{~/js/default/respond-1.4.2.min.js}"></script>
+    <![endif]-->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script th:src="@{~/js/default/ie10-viewport-bug-workaround.js}"></script>
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    1234
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+
+    <div class="container">
+
+        <form th:action="@{~/login}" method="post" class="form-signin">
+
+            <h2 class="form-signin-heading" th:text="#{login.title}">Cave 로그인</h2>
+
+            <label for="username" class="sr-only" th:text="#{login.username}">사용자 아이디</label>
+            <input type="text" id="username" name="username" class="form-control" th:placeholder="#{login.username.msg}" required="required" autofocus="autofocus" />
+
+            <label for="password" class="sr-only" th:text="#{login.password}">비밀번호</label>
+            <input type="password" id="password" name="password" class="form-control" th:placeholder="#{login.password.msg}" required="required" />
+
+            <div th:if="${param.error}" th:text="#{login.error.invalid.idpw}">사용자 아이디 또는 비밀번호가 유효하지 않습니다.</div>
+            <div th:if="${param.logout}" th:text="#{login.error.loggedout}">로그아웃 되었습니다.</div>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login}">로그인</button>
+        </form>
+
+    </div> <!-- /container -->
+
 </body>
 </html>
