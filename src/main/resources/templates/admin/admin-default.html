@@ -10,7 +10,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Video Cave</title>
+    <title th:text="#{admin.default.title}">Cave 관리</title>
 
     <!-- Bootstrap core CSS -->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
@@ -51,12 +51,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand navbar-toggle-inverse" th:href="@{/index}">Video Cave</a>
-                <a class="navbar-brand navbar-toggle-title" data-toggle="collapse" data-target="#navbar" href="#">Video Cave</a>
+                <a class="navbar-brand navbar-toggle-inverse" th:href="@{/index}" th:text="#{common.title}">Cave</a>
+                <a class="navbar-brand navbar-toggle-title" data-toggle="collapse" data-target="#navbar" href="#" th:text="#{common.title}">Cave</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/index')}? 'active'"><a th:href="@{~/index}" th:text="#{default.home}"></a></li>
+                    <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/index')}? 'active'"><a th:href="@{~/index}" th:text="#{default.home}">홈</a></li>
                     <li th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/config')}? 'active'"><a th:href="@{~/config}" th:text="#{default.config}">설정</a></li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')" th:class="${#strings.startsWith(#httpServletRequest.requestURI, '/admin')}? 'active'"><a th:href="@{~/admin}" th:text="#{default.admin}">관리</a></li>
                     <li><a th:href="@{~/logout}" th:text="#{default.logout}">로그아웃</a></li>
@@ -73,9 +73,9 @@
 
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
                 <div class="list-group">
-                    <a th:href="@{~/admin/user}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/user')}? 'active'">사용자관리</a>
-                    <a th:href="@{~/admin/channel}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/channel')}? 'active'">채널관리</a>
-                    <a th:href="@{~/admin/contents}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/contents')}? 'active'">콘텐츠관리</a>
+                    <a th:href="@{~/admin/user}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/user')}? 'active'" th:text="#{admin.default.admin.user}">사용자관리</a>
+                    <a th:href="@{~/admin/channel}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/channel')}? 'active'" th:text="#{admin.default.admin.channel}">채널관리</a>
+                    <a th:href="@{~/admin/contents}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/contents')}? 'active'" th:text="#{admin.default.admin.contents}">콘텐츠관리</a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->
@@ -83,7 +83,7 @@
         <hr>
 
         <footer>
-            <p>&copy; Created by DevY</p>
+            <p th:text="#{common.footer}">&copy; Created by DevY</p>
         </footer>
 
     </div><!--/.container-->

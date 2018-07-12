@@ -3,40 +3,40 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>사용자관리</title>
+    <title th:text="#{admin.user.title}">사용자관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">사용자정보 등록</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.user.add.title}">사용자 정보 추가</h3>
 
         <form th:action="@{~/admin/user/add}" method="post" th:object="${user}" class="form-horizontal">
             <div class="form-group">
-                <label for="userId" class="col-sm-2 control-label">아이디</label>
+                <label for="userId" class="col-sm-2 control-label" th:text="#{admin.user.userId}">사용자 아이디</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userId" th:field="*{userId}" placeholder="아이디를 입력하세요" />
+                    <input type="text" class="form-control" id="userId" th:field="*{userId}" th:placeholder="#{admin.user.userId.msg}" />
                     <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}">아이디 오류 메세지</p>
                     <p th:if="${existUser} != null" th:text="${existUser}">아이디 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">이메일</label>
+                <label for="email" class="col-sm-2 control-label" th:text="#{admin.user.email}">이메일</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="이메일을 입력하세요" />
+                    <input type="email" class="form-control" id="email" th:field="*{email}" th:placeholder="#{admin.user.email.msg}" />
                     <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">이메일 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="userName" class="col-sm-2 control-label">사용자이름</label>
+                <label for="userName" class="col-sm-2 control-label" th:text="#{admin.user.userName}">사용자 이름</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="userName" th:field="*{userName}" placeholder="사용자이름을 입력하세요" />
+                    <input type="text" class="form-control" id="userName" th:field="*{userName}" th:placeholder="#{admin.user.userName.msg}" />
                     <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">사용자이름 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="password" class="col-sm-2 control-label">비밀번호</label>
+                <label for="password" class="col-sm-2 control-label" th:text="#{admin.user.password}">비밀번호</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="비밀번호" />
+                    <input type="password" class="form-control" id="password" th:field="*{password}" th:placeholder="#{admin.user.password.msg}" />
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">비밀번호 오류 메세지</p>
                 </div>
             </div>
@@ -44,15 +44,15 @@
                 <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" id="admin" name="admin" value="true" /> 관리자
+                            <input type="checkbox" id="admin" name="admin" value="true" /> <span th:text="#{admin.user.isAdmin}">관리자</span>
                         </label>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">등록</button>
-                    <a th:href="@{~/admin/user}" type="submit" class="btn btn-warning" role="button">취소</a>
+                    <button type="submit" class="btn btn-primary" th:text="#{common.add}">추가</button>
+                    <a th:href="@{~/admin/user}" type="submit" class="btn btn-warning" role="button" th:text="#{common.cancel}">취소</a>
                 </div>
             </div>
         </form>

@@ -3,30 +3,30 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>콘텐츠관리</title>
+    <title th:text="#{admin.contents.title}">콘텐츠관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">콘텐츠정보</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.contents.info}">콘텐츠 정보</h3>
 
         <div class="row">
             <div class="col-md-3 col-xs-5">
-                <img class="cont-img col-xs-12 img-responsive" th:src="${contents.contentsPosterUrl}" th:alt="${contents.contentsName} + '포스터 이미지'" />
+                <img class="cont-img col-xs-12 img-responsive" th:src="${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contents.contentsName})}" />
             </div>
             <div class="col-md-9 col-xs-7">
-                <h3 th:text="${contents.contentsName} + ' (' + ${contents.releaseDate} + ')'"></h3>
+                <h3 th:text="#{common.contents.title.release(${contents.contentsName}, ${contents.releaseDate})}"></h3>
                 <ul class="cont-info col-xs-12">
                     <li th:text="${contents.genre}">장르</li>
                     <li th:text="${contents.nation}">국가</li>
                     <li th:text="${contents.releaseDate} + ' 개봉'">개봉일</li>
                     <li th:text="${contents.runningTime}">상영시간</li>
-                    <li th:text="'(감독) ' + ${contents.director}">감독</li>
-                    <li th:text="'(주연) ' + ${contents.actor}">주연</li>
+                    <li th:text="#{admin.contents.director.list(${contents.director})}">감독</li>
+                    <li th:text="#{admin.contents.actor.list(${contents.actor})}">주연</li>
                     <li>
-                        <a th:href="@{~/admin/contents}" type="button" class="btn btn-primary">목록</a>
-                        <a th:href="@{~/admin/contents/mod(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-warning">변경</a>
-                        <a th:href="@{~/admin/contents/remove(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-danger">삭제</a>
+                        <a th:href="@{~/admin/contents}" type="button" class="btn btn-primary" th:text="#{common.list}">목록</a>
+                        <a th:href="@{~/admin/contents/mod(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-warning" th:text="#{common.modify}">수정</a>
+                        <a th:href="@{~/admin/contents/remove(contentsNo=${contents.contentsNo})}" type="button" class="btn btn-danger" th:text="#{common.remove}">삭제</a>
                     </li>
                 </ul>
             </div>
@@ -37,7 +37,6 @@
                 <ul class="nav nav-tabs">
                     <li role="presentation" th:class="${#strings.equals(tab, 'cont')} ? 'active'"><a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo}, tab='cont')}" th:text="#{contents.tabs.cont}">콘텐츠</a></li>
                     <li role="presentation" th:class="${#strings.equals(tab, 'story')} ? 'active'"><a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo}, tab='story')}" th:text="#{contents.tabs.story}">줄거리</a></li>
-                    <li role="presentation" th:class="${#strings.equals(tab, 'etc')} ? 'active'"><a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo}, tab='etc')}" th:text="#{contents.tabs.etc}">기타</a></li>
                 </ul>
             </div>
         </div>
@@ -47,23 +46,21 @@
 
                 <li class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                     <a class="contents-add" th:href="@{~/admin/contents/video/add(contentsNo=${contents.contentsNo})}">
-                        <img class="img-responsive" th:src="@{~/img/video-add.png}" />
+                        <img class="img-responsive" th:src="@{~/img/video-add.png}" th:alt="#{admin.contents.video.add}" />
                     </a>
-                    <a class="idx-thumb-tl text-center" th:href="@{~/admin/contents/video/add(contentsNo=${contents.contentsNo})}">영상추가</a>
+                    <a class="idx-thumb-tl text-center" th:href="@{~/admin/contents/video/add(contentsNo=${contents.contentsNo})}" th:text="#{admin.contents.video.add}">영상추가</a>
                 </li>
 
                 <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                     <a th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}">
-                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="${contents.contentsName} + ' ' + ${video.videoName} + '포스터 이미지'" />
+                        <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="#{common.contents.title.release(${contents.contentsName}, ${video.videoName})}" />
                     </a>
-                    <a class="idx-thumb-tl" th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}" th:text="${video.videoName}"></a>
+                    <a class="idx-thumb-tl" th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}" th:text="${video.videoName}">영상명</a>
                 </li>
 
             </ul>
 
             <div class="cont-story col-xs-12" th:if="${#strings.equals(tab, 'story')}" th:text="${contents.story}">줄거리</div>
-
-            <div class="cont-story col-xs-12" th:if="${#strings.equals(tab, 'etc')}">etc</div>
         </div>
 
     </div>

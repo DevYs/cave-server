@@ -3,89 +3,89 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>콘텐츠관리</title>
+    <title th:text="#{admin.contents.title}">콘텐츠관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">콘텐츠정보 추가</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.contents.add.title}">콘텐츠 정보 추가</h3>
 
         <form th:action="@{~/admin/contents/add}" method="post" th:object="${contents}" class="form-horizontal">
             <div class="form-group">
-                <label for="channelNo" class="col-sm-2 control-label">채널</label>
+                <label for="channelNo" class="col-sm-2 control-label" th:text="#{common.channel}">채널</label>
                 <div class="col-sm-10">
                     <select id="channelNo" th:field="*{channelNo}" class="form-control">
-                        <option th:each="channel : ${channels}" th:value="${channel.channelNo}" th:text="${channel.channelName}"></option>
+                        <option th:each="channel : ${channels}" th:value="${channel.channelNo}" th:text="${channel.channelName}">채널명</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="contentsPosterUrl" class="col-sm-2 control-label">포스터 URL</label>
+                <label for="contentsPosterUrl" class="col-sm-2 control-label" th:text="#{admin.contents.posterUrl}">포스터 URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="contentsPosterUrl" th:field="*{contentsPosterUrl}" placeholder="포스터 URL을 입력하세요." />
+                    <input type="url" class="form-control" id="contentsPosterUrl" th:field="*{contentsPosterUrl}" th:placeholder="#{admin.contents.posterUrl.msg}" />
                     <p th:if="${#fields.hasErrors('contentsPosterUrl')}" th:errors="*{contentsPosterUrl}">포스터 URL 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="contentsName" class="col-sm-2 control-label">콘텐츠명</label>
+                <label for="contentsName" class="col-sm-2 control-label" th:text="#{admin.contents.contentsName}">콘텐츠명</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="contentsName" th:field="*{contentsName}" placeholder="콘텐츠명을 입력하세요." />
+                    <input type="text" class="form-control" id="contentsName" th:field="*{contentsName}" th:placeholder="#{admin.contents.contentsName.msg}" />
                     <p th:if="${#fields.hasErrors('contentsName')}" th:errors="*{contentsName}">콘텐츠명 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="genre" class="col-sm-2 control-label">장르</label>
+                <label for="genre" class="col-sm-2 control-label" th:text="#{admin.contents.genre}">장르</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="genre" th:field="*{genre}" placeholder="장르를 입력하세요." />
+                    <input type="text" class="form-control" id="genre" th:field="*{genre}" th:placeholder="#{admin.contents.genre.msg}" />
                     <p th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}">장르 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="nation" class="col-sm-2 control-label">국가</label>
+                <label for="nation" class="col-sm-2 control-label" th:text="#{admin.contents.nation}">국가</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nation" th:field="*{nation}" placeholder="국가를 입력하세요." />
+                    <input type="text" class="form-control" id="nation" th:field="*{nation}" th:placeholder="#{admin.contents.nation.msg}" />
                     <p th:if="${#fields.hasErrors('nation')}" th:errors="*{nation}">국가 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="releaseDate" class="col-sm-2 control-label">개봉일</label>
+                <label for="releaseDate" class="col-sm-2 control-label" th:text="#{admin.contents.release}">개봉일</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="releaseDate" th:field="*{releaseDate}" placeholder="개봉일를 입력하세요." />
+                    <input type="text" class="form-control" id="releaseDate" th:field="*{releaseDate}" th:placeholder="#{admin.contents.release.msg}" />
                     <p th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}">개봉일 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="runningTime" class="col-sm-2 control-label">상영시간</label>
+                <label for="runningTime" class="col-sm-2 control-label" th:text="#{admin.contents.runningTime}">상영시간</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="runningTime" th:field="*{runningTime}" placeholder="상영시간을 입력하세요." />
+                    <input type="text" class="form-control" id="runningTime" th:field="*{runningTime}" th:placeholder="#{admin.contents.runningTime.msg}" />
                     <p th:if="${#fields.hasErrors('runningTime')}" th:errors="*{runningTime}">상영시간 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="director" class="col-sm-2 control-label">감독</label>
+                <label for="director" class="col-sm-2 control-label" th:text="#{admin.contents.director}">감독</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="director" th:field="*{director}" placeholder="감독을 입력하세요." />
+                    <input type="text" class="form-control" id="director" th:field="*{director}" th:placeholder="#{admin.contents.director.msg}" />
                     <p th:if="${#fields.hasErrors('director')}" th:errors="*{director}">감독 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="actor" class="col-sm-2 control-label">주연</label>
+                <label for="actor" class="col-sm-2 control-label" th:text="#{admin.contents.actor}">주연</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="actor" th:field="*{actor}" placeholder="주연을 입력하세요." />
+                    <input type="text" class="form-control" id="actor" th:field="*{actor}" th:placeholder="#{admin.contents.actor.msg}" />
                     <p th:if="${#fields.hasErrors('actor')}" th:errors="*{actor}">주연 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="story" class="col-sm-2 control-label">줄거리</label>
+                <label for="story" class="col-sm-2 control-label" th:text="#{admin.contents.story}">줄거리</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" id="story" th:field="*{story}" placeholder="줄거리를 입력하세요."></textarea>
+                    <textarea class="form-control" id="story" th:field="*{story}" th:placeholder="#{admin.contents.story.msg}"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">추가</button>
-                    <a th:href="@{~/admin/contents}" type="button" class="btn btn-warning">취소</a>
+                    <button type="submit" class="btn btn-primary" th:text="#{common.add}">추가</button>
+                    <a th:href="@{~/admin/contents}" type="button" class="btn btn-warning" th:text="#{common.cancel}">취소</a>
                 </div>
             </div>
         </form>

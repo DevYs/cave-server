@@ -3,23 +3,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>사용자관리</title>
+    <title th:text="#{admin.user.title}">사용자 관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">사용자정보 삭제</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.user.remove.title}">사용자 정보 삭제</h3>
 
         <div class="row">
             <div class="col-xs-12">
-                <p>사용자 [[${user.userId}]]([[${user.userName}]])의 정보를 삭제하시겠습니까? <br /> 확인을 선택할 경우 사용자 정보는 영구적으로 삭제됩니다.</p>
+                <p th:utext="#{admin.user.remove.msg(${user.userId}, ${user.userName})}">사용자 정보 삭제 메세지</p>
 
                 <form th:action="@{~/admin/user/remove}" method="post">
                     <input type="hidden" name="userNo" th:value="${user.userNo}" />
 
                     <div class="text-right">
-                        <button type="submit" class="btn btn-danger">삭제</button>
-                        <a th:href="@{~/admin/user}" type="submit" class="btn btn-warning" role="button">취소</a>
+                        <button type="submit" class="btn btn-danger" th:text="#{common.remove}">삭제</button>
+                        <a th:href="@{~/admin/user}" type="submit" class="btn btn-warning" role="button" th:text="#{common.cancel}">취소</a>
                     </div>
                 </form>
             </div>

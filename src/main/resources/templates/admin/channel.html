@@ -3,12 +3,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>채널관리</title>
+    <title th:text="#{admin.channel.title}">채널관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">채널관리</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.channel.title}">채널관리</h3>
 
         <div class="row">
 
@@ -22,8 +22,8 @@
                 <ul class="jumbotron">
                     <li class="v-title text-center" th:text="${channel.channelName}">채널명</li>
                     <li class="text-center">
-                        <a th:href="@{~/admin/channel/mod(channelNo=${channel.channelNo})}" class="btn btn-warning" role="button">수정</a>
-                        <a th:href="@{~/admin/channel/del(channelNo=${channel.channelNo})}" class="btn btn-danger" role="button">삭제</a>
+                        <a th:href="@{~/admin/channel/mod(channelNo=${channel.channelNo})}" class="btn btn-warning" role="button" th:text="#{common.modify}">수정</a>
+                        <a th:href="@{~/admin/channel/del(channelNo=${channel.channelNo})}" class="btn btn-danger" role="button" th:text="#{common.remove}">삭제</a>
                     </li>
                 </ul>
             </div>

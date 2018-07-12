@@ -3,15 +3,15 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>영상관리</title>
+    <title th:text="#{admin.video.title}">영상 관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">콘텐츠 '[[${storedVideo.contents.contentsName}]]'의 영상 '[[${storedVideo.videoName}]]' 정보 변경</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.video.mod.title(${storedVideo.contents.contentsName}, ${storedVideo.videoName})}">영상 정보 수정 메세지</h3>
 
         <div class="row">
-                <img class="col-xs-3 img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="${storedVideo.videoName} + ' 포스터 이미지'" />
+                <img class="col-xs-3 img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="#{common.contents.poster(${storedVideo.videoName})}" />
             <div class="col-xs-9">
                 <div id="embed" class="embed-responsive embed-responsive-16by9">
                     <video id="player" controls="controls" autoplay="autoplay" class="embed-responsive-item">
@@ -28,32 +28,32 @@
             <input type="hidden" th:field="*{videoNo}" th:value="*{videoNo}" />
             <input type="hidden" th:field="*{contentsNo}" th:value="*{contentsNo}" />
             <div class="form-group">
-                <label for="videoPosterUrl" class="col-sm-2 control-label">포스터 URL</label>
+                <label for="videoPosterUrl" class="col-sm-2 control-label" th:text="#{admin.video.posterUrl}">포스터 URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoPosterUrl" th:field="*{videoPosterUrl}" th:value="*{videoPosterUrl}" placeholder="영상 포스터 URL을 입력하세요." />
+                    <input type="url" class="form-control" id="videoPosterUrl" th:field="*{videoPosterUrl}" th:value="*{videoPosterUrl}" th:placeholder="#{admin.video.posterUrl.msg}" />
                     <p th:if="${#fields.hasErrors('videoPosterUrl')}" th:errors="*{videoPosterUrl}">영상 포스터 URL 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="shareLinkUrl" class="col-sm-2 control-label">구글 포토 공유 링크</label>
+                <label for="shareLinkUrl" class="col-sm-2 control-label" th:text="#{admin.video.shareLinkUrl}">구글 포토 공유 링크</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="shareLinkUrl" th:field="*{shareLinkUrl}" th:value="*{shareLinkUrl}" placeholder="구글 포토 공유 링크를 입력하세요." />
+                    <input type="url" class="form-control" id="shareLinkUrl" th:field="*{shareLinkUrl}" th:value="*{shareLinkUrl}" th:placeholder="#{admin.video.shareLinkUrl.msg}" />
                     <p th:if="${#fields.hasErrors('shareLinkUrl')}" th:errors="*{shareLinkUrl}">구글 포토 공유 링크 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
-                <label for="videoName" class="col-sm-2 control-label">영상명</label>
+                <label for="videoName" class="col-sm-2 control-label" th:text="#{admin.video.videoName}">영상명</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoName" th:field="*{videoName}" th:value="*{videoName}" placeholder="영상명을 입력하세요." />
+                    <input type="text" class="form-control" id="videoName" th:field="*{videoName}" th:value="*{videoName}" th:placeholder="#{admin.video.videoName.msg}" />
                     <p th:if="${#fields.hasErrors('videoName')}" th:errors="*{videoName}">영상명 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">자막</label>
-                <div class="col-sm-10"><p class="help-block" th:text="${storedVideo.subtitle} == null ? '없음' : '있음'"></p></div>
+                <div class="col-sm-10"><p class="help-block" th:text="#{admin.video.subtitle.isExist(${storedVideo.subtitle} == null ? '없음' : '있음')}"></p></div>
             </div>
             <div class="form-group">
-                <label for="subtitle" class="col-sm-2 control-label">자막변경</label>
+                <label for="subtitle" class="col-sm-2 control-label" th:text="#{admin.video.mod.subtitle}">자막 변경</label>
                 <div class="col-sm-10">
                     <input type="file" id="subtitle" name="subtitleFile" class="form-control" />
                     <p th:if="${errProcSubtitle} != null" th:text="${errProcSubtitle}">자막 처리 오류 메세지</p>
@@ -62,9 +62,9 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">변경</button>
-                    <a th:href="@{~/admin/contents/video/remove(videoNo=*{videoNo})}" class="btn btn-danger">삭제</a>
-                    <a th:href="@{~/admin/contents/view(contentsNo=*{contentsNo})}" class="btn btn-warning">취소</a>
+                    <button type="submit" class="btn btn-primary" th:text="#{common.modify}">수정</button>
+                    <a th:href="@{~/admin/contents/video/remove(videoNo=*{videoNo})}" class="btn btn-danger" th:text="#{common.remove}">삭제</a>
+                    <a th:href="@{~/admin/contents/view(contentsNo=*{contentsNo})}" class="btn btn-warning" th:text="#{common.cancel}">취소</a>
                 </div>
             </div>
         </form>

@@ -3,23 +3,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>영상관리</title>
+    <title th:text="#{admin.video.title}">영상 관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">콘텐츠 '퀵'의 영상정보 삭제</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:utext="#{admin.video.remove.title(${video.contents.contentsName})}">콘텐츠 영상 삭제</h3>
 
         <div class="row">
             <div class="col-xs-12">
-                <p>콘텐츠 '[[${video.contents.contentsName}]]'의 영상 '[[${video.videoName}]]'를 삭제하시겠습니까? <br /> 확인을 선택할 경우 콘텐츠 영상 정보는 영구적으로 삭제됩니다.</p>
+                <p th:utext="#{admin.video.remove.msg(${video.contents.contentsName}, ${video.videoName})}">영상 삭제 메세지</p>
 
                 <form th:action="@{~/admin/contents/video/remove}" method="post">
                     <input type="hidden" name="videoNo" th:value="${video.videoNo}" />
 
                     <div class="text-right">
-                        <button type="submit" class="btn btn-danger">삭제</button>
-                        <a th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}" type="submit" class="btn btn-warning" role="button">취소</a>
+                        <button type="submit" class="btn btn-danger" th:text="#{common.remove}">삭제</button>
+                        <a th:href="@{~/admin/contents/video/mod(videoNo=${video.videoNo})}" type="submit" class="btn btn-warning" role="button" th:text="#{common.cancel}">취소</a>
                     </div>
                 </form>
             </div>

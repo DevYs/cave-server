@@ -3,34 +3,34 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>콘텐츠관리</title>
+    <title th:text="#{admin.contents.title}">콘텐츠관리</title>
     <script th:src="@{~/js/admin/contents.js}"></script>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">콘텐츠관리</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.contents.title}">콘텐츠관리</h3>
 
         <form th:action="@{~/admin/contents}" method="get" class="form-horizontal">
             <div class="form-group">
-                <label for="channelNo" class="col-sm-2 control-label">채널</label>
+                <label for="channelNo" class="col-sm-2 control-label" th:text="#{common.channel}">채널</label>
                 <div class="col-sm-10">
                     <select id="channelNo" name="channelNo" class="form-control">
-                        <option value="0" th:selected="${#strings.equals(param.channelNo, '0')}">전체</option>
-                        <option th:each="channel : ${channels}" th:value="${channel.channelNo}" th:text="${channel.channelName}" th:selected="${#strings.equals(channel.channelNo, param.channelNo)}"></option>
+                        <option value="0" th:selected="${#strings.equals(param.channelNo, '0')}" th:text="#{admin.contents.searchAll}">전체</option>
+                        <option th:each="channel : ${channels}" th:value="${channel.channelNo}" th:text="${channel.channelName}" th:selected="${#strings.equals(channel.channelNo, param.channelNo)}">채널명</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="searchWord" class="col-sm-2 control-label">검색어</label>
+                <label for="searchWord" class="col-sm-2 control-label" th:text="#{admin.contents.searchWord}">검색어</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${param.searchWord}" placeholder="검색어를 입력하세요" />
+                    <input type="text" class="form-control" id="searchWord" name="searchWord" th:value="${param.searchWord}" th:placeholder="#{admin.contents.input.searchWord}" />
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-primary">검색</button>
+                    <button type="submit" class="btn btn-primary" th:text="#{common.search}">검색</button>
                 </div>
             </div>
         </form>
@@ -42,24 +42,24 @@
                 <div id="contentsList" class="row">
                     <div class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                         <a class="contents-add" th:href="@{~/admin/contents/add}">
-                            <img class="img-responsive" th:src="@{~/img/contents-add.png}" />
+                            <img class="img-responsive" th:src="@{~/img/contents-add.png}" th:alt="#{admin.contents.add}" />
                         </a>
-                        <a class="idx-thumb-tl text-center" th:href="@{~/admin/contents/add}">콘텐츠추가</a>
+                        <a class="idx-thumb-tl text-center" th:href="@{~/admin/contents/add}" th:text="#{admin.contents.add}">콘텐츠추가</a>
                     </div>
 
                     <div th:each="contents : ${contentsList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
                         <a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}">
-                            <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="${contents.contentsName} + '포스터 이미지'" />
+                            <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contents.contentsName})}" />
                         </a>
-                        <a class="idx-thumb-tl" th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" th:text="${contents.contentsName}"></a>
-                        <a class="idx-thumb-tl" th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" th:text="${contents.releaseDate}"></a>
+                        <a class="idx-thumb-tl" th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" th:text="${contents.contentsName}">콘텐츠명</a>
+                        <a class="idx-thumb-tl" th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" th:text="${contents.releaseDate}">상영일</a>
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <button id="next" class="col-xs-12 btn btn-info"><span class="caret"></span>&nbsp;&nbsp;다음페이지</button>
+        <button id="next" class="col-xs-12 btn btn-info"><span class="caret"></span>&nbsp;&nbsp;<span th:text="#{common.next.page}">다음페이지</span></button>
 
     </div>
 </body>

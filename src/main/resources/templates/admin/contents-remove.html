@@ -3,22 +3,22 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{admin/admin-default}">
 <head>
-    <title>콘텐츠관리</title>
+    <title th:text="#{admin.contents.title}">콘텐츠관리</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{admin}">
-        <h3 class="idx-h3 idx-h3-frst">콘텐츠정보 삭제</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.contents.remove.title}">콘텐츠 정보 삭제</h3>
 
         <div class="col-xs-12">
-            <p>콘텐츠 [[${contents.contentsName}]]을/를 삭제하시겠습니까? <br /> 확인을 선택할 경우 콘텐츠 [[${contents.contentsName}]]과/와 관련된 모든 정보와 영상 링크는 영구적으로 삭제됩니다.</p>
+            <p th:utext="#{admin.contents.remove.msg(${contents.contentsName}, ${contents.contentsName})}">콘텐츠 정보 삭제 메세지</p>
 
             <form th:action="@{~/admin/contents/remove}" method="post">
                 <input type="hidden" name="contentsNo" th:value="${contents.contentsNo}" />
 
                 <div class="text-right">
-                    <button type="submit" class="btn btn-danger">삭제</button>
-                    <a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" type="submit" class="btn btn-warning" role="button">취소</a>
+                    <button type="submit" class="btn btn-danger" th:text="#{common.remove}">삭제</button>
+                    <a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}" type="submit" class="btn btn-warning" role="button" th:text="#{common.cancel}">취소</a>
                 </div>
             </form>
         </div>
