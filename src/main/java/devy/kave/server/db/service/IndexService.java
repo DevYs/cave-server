@@ -42,6 +42,10 @@ public class IndexService {
         // 내림차순으로 정렬
         contentsList.sort(new Sort().descending());
 
+        if(contentsList.size() < 1) {
+            return contentsList;
+        }
+
         return contentsList.subList(0, size);
     }
 
