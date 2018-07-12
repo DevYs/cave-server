@@ -24,7 +24,6 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
         this.contentsNo = contentsNo;
     }
 
-    @NotNull
     @Size(max = 2000)
     private String contentsPosterUrl;
 
