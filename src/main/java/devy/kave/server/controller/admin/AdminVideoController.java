@@ -66,7 +66,14 @@ public class AdminVideoController {
 
     @GetMapping("/admin/contents/video/mod")
     public String mod(Video video, Model model) {
-        Video storedVideo = videoService.getVideo(video.getVideoNo());
+
+        Video storedVideo = null;
+        try {
+            storedVideo = videoService.getVideo(video.getVideoNo());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         model.addAttribute("video", storedVideo);
         model.addAttribute("storedVideo", storedVideo);
         return "admin/video-mod";
@@ -75,7 +82,12 @@ public class AdminVideoController {
     @PostMapping("/admin/contents/video/mod")
     public String mod(@Valid Video video, BindingResult bindingResult, @RequestParam("subtitleFile") MultipartFile subtitleFile, Model model) {
 
-        Video storedVideo = videoService.getVideo(video.getVideoNo());
+        Video storedVideo = null;
+        try {
+            storedVideo = videoService.getVideo(video.getVideoNo());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         boolean errProcSubtitle = false;
         if(!subtitleFile.isEmpty()) {
@@ -109,7 +121,12 @@ public class AdminVideoController {
 
     @GetMapping("/subtitle")
     public void subtitle(String videoNo, HttpServletResponse response) {
-        Video video = videoService.getVideo(videoNo);
+        Video video = null;
+        try {
+            video = videoService.getVideo(videoNo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         if(video.getSubtitle() == null) {
             return;
@@ -135,7 +152,15 @@ public class AdminVideoController {
 
     @GetMapping("/admin/contents/video/remove")
     public String remove(String videoNo, Model model) {
-        model.addAttribute("video", videoService.getVideo(videoNo));
+        Video video = null;
+
+        try {
+            video = videoService.getVideo(videoNo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("video", video);
         return "admin/video-remove";
     }
 

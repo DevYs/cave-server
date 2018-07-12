@@ -7,8 +7,12 @@ import devy.kave.server.db.model.Contents;
 import devy.kave.server.db.model.ContentsKey;
 import devy.kave.server.db.model.Video;
 import devy.kave.server.db.model.VideoKey;
+import devy.kave.server.google.photo.ShareLink;
+import devy.kave.server.google.photo.ShareLinkParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 public class VideoService {
@@ -36,8 +40,14 @@ public class VideoService {
         return videoMapper.remove(new VideoKey(videoNo));
     }
 
-    public Video getVideo(String videoNo) {
-        return (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
+    public Video getVideo(String videoNo) throws IOException {
+        Video video = (Video) videoMapper.map().duplicates(new VideoKey(videoNo)).iterator().next();
+        String shareLinkUrl = video.getShareLinkUrl();
+
+        ShareLink shareLink = ShareLinkParser.parse(shareLinkUrl);
+        video.setVideoUrl(shareLink.getOgVideo());
+        video.setVideoPosterUrl(shareLink.getOgImage());
+        return video;
     }
 
     public Contents getContents(String contentsNo) {

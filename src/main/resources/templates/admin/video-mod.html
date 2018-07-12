@@ -37,10 +37,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="videoUrl" class="col-sm-2 control-label">영상 URL</label>
+                <label for="shareLinkUrl" class="col-sm-2 control-label">영상 URL</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="videoUrl" th:field="*{videoUrl}" th:value="*{videoUrl}" placeholder="영상 URL을 입력하세요." />
-                    <p th:if="${#fields.hasErrors('videoUrl')}" th:errors="*{videoUrl}">영상 URL 오류 메세지</p>
+                    <input type="text" class="form-control" id="shareLinkUrl" th:field="*{shareLinkUrl}" th:value="*{shareLinkUrl}" placeholder="구글 포토 공유 링크를 입력하세요." />
+                    <p th:if="${#fields.hasErrors('shareLinkUrl')}" th:errors="*{shareLinkUrl}">구글 포토 공유 링크 오류 메세지</p>
                 </div>
             </div>
             <div class="form-group">

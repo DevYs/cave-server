@@ -5,6 +5,7 @@ import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -24,10 +25,15 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
     private String videoPosterUrl;
 
     @NotEmpty
-    private String videoUrl;
+    private String shareLinkUrl;
 
     @NotEmpty
     private String videoName;
+
+    @Null
+    private String videoUrl;
+
+    private String image;
 
     private String subtitle;
 
@@ -35,20 +41,20 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     public Video() {}
 
-    public Video(String videoNo, String contentsNo, String videoPosterUrl, String videoUrl, String videoName, String subtitle) {
+    public Video(String videoNo, String contentsNo, String videoPosterUrl, String shareLinkUrl, String videoName, String subtitle) {
         this.videoNo = videoNo;
         this.contentsNo = contentsNo;
         this.videoPosterUrl = videoPosterUrl;
-        this.videoUrl = videoUrl;
+        this.shareLinkUrl = shareLinkUrl;
         this.videoName = videoName;
         this.subtitle = subtitle;
     }
 
-    public Video(String videoNo, String contentsNo, String videoPosterUrl, String videoUrl, String videoName, String subtitle, Contents contents) {
+    public Video(String videoNo, String contentsNo, String videoPosterUrl, String shareLinkUrl, String videoName, String subtitle, Contents contents) {
         this.videoNo = videoNo;
         this.contentsNo = contentsNo;
         this.videoPosterUrl = videoPosterUrl;
-        this.videoUrl = videoUrl;
+        this.shareLinkUrl = shareLinkUrl;
         this.videoName = videoName;
         this.subtitle = subtitle;
         this.contents = contents;
@@ -82,12 +88,12 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
         this.videoPosterUrl = videoPosterUrl;
     }
 
-    public final String getVideoUrl() {
-        return videoUrl;
+    public String getShareLinkUrl() {
+        return shareLinkUrl;
     }
 
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
+    public void setShareLinkUrl(String shareLinkUrl) {
+        this.shareLinkUrl = shareLinkUrl;
     }
 
     public final String getVideoName() {
@@ -96,6 +102,22 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
 
     public void setVideoName(String videoName) {
         this.videoName = videoName;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     public final String getSubtitle() {
@@ -120,8 +142,10 @@ public class Video implements Serializable, MarshalledTupleKeyEntity {
                 "videoNo=" + videoNo +
                 ", contentsNo=" + contentsNo +
                 ", videoPosterUrl='" + videoPosterUrl + '\'' +
-                ", videoUrl='" + videoUrl + '\'' +
+                ", shareLinkUrl='" + shareLinkUrl + '\'' +
                 ", videoName='" + videoName + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                ", image='" + image + '\'' +
 //                ", subtitle='" + subtitle + '\'' +
                 ", contents=" + contents +
                 '}';
