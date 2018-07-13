@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}">
+<head>
+    <title th:text="#{admin.shutdown.title}">Cave 종료</title>
+</head>
+
+<body>
+    <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{admin.shutdown.title}">Cave 종료</h3>
+
+        <form th:action="@{~/admin/shutdown}" method="post" class="form-horizontal">
+            <div class="form-group">
+                <label for="password" class="col-sm-2 control-label" th:text="#{admin.shutdown.password}">비밀번호</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="password" name="password" th:placeholder="#{admin.shutdown.password.msg}" />
+                    <p th:if="${errorPassword} != null" th:text="${errorPassword}">비밀번호 오류 메세지</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 control-label text-right" th:text="#{admin.shutdown.msg}">Cave 종료 메세지</label>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 text-right">
+                    <button type="submit" class="btn btn-danger" th:text="#{common.submit}">삭제</button>
+                    <a th:href="@{~/admin/user}" type="submit" class="btn btn-warning" role="button" th:text="#{common.cancel}">취소</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
