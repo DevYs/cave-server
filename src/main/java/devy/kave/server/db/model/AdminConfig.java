@@ -6,18 +6,21 @@ import com.sleepycat.bind.tuple.TupleOutput;
 
 import java.io.Serializable;
 
-public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
+public class AdminConfig implements Serializable, MarshalledTupleKeyEntity {
 
     private static final long serialVersionUID = 1L;
 
+    public static final String DB_ADMIN_CONFIG = "db_admin_config";
+    public static final String CONFIG_PORT = "port";
+
     private transient String configName;
     private String configValue;
-    private long modDateTime;
 
-    public DefaultConfig(String configName, String configValue, long modDateTime) {
+    public AdminConfig() {}
+
+    public AdminConfig(String configName, String configValue) {
         this.configName = configName;
         this.configValue = configValue;
-        this.modDateTime = modDateTime;
     }
 
     final void setKey(String configName) {
@@ -28,20 +31,25 @@ public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
         return configName;
     }
 
+    public AdminConfig setConfigName(String configName) {
+        this.configName = configName;
+        return this;
+    }
+
     public final String getConfigValue() {
         return configValue;
     }
 
-    public long getModDateTime() {
-        return modDateTime;
+    public AdminConfig setConfigValue(String configValue) {
+        this.configValue = configValue;
+        return this;
     }
 
     @Override
     public String toString() {
-        return "DefaultConfig{" +
+        return "AdminConfig{" +
                 "configName='" + configName + '\'' +
-                ", configValue='" + configValue + '\'' +
-                ", modDateTime=" + modDateTime +
+                ", configValue='" + configValue +
                 '}';
     }
 
@@ -63,6 +71,10 @@ public class DefaultConfig implements Serializable, MarshalledTupleKeyEntity {
     @Override
     public boolean nullifyForeignKey(String s) {
         throw new UnsupportedOperationException(s);
+    }
+
+    public static AdminConfig port() {
+        return new AdminConfig().setConfigName(CONFIG_PORT);
     }
 
 }

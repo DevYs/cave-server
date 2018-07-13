@@ -4,11 +4,11 @@ import com.sleepycat.bind.tuple.MarshalledTupleEntry;
 import com.sleepycat.bind.tuple.TupleInput;
 import com.sleepycat.bind.tuple.TupleOutput;
 
-public class DefaultConfigKey implements MarshalledTupleEntry {
+public class AdminConfigKey implements MarshalledTupleEntry {
 
     private String configName;
 
-    public DefaultConfigKey(String configName) {
+    public AdminConfigKey(String configName) {
         this.configName = configName;
     }
 
@@ -18,12 +18,12 @@ public class DefaultConfigKey implements MarshalledTupleEntry {
 
     @Override
     public String toString() {
-        return "DefaultConfigKey{" +
+        return "AdminConfigKey{" +
                 "configName='" + configName + '\'' +
                 '}';
     }
 
-    public DefaultConfigKey() {}
+    public AdminConfigKey() {}
 
     @Override
     public void marshalEntry(TupleOutput tupleOutput) {

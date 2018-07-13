@@ -13,6 +13,7 @@ public class QueryMap extends HashMap<String, Query> {
         video();
         watching();
         deck();
+        adminConfig();
     }
 
     private void channel() {
@@ -85,6 +86,13 @@ public class QueryMap extends HashMap<String, Query> {
                 .setKeyName(Deck.KEY_DECK_CONTENTS_NO)
                 .setForeignKeyDbName(Contents.DB_CONTENTS)
                 .setPrimaryDbName(Deck.DB_DECK));
+    }
+
+    private void adminConfig() {
+        put(AdminConfig.DB_ADMIN_CONFIG,
+                new Query().setDbName(AdminConfig.DB_ADMIN_CONFIG)
+                        .setKeyClass(AdminConfigKey.class)
+                        .setValueBaseClass(AdminConfig.class));
     }
 
 }
