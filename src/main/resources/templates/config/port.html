@@ -3,12 +3,12 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{config/config-default}">
 <head>
-    <title th:text="#{config.password.title}">비밀번호 변경</title>
+    <title th:text="#{config.port.title}">비밀번호 변경</title>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{config}">
-        <h3 class="idx-h3 idx-h3-frst" th:text="#{config.password.title}">비밀번호 변경</h3>
+        <h3 class="idx-h3 idx-h3-frst" th:text="#{config.port.title}">포트 변경</h3>
 
         <form th:action="@{~/config/port}" method="post" class="form-horizontal">
             <div class="form-group">
