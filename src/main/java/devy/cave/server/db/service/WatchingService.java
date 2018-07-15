@@ -42,19 +42,21 @@ public class WatchingService {
         return watching;
     }
 
-    public boolean add(String userId, Video video, String watchingContentsNo, String watchingTime) {
+    public Watching add(String userId, String videoNo, String watchingTime) {
+        Video video = getVideo(videoNo);
         User user = (User) userMapper.mapByUserId().duplicates(userId).iterator().next();
-        Contents watchingContents = getContents(watchingContentsNo);
+        Contents watchingContents = getContents(video.getContentsNo());
         Watching watching = getWatching(user.getUserNo(), video.getVideoNo());
 
         if(watching != null) {
             watching.setWatchingTime(watchingTime);
-            Watching modifiedWatching = (Watching) watchingMapper.map().replace(watching.getWatchingKey(), watching);
-            return modifiedWatching.equals(watchingTime);
+            return (Watching) watchingMapper.map().replace(watching.getWatchingKey(), watching);
         }
 
-        Watching newWatching = new Watching(user.getUserNo(), video.getVideoNo(), watchingContentsNo, watchingContents, video, "0");
-        return watchingMapper.add(newWatching);
+        Watching newWatching = new Watching(user.getUserNo(), video.getVideoNo(), video.getContentsNo(), watchingContents, video, watchingTime);
+        boolean isAdded = watchingMapper.add(newWatching);
+
+        return isAdded ? newWatching : null;
     }
 
     public Watching remove(String userId, String videoNo) {

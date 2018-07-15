@@ -4,6 +4,11 @@
       layout:decorate="~{default}">
 <head>
     <title th:text="#{play.title(${watching.contents.contentsName}, ${watching.video.videoName})}"></title>
+    <script>
+    /*<![CDATA[*/
+        var watchingTime = [[${watching.watchingTime}]];
+    /*]]>*/
+    </script>
     <script th:src="@{~/js/play.js}"></script>
 </head>
 
@@ -39,6 +44,25 @@
             </ul>
         </div>
 
+        <div class="row">
+            <!-- Modal -->
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">이어서 감상하기</h5>
+                        </div>
+                        <div class="modal-body">이전에 보던 부분부터 이어서 감상하시겠습니까?</div>
+                        <div class="modal-footer">
+                            <button id="toStart" type="button" class="btn btn-warning" data-dismiss="modal">처음부터</button>
+                            <button id="toWatching" type="button" class="btn btn-primary">이어서 감상하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
 </body>
 </html>

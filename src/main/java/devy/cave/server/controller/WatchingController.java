@@ -35,10 +35,9 @@ public class WatchingController {
     @RequestMapping("/api/watching/add")
     @ResponseBody
     public void add(Principal principal, String videoNo, String watchingTime) {
-        Video video = watchingService.getVideo(videoNo);
-        boolean isAdded = watchingService.add(principal.getName(), video, video.getContentsNo(), watchingTime);
-        if(isAdded) {
-            logger.info("added Watching " + principal.getName() + ", " + video.toString());
+        Watching watching = watchingService.add(principal.getName(), videoNo, watchingTime);
+        if(watching != null) {
+            logger.info("added Watching " + principal.getName() + ", " + watching.toString());
         }
     }
 

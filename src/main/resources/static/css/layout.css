@@ -183,3 +183,12 @@ a, a:focus, a:hover {
     margin-top:10px;
     margin-bottom:10px;
 }
+
+#modalLabel,
+.modal-body {
+    color: #333 !important;
+}
+
+.modal-header .close {
+    margin-top: -26px !important;
+}
