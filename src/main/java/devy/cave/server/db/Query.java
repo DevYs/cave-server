@@ -1,4 +1,4 @@
-package devy.cave.server.db.model;
+package devy.cave.server.db;
 
 public class Query {
 

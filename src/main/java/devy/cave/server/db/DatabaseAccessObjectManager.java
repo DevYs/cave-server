@@ -4,7 +4,6 @@ import com.sleepycat.bind.tuple.MarshalledTupleKeyEntity;
 import com.sleepycat.collections.*;
 import com.sleepycat.je.Database;
 import com.sleepycat.je.SecondaryDatabase;
-import devy.cave.server.db.model.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

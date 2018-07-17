@@ -4,7 +4,7 @@ import com.sleepycat.collections.StoredMap;
 import devy.cave.server.db.DatabaseAccessObjectManager;
 import devy.cave.server.db.DatabaseKeyCreator;
 import devy.cave.server.db.QueryMap;
-import devy.cave.server.db.model.Query;
+import devy.cave.server.db.Query;
 import devy.cave.server.db.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
