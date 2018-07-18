@@ -85,6 +85,10 @@ public class AdminVideoController {
         boolean errProcSubtitle = false;
         if(!subtitleFile.isEmpty()) {
             String s = procSubtitle(subtitleFile);
+
+            logger.info("Process Subtitle ... ");
+            logger.info(s);
+
             errProcSubtitle = (s == null);
             if(!errProcSubtitle) {
                 video.setSubtitle(s);
