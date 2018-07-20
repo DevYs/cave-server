@@ -82,6 +82,8 @@ public class AdminVideoController {
     public String mod(@Valid Video video, BindingResult bindingResult, @RequestParam("subtitleFile") MultipartFile subtitleFile, Model model) {
         Video storedVideo = videoService.getVideo(video.getVideoNo());
 
+        logger.info("Subtitle original file name ... " + subtitleFile.getOriginalFilename());
+
         boolean errProcSubtitle = false;
         if(!subtitleFile.isEmpty()) {
             String s = procSubtitle(subtitleFile);
