@@ -22,9 +22,17 @@ public class ShareLinkParser {
         Element ogVideo = document.selectFirst("meta[property=og:video]");
         Element ogVideoSecureUrl = document.selectFirst("meta[property=og:video:secure_url]");
 
-        shareLink.setOgImage(ogImage.attr(ATTR_CONTENTS));
-        shareLink.setOgVideo(ogVideo.attr(ATTR_CONTENTS));
-        shareLink.setOgSecretVideo(ogVideoSecureUrl.attr(ATTR_CONTENTS));
+        if(ogImage != null) {
+            shareLink.setOgImage(ogImage.attr(ATTR_CONTENTS));
+        }
+
+        if(ogVideo != null) {
+            shareLink.setOgVideo(ogVideo.attr(ATTR_CONTENTS));
+        }
+
+        if(ogVideoSecureUrl != null) {
+            shareLink.setOgSecretVideo(ogVideoSecureUrl.attr(ATTR_CONTENTS));
+        }
 
         return shareLink;
     }
