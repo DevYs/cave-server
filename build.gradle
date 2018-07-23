@@ -37,10 +37,17 @@ dependencies {
     compile('org.springframework.boot:spring-boot-devtools')
     compile('org.jsoup:jsoup:1.11.3')
     compile('com.googlecode.juniversalchardet:juniversalchardet:1.0.3')
+	compile 'com.sleepycat:je:7.5.11'
 
     compile fileTree(dir: 'libs', include: '*.jar')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	testCompile('org.springframework.security:spring-security-test')
+}
+
+repositories {
+	maven {
+		url 'http://download.oracle.com/maven'
+	}
 }
