@@ -121,11 +121,6 @@ public class AdminVideoController {
     @GetMapping("/subtitle")
     public void subtitle(String videoNo, HttpServletResponse response) {
         Video video = videoService.getVideo(videoNo);
-        try {
-            video.parseShareLink();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         if(video.getSubtitle() == null) {
             return;
