@@ -59,4 +59,13 @@ public class WatchingController {
         return "redirect:/index";
     }
 
+    @RequestMapping("/api/watching/remove")
+    @ResponseBody
+    public void removeProc(Principal principal, String videoNo) {
+        Watching remove = watchingService.remove(principal.getName(), videoNo);
+        if(remove != null) {
+            logger.info(principal.getName() + "님이 " + remove.getContents().getContentsName() + " " + remove.getVideo().getVideoName()+ "의 감상을 끝냈습니다.");
+        }
+    }
+
 }

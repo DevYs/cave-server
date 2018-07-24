@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    var videoNo = $("#videoNo").val();
+    var watchingTime = $("#watchingTime").val();
+
     $("#toStart").on("click", function() {
         $('#modal').modal("hide");
     });
@@ -10,7 +13,14 @@ $(document).ready(function() {
         $('#modal').modal("hide");
     });
 
-    if(0 < watchingTime) {
+    $("#player").on("ended", function() {
+        $.ajax({
+            url : "/api/watching/remove?videoNo=" + videoNo
+        })
+    });
+
+    if(0 < parseInt(watchingTime)) {
+        console.log();
         $('#modal').modal('show');
     }
 
@@ -18,9 +28,11 @@ $(document).ready(function() {
 
 $(window).on("beforeunload", function() {
     var video = document.getElementById("player");
-
-    $.ajax({
-        url : "/api/watching/add?videoNo=" + $("#videoNo").val() + "&watchingTime=" + video.currentTime
-    })
+    var videoNo = $("#videoNo").val();
+    if(!video.ended) {
+        $.ajax({
+            url : "/api/watching/add?videoNo=" + videoNo + "&watchingTime=" + video.currentTime
+        })
+    }
 });
 

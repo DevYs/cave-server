@@ -4,16 +4,12 @@
       layout:decorate="~{default}">
 <head>
     <title th:text="#{play.title(${watching.contents.contentsName}, ${watching.video.videoName})}"></title>
-    <script>
-    /*<![CDATA[*/
-        var watchingTime = [[${watching.watchingTime}]];
-    /*]]>*/
-    </script>
     <script th:src="@{~/js/play.js}"></script>
 </head>
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
+        <input type="hidden" id="watchingTime" name="watchingTime" th:value="${watching.watchingTime}" />
         <input type="hidden" id="videoNo" name="videoNo" th:value="${watching.videoNo}" />
         <h3 class="idx-h3 idx-h3-frst" th:text="${watching.contents.contentsName}">콘텐츠명</h3>
         <h4 th:text="${!#strings.equals(watching.contents.contentsName, watching.video.videoName)} ? ${watching.video.videoName}">영상이름</h4>
