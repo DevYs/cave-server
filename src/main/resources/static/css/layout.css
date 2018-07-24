@@ -184,7 +184,7 @@ a, a:focus, a:hover {
     margin-bottom:10px;
 }
 
-#modalLabel,
+.modalLabel,
 .modal-body {
     color: #333 !important;
 }
