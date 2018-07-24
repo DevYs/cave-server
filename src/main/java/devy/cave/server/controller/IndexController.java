@@ -43,7 +43,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String home() {
-        return "home";
+        return "redirect:/index";
     }
 
     @GetMapping("/index")
