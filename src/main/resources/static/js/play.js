@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
+    var video = document.getElementById("player");
     var videoNo = $("#videoNo").val();
     var watchingTime = $("#watchingTime").val();
+    var isParse = $("#isParse").val();
 
     $("#toStart").on("click", function() {
         $('#modal').modal("hide");
@@ -19,8 +21,11 @@ $(document).ready(function() {
         })
     });
 
-    if(0 < parseInt(watchingTime)) {
-        console.log();
+    $("#player").on("canplay", function() {
+        video.play();
+    });
+
+    if((0 < parseInt(watchingTime)) || (isParse == "false")) {
         $('#modal').modal('show');
     }
 

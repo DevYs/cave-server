@@ -24,6 +24,10 @@ public class PlayController {
 
     @GetMapping("/play")
     public String play(Principal principal, String videoNo, Model model) {
+
+        int parseCount = 0;
+        boolean isParse = false;
+
         Watching watching = playService.getWatching(principal.getName(), videoNo);
 
         boolean isWatching = watching != null;
@@ -31,19 +35,30 @@ public class PlayController {
             watching = playService.addWatching(principal.getName(), videoNo, "0");
         }
 
-        try {
-            watching.getVideo().parseShareLink();
-        } catch (IOException e) {
-            e.printStackTrace();
+        while(!isParse && parseCount < 3) {
+            parseCount++;
+            isParse = isParse(watching.getVideo());
         }
 
         Collection<Video> videoList = playService.videoList(watching.getContentsNo());
 
+        model.addAttribute("isParse", isParse);
         model.addAttribute("watching", watching);
         model.addAttribute("isWatching", isWatching);
         model.addAttribute("videoList", videoList);
 
         return "play";
+    }
+
+    private boolean isParse(Video video) {
+        try {
+            video.parseShareLink();
+        } catch (IOException e) {
+            logger.info("Failed get video data from gogole photo!");
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }

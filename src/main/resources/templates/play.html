@@ -9,6 +9,7 @@
 
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
+        <input type="hidden" id="isParse" name="isParse" th:value="${isParse}" />
         <input type="hidden" id="watchingTime" name="watchingTime" th:value="${watching.watchingTime}" />
         <input type="hidden" id="videoNo" name="videoNo" th:value="${watching.videoNo}" />
         <h3 class="idx-h3 idx-h3-frst" th:text="${watching.contents.contentsName}">콘텐츠명</h3>
@@ -43,18 +44,32 @@
         <div class="row">
             <!-- Modal -->
             <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+
+                <div th:if="${isParse}" class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel">이어서 감상하기</h5>
+                            <h5 class="modal-title modalLabel" th:text="#{play.watching.play.title}">이어서 감상하기</h5>
                         </div>
-                        <div class="modal-body">이전에 보던 부분부터 이어서 감상하시겠습니까?</div>
+                        <div class="modal-body" th:text="#{play.watching.play}">이전에 보던 부분부터 이어서 감상하시겠습니까?</div>
                         <div class="modal-footer">
-                            <button id="toStart" type="button" class="btn btn-warning" data-dismiss="modal">처음부터</button>
-                            <button id="toWatching" type="button" class="btn btn-primary">이어서 감상하기</button>
+                            <button id="toStart" type="button" class="btn btn-warning" data-dismiss="modal" th:text="#{play.watching.to.start}">처음부터</button>
+                            <button id="toWatching" type="button" class="btn btn-primary" th:text="#{play.watching.to.watching}">이어서 감상하기</button>
                         </div>
                     </div>
                 </div>
+
+                <div th:if="!${isParse}" class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title modalLabel" th:text="#{play.parse.error.title}">영상 오류 !!</h5>
+                        </div>
+                        <div class="modal-body" th:text="#{play.parse.error}">영상 정보를 가져오는데 실패했습니다. <br />관리자에게 문의하세요.</div>
+                        <div class="modal-footer">
+                            <a th:href="@{~/index}" type="button" class="btn btn-primary" th:text="#{common.submit}">확인</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
