@@ -1,9 +1,22 @@
+var ROLE_NAME_ACTOR = "배우";
+var ROLE_NAME_ACTOR_2 = "주연";
+var ROLE_NAME_ACTOR_3 = "조연";
+var ROLE_NAME_DIRECTOR = "감독";
+var ROLE_NAME_DIRECTOR_2 = "연출";
+var PEOPLE_SEPERATOR = ", ";
+
+var URL_CONTENTS = "http://devy.iptime.org:1043/contents";
+var URL_CONTENTS_LIST = "http://devy.iptime.org:1043/contents/list";
+//var URL_CONTENTS = "http://192.168.43.54:1043/contents";
+//var URL_CONTENTS_LIST = "http://192.168.43.54:1043/contents/list";
 var page = 1;
 
 var template = "<a href='#' id='{code}' class='list-group-item'>" +
                     "<h4 class='list-group-item-heading'>{title} {titleEng} {year}</h4>" +
                     "<p class='list-group-item-text'>{director} {genre} {nation}</p>" +
                 "</a>";
+
+
 
 $(document).ready(function() {
     $("#searchBtn").on("click", function() {
@@ -47,11 +60,10 @@ function activeBtn() {
 }
 
 function requestContentsList(direction) {
-    var url = "http://devy.iptime.org:1043/contents/list";
     var searchText = $("#searchText").val();
 
     $.post(
-        url,
+        URL_CONTENTS_LIST,
         {searchText: searchText, page: page},
         function(data) {
 
@@ -105,7 +117,87 @@ function appendItem(data) {
         .replace("{nation}", nation);
 
         contentsList.append(listItem);
+
+        $("#" + code).on("click", setOnClickEvent);
     }
 
     return data.length;
+}
+
+function setOnClickEvent() {
+
+    disableBtn();
+
+    var code = $(this).attr("id");
+
+    $.post(
+        URL_CONTENTS,
+        {code: code},
+        function(data) {
+
+            activeBtn();
+
+            if(setValues(data)) {
+                $("#searchModal").hide();
+            }
+        }
+    );
+
+}
+
+function setValues(data) {
+
+    console.log(data);
+
+    try {
+        $("#contentsPosterUrl").val(data.posterUrl);
+            $("#contentsName").val(data.title);
+            $("#genre").val(data.genre);
+            $("#nation").val(data.nation);
+            $("#releaseDate").val(data.releaseDate);
+            $("#runningTime").val(data.runningTime);
+            $("#story").val(data.story);
+
+            var director = "";
+            var actor = "";
+
+            for(var i=0; i<data.people.length; i++) {
+                if(data.people[i].repRoleNm == ROLE_NAME_ACTOR) {
+                    actor = people(actor, data.people[i].peopleNm);
+                } else if(data.people[i].repRoleNm == ROLE_NAME_ACTOR_2) {
+                    actor = people(actor, data.people[i].peopleNm);
+                } else if(data.people[i].repRoleNm == ROLE_NAME_ACTOR_3) {
+                    actor = people(actor, data.people[i].peopleNm);
+                } else if(data.people[i].repRoleNm == ROLE_NAME_DIRECTOR) {
+                    director = people(director, data.people[i].peopleNm);
+                } else if(data.people[i].repRoleNm == ROLE_NAME_DIRECTOR_2) {
+                    director = people(director, data.people[i].peopleNm);
+                }
+            }
+
+            // 마지막 공백에 의해 ', ' 길이가 2이므로
+            if((director.length - 2) == director.lastIndexOf(PEOPLE_SEPERATOR)) {
+                director = director.substring(0, director.length - 2);
+            }
+
+            if((actor.length - 2) == actor.lastIndexOf(PEOPLE_SEPERATOR)) {
+                actor = actor.substring(0, actor.length - 2);
+            }
+
+            $("#director").val(director);
+            $("#actor").val(actor);
+    } catch(exception) {
+        return false;
+    }
+
+    return true;
+}
+
+function people(people, name) {
+
+    if(people.indexOf(name) < 0) {
+        return people + name + PEOPLE_SEPERATOR;
+    }
+
+    return people;
 }
