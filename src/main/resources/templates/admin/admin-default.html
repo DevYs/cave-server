@@ -73,9 +73,9 @@
 
             <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
                 <div class="list-group">
-                    <a th:href="@{~/admin/user}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/user')}? 'active'" th:text="#{admin.default.admin.user}">사용자관리</a>
-                    <a th:href="@{~/admin/channel}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/channel')}? 'active'" th:text="#{admin.default.admin.channel}">채널관리</a>
-                    <a th:href="@{~/admin/contents}" class="list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/contents')}? 'active'" th:text="#{admin.default.admin.contents}">콘텐츠관리</a>
+                    <a th:href="@{~/admin/user}" class="list-group-item common-list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/user')}? 'active'" th:text="#{admin.default.admin.user}">사용자관리</a>
+                    <a th:href="@{~/admin/channel}" class="list-group-item common-list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/channel')}? 'active'" th:text="#{admin.default.admin.channel}">채널관리</a>
+                    <a th:href="@{~/admin/contents}" class="list-group-item common-list-group-item" th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/admin/contents')}? 'active'" th:text="#{admin.default.admin.contents}">콘텐츠관리</a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->

@@ -80,8 +80,8 @@
                 </form>
 
                 <div class="list-group">
-                    <a th:href="@{/search(channelNo=0, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, '0') or #strings.equals(param.channelNo, null)}? 'active'" th:text="#{search.all}">전체</a>
-                    <a th:each="channel : ${channels}" th:href="@{~/search(channelNo=${channel.channelNo}, searchWord=${param.searchWord})}" class="list-group-item" th:classappend="${#strings.equals(param.channelNo, channel.channelNo)}? 'active'" th:text="${channel.channelName}">채널명</a>
+                    <a th:href="@{/search(channelNo=0, searchWord=${param.searchWord})}" class="list-group-item common-list-group-item" th:classappend="${#strings.equals(param.channelNo, '0') or #strings.equals(param.channelNo, null)}? 'active'" th:text="#{search.all}">전체</a>
+                    <a th:each="channel : ${channels}" th:href="@{~/search(channelNo=${channel.channelNo}, searchWord=${param.searchWord})}" class="list-group-item common-list-group-item" th:classappend="${#strings.equals(param.channelNo, channel.channelNo)}? 'active'" th:text="${channel.channelName}">채널명</a>
                 </div>
             </div><!--/.sidebar-offcanvas-->
         </div><!--/row-->
