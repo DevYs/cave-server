@@ -26,12 +26,20 @@ $(document).ready(function() {
     });
 
     $("#next").on("click", function() {
+        if($("#searchText").val().length < 1) {
+            return;
+        }
+
         disableBtn();
         page = page + 1;
         requestContentsList("next");
     });
 
     $("#prev").on("click", function() {
+        if($("#searchText").val().length < 1) {
+            return;
+        }
+
         disableBtn();
         page = page - 1;
         requestContentsList("prev");
