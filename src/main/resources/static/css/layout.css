@@ -127,6 +127,10 @@ a, a:focus, a:hover {
     color: #fff;
 }
 
+a.search-item:hover {
+    background-color: #ddd !important;
+}
+
 .search {
     padding:0px !important;
     padding-bottom:6px !important;
