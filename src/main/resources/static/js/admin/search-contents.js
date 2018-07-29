@@ -22,6 +22,14 @@ var template = "<a href='#' id='" + TAG_CONTENTS_ID + "' class='list-group-item 
                 "</a>";
 
 $(document).ready(function() {
+
+    $("#searchContentsForm").on("submit", function() {
+        disableBtn();
+        page = 1;
+        requestContentsList();
+        return false;
+    });
+
     $("#searchBtn").on("click", function() {
         disableBtn();
         page = 1;
