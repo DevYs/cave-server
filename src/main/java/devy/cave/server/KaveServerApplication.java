@@ -3,10 +3,8 @@ package devy.cave.server;
 import devy.cave.server.db.EnvironmentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
 import java.io.File;
 
@@ -26,11 +24,6 @@ public class KaveServerApplication {
 
         SpringApplication.run(KaveServerApplication.class, args);
 
-    }
-
-    @Bean
-    public ExitCodeGenerator exitCodeGenerator() {
-        return () -> 42;
     }
 
 }
