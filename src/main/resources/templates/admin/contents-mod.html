@@ -4,6 +4,7 @@
       layout:decorate="~{admin/admin-default}">
 <head>
     <title th:text="#{admin.contents.title}">콘텐츠관리</title>
+    <script th:src="@{~/js/admin/search-contents.js}"></script>
 </head>
 
 <body>
@@ -18,6 +19,12 @@
                     <select id="channelNo" th:field="*{channelNo}" class="form-control">
                         <option th:each="channel : ${channels}" th:value="${channel.channelNo}" th:text="${channel.channelName}" th:selected="${#strings.equals(channel.channelNo, contents.channelNo)}">채널명</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="searchContents" class="col-sm-2 control-label" th:text="#{admin.contents.search}">콘텐츠 검색</label>
+                <div class="col-sm-10">
+                    <button type="button" id="searchContents" class="btn btn-primary" data-target="#searchModal" data-toggle="modal" th:text="#{common.search}">검색</button>
                 </div>
             </div>
             <div class="form-group">
@@ -90,6 +97,48 @@
                 </div>
             </div>
         </form>
+
+        <div class="modal fade" id="searchModal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title modalLabel" th:text="#{admin.contents.search}">콘텐츠 검색</h4>
+                    </div>
+                    <div class="modal-body row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button id="searchBtn" class="btn btn-default" type="button">[[#{common.search}]]</button>
+                                        </span>
+                                        <input type="text" class="form-control" id="searchText" name="searchText" th:placeholder="#{admin.contents.search.input}" />
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+
+                            <hr class="border" />
+
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p id="page" class="text-right"></p>
+                                    <div id="contentsList" class="list-group">
+                                        <p class="text-center" th:text="#{admin.contents.input.searchWord}">검색어를 입력하세요.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+                    <div class="modal-footer text-left-imp">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal" th:text="#{common.close}">닫기</button>
+                        <div class=".pull-right text-right">
+                            <button type="button" id="prev" class="btn btn-primary" th:text="#{common.prev.page}">이전페이지</button>
+                            <button type="button" id="next" class="btn btn-primary" th:text="#{common.next.page}">다음페이지</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
     </div>
 </body>
