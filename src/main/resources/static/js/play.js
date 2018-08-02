@@ -1,3 +1,6 @@
+var intervalTime = 60 * 1000;
+var intervelStartTime = 5 * intervalTime;
+
 $(document).ready(function() {
 
     var video = document.getElementById("player");
@@ -29,9 +32,13 @@ $(document).ready(function() {
         $('#modal').modal('show');
     }
 
+    setTimeout(function() {
+        setInterval(addWatching, intervalTime);
+    }, intervelStartTime);
+
 });
 
-$(window).on("beforeunload", function() {
+function addWatching() {
     var video = document.getElementById("player");
     var videoNo = $("#videoNo").val();
     if(!video.ended) {
@@ -39,5 +46,6 @@ $(window).on("beforeunload", function() {
             url : "/api/watching/add?videoNo=" + videoNo + "&watchingTime=" + video.currentTime
         })
     }
-});
+}
 
+$(window).on("beforeunload", addWatching);
