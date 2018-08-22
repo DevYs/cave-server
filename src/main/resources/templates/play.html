@@ -21,7 +21,7 @@
                 <div id="embed" class="embed-responsive embed-responsive-16by9">
                     <video id="player" controls="controls" autoplay="autoplay" class="embed-responsive-item">
                         <source th:src="${watching.video.videoUrl}" />
-                        <track kind="subtitles" srclang="ko" label="한국어" th:if="${watching.video.subtitle} != null" th:src="@{~/subtitle(videoNo=${watching.videoNo})}" default="default" />
+                        <track id="subtitle" kind="subtitles" srclang="ko" label="한국어" th:if="${watching.video.subtitle} != null" th:src="@{~/subtitle(videoNo=${watching.videoNo})}" default="default" />
                     </video>
                 </div>
             </div>
