@@ -4,8 +4,6 @@
       layout:decorate="~{default}">
 <head>
     <title th:text="#{play.title(${watching.contents.contentsName}, ${watching.video.videoName})}"></title>
-    <script th:src="@{~/js/cast.js}"></script>
-    <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     <script th:src="@{~/js/play.js}"></script>
 </head>
 
@@ -28,11 +26,8 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
                 <a th:if="${isWatching}" th:href="@{~/watching/remove(videoNo=${watching.videoNo})}" type="button" class="btn btn-warning rev-watching-btn" th:text="#{common.already.watched}">이미 감상한 콘텐츠입니다.</a>
-            </div>
-            <div class="col-xs-2">
-                <google-cast-launcher class="btn float-right">TV로 보기</google-cast-launcher>
             </div>
         </div>
 
