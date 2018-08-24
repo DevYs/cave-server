@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.Iterator;
 
-@ControllerAdvice
+@ControllerAdvice(basePackages = "devy.cave.server.controller")
 public class UserControllerAdvice {
-
-    private final Logger logger = LoggerFactory.getLogger(UserControllerAdvice.class);
 
     @Autowired
     private ChannelService channelService;
