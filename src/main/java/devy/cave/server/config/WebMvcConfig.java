@@ -1,7 +1,9 @@
 package devy.cave.server.config;
 
+import devy.cave.server.interceptor.UserInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -16,6 +18,9 @@ import java.util.Locale;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private final Logger logger = LoggerFactory.getLogger(WebMvcConfig.class);
+
+    @Autowired
+    private UserInterceptor userInterceptor;
 
     @Bean
     public LocaleResolver localeResolver() {
@@ -34,6 +39,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(userInterceptor)
+                .addPathPatterns("/*");
     }
 
 }
