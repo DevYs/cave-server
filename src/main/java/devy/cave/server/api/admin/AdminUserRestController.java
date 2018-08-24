@@ -1,4 +1,4 @@
-package devy.cave.server.rest.admin;
+package devy.cave.server.api.admin;
 
 import org.springframework.web.bind.annotation.RestController;
 
