@@ -1,5 +1,5 @@
 var intervalTime = 60 * 1000;
-var intervelStartTime = 5 * intervalTime;
+var intervelStartTime = 1 * intervalTime;
 
 $(document).ready(function() {
 
