@@ -79,24 +79,30 @@ public class AdminVideoController {
     }
 
     @PostMapping("/admin/contents/video/mod")
-    public String mod(@Valid Video video, BindingResult bindingResult, @RequestParam("subtitleFile") MultipartFile subtitleFile, Model model) {
+    public String mod(@Valid Video video, @RequestParam(value = "no-subtitle", required = false, defaultValue = "false") boolean noSubtitle, BindingResult bindingResult, @RequestParam("subtitleFile") MultipartFile subtitleFile, Model model) {
         Video storedVideo = videoService.getVideo(video.getVideoNo());
 
+        logger.info("noSubtitle : " + noSubtitle);
         logger.info("Subtitle original file name ... " + subtitleFile.getOriginalFilename());
 
         boolean errProcSubtitle = false;
-        if(!subtitleFile.isEmpty()) {
-            String s = procSubtitle(subtitleFile);
 
-            logger.info("Process Subtitle ... ");
-            logger.info(s);
+        if(!noSubtitle) {
+            if(!subtitleFile.isEmpty()) {
+                String s = procSubtitle(subtitleFile);
 
-            errProcSubtitle = (s == null);
-            if(!errProcSubtitle) {
-                video.setSubtitle(s);
+                logger.info("Process Subtitle ... ");
+                logger.info(s);
+
+                errProcSubtitle = (s == null);
+                if(!errProcSubtitle) {
+                    video.setSubtitle(s);
+                }
+            } else {
+                video.setSubtitle(storedVideo.getSubtitle());
             }
         } else {
-            video.setSubtitle(storedVideo.getSubtitle());
+            video.setSubtitle(null);
         }
 
         if(bindingResult.hasErrors() || errProcSubtitle) {
