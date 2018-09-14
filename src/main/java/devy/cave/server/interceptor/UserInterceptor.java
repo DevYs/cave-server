@@ -22,7 +22,9 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        modelAndView.addObject("channels", channelService.channelList().iterator());
+        if(modelAndView != null) {
+            modelAndView.addObject("channels", channelService.channelList().iterator());
+        }
     }
 
     @Override
