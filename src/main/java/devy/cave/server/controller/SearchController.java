@@ -23,8 +23,10 @@ public class SearchController {
     @GetMapping("/search")
     public String search(@RequestParam(defaultValue = "1") int pageNo, String searchWord, String channelNo, Model model) {
         List<Contents> contents = searchService.contentsList(pageNo, searchWord, channelNo);
+        int searchTotal = searchService.searchContents(searchWord, channelNo).size();
 
         boolean isChannel = !channelNo.equals("0");
+        model.addAttribute("searchTotal", searchTotal);
         model.addAttribute("searchChannel", isChannel ? searchService.getChannel(channelNo) : new Channel("0", "전체"));
         model.addAttribute("searchWord", searchWord);
         model.addAttribute("contentsList", contents);
@@ -35,6 +37,9 @@ public class SearchController {
     @RequestMapping(value = "/api/search", method = RequestMethod.GET)
     @ResponseBody
     public List<Contents> search(@RequestParam(defaultValue = "1") int pageNo, String searchWord, String channelNo) {
+        logger.info("pageNo " + pageNo);
+        logger.info("searchWord " + searchWord);
+        logger.info("channelNo " + channelNo);
         return searchService.contentsList(pageNo, searchWord, channelNo);
     }
 
