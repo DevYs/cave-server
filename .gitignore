@@ -2,6 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 /bdb/
+bdb
 /logs/
 .DS_Store
 
