@@ -212,3 +212,7 @@ a.search-item:hover {
 .modal-header .close {
     margin-top: -26px !important;
 }
+
+#select-subtitle {
+    min-width: inherit;
+}

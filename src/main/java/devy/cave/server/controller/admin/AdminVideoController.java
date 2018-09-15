@@ -124,32 +124,6 @@ public class AdminVideoController {
         return "redirect:/admin/contents/view?contentsNo=" + mod.getContentsNo();
     }
 
-    @GetMapping("/subtitle")
-    public void subtitle(String videoNo, HttpServletResponse response) {
-        Video video = videoService.getVideo(videoNo);
-
-        if(video.getSubtitle() == null) {
-            return;
-        }
-
-        try {
-            String docName = URLEncoder.encode( video.getVideoNo()+ ".vtt","UTF-8");
-            response.setHeader("Content-Disposition", "attachment;filename=" + docName + ";");
-            response.setContentType("text/vtt");
-            response.setCharacterEncoding("UTF-8");
-            PrintWriter txtPrinter = response.getWriter();
-
-            String snippet = URLDecoder.decode(video.getSubtitle().replaceAll("%(?![0-9a-fA-F]{2})", "%25"), "UTF-8");
-            txtPrinter.print(video.getSubtitle().replaceAll("%(?![0-9a-fA-F]{2})", "%25"));
-            response.flushBuffer();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     @GetMapping("/admin/contents/video/remove")
     public String remove(String videoNo, Model model) {
         model.addAttribute("video", videoService.getVideo(videoNo));

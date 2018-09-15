@@ -2,6 +2,7 @@ package devy.cave.server.config;
 
 import devy.cave.server.db.service.AdminConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.Session;
@@ -24,6 +25,12 @@ public class ServletContainerConfig implements WebServerFactoryCustomizer<Config
         Session session = new Session();
         session.setTimeout(between);
         factory.setSession(session);
+
+        MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
+        mappings.add("vtt","text/vtt");
+        mappings.add("smi","text/smi");
+        mappings.add("srt","text/srt");
+        factory.setMimeMappings(mappings);
 
         int port = Integer.valueOf(adminConfigService.getPort().getConfigValue());
         factory.setPort(port);
