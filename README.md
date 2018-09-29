@@ -31,7 +31,7 @@ Cave Server는 구글에서 서비스 중인 Google Photo를 활용한 영화 �
 2. 압축을 해제한 디렉터리로 이동
 3. **start.bat** 실행
 4. 웹 브라우저를 실행시킵니다.
-5. 주소창에 **http://localhost:8080/**을 입력합니다.
+5. 주소창에 [http://localhost:8080/](http://localhost:8080/)을 입력합니다.
 6. 관리 계정은 **admin**이며 초기 비밀번호는 **0000**입니다.
 
 #### 3.2 Linux
@@ -39,7 +39,7 @@ Cave Server는 구글에서 서비스 중인 Google Photo를 활용한 영화 �
 2. 터미널 실행 후 압축을 해제한 디렉터리로 이동
 3. **./start.sh** 입력 후 Enter
 4. 웹 브라우저를 실행시킵니다.
-5. 주소창에 **http://localhost:8080/**을 입력합니다.
+5. 주소창에 [http://localhost:8080/](http://localhost:8080/)을 입력합니다.
 6. 관리 계정은 **admin**이며 초기 비밀번호는 **0000**입니다.
 
 #### 3.3 Mac OS X
@@ -47,7 +47,7 @@ Cave Server는 구글에서 서비스 중인 Google Photo를 활용한 영화 �
 2. 터미널 실행 후 압축을 해제한 디렉터리로 이동
 3. **./start.sh** 입력 후 Enter
 4. 웹 브라우저를 실행시킵니다.
-5. 주소창에 **http://localhost:8080/**을 입력합니다.
+5. 주소창에 [http://localhost:8080/](http://localhost:8080/)을 입력합니다.
 6. 관리 계정은 **admin**이며 초기 비밀번호는 **0000**입니다.
 
 ***
