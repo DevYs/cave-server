@@ -13,6 +13,8 @@ public class AdminConfigService {
 
     private final Logger logger = LoggerFactory.getLogger(AdminConfigService.class);
 
+    private final String DEFAULT_PORT = "8080";
+
     @Autowired
     private AdminConfigMapper adminConfigMapper;
 
@@ -25,7 +27,7 @@ public class AdminConfigService {
         try {
             port = (AdminConfig) adminConfigMapper.map().duplicates(new AdminConfigKey(AdminConfig.port().getConfigName())).iterator().next();
         } catch(Exception e) {
-            port = AdminConfig.port().setConfigValue("8080");
+            port = AdminConfig.port().setConfigValue(DEFAULT_PORT);
         }
 
         logger.info(port.toString());

@@ -15,6 +15,9 @@ public class ConfigController {
 
     private final Logger logger = LoggerFactory.getLogger(ConfigController.class);
 
+    private final int MIN_PORT = 80;
+    private final int MAX_PORT = 49151;
+
     @Autowired
     private AdminConfigService adminConfigService;
 
@@ -34,8 +37,8 @@ public class ConfigController {
         }
 
         int p = Integer.valueOf(port);
-        if(p < 1024 || 49151 < p) {
-            model.addAttribute("errorPort", "포트 번호는 1024~49151 사이의 숫자만 가능합니다.");
+        if(p < MIN_PORT || MAX_PORT < p) {
+            model.addAttribute("errorPort", "포트 번호는 " + MIN_PORT + " ~ " + MAX_PORT + " 사이의 숫자만 가능합니다.");
             model.addAttribute("port", adminConfigService.getPort());
             return "config/port";
         }
