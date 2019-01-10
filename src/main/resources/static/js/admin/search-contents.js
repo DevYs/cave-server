@@ -10,10 +10,13 @@ var TAG_TITLE = "{title}";
 var TAG_YEAR = "{year}";
 var TAG_ACTOR = "{actor}";
 
-var URL_CONTENTS = "http://devy.iptime.org:1043/contents";
-var URL_CONTENTS_LIST = "http://devy.iptime.org:1043/contents/list";
+//var URL_CONTENTS = "http://devy.iptime.org:1043/contents";
+//var URL_CONTENTS_LIST = "http://devy.iptime.org:1043/contents/list";
 //var URL_CONTENTS = "http://192.168.43.54:1043/contents";
 //var URL_CONTENTS_LIST = "http://192.168.43.54:1043/contents/list";
+var URL_CONTENTS = "/api/contents";
+var URL_CONTENTS_LIST = "/api/contents/list";
+
 var page = 1;
 
 var template = "<a href='#' id='" + TAG_CONTENTS_ID + "' class='list-group-item search-item'>" +
@@ -80,6 +83,10 @@ function activeBtn() {
 
 function requestContentsList(direction) {
     var searchText = $("#searchText").val();
+
+    $.ajaxSetup({
+        headers: { 'X-XSRF-TOKEN': $('input[name="_csrf"]').val() }
+    });
 
     $.post(
         URL_CONTENTS_LIST,
