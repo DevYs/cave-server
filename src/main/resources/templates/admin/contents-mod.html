@@ -90,6 +90,32 @@
                 </div>
             </div>
 
+            <!-- 추가 정보 -->
+            <div class="form-group">
+                <label for="youtubeVideoId" class="col-sm-2 control-label" th:text="#{admin.contents.youtubeVideoId}">유튜브 소개영상</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="youtubeVideoId" th:field="*{youtubeVideoId}" th:placeholder="#{admin.contents.youtubeVideoId.msg}" />
+                    <p th:if="${#fields.hasErrors('youtubeVideoId')}" th:errors="*{youtubeVideoId}">유튜브 소개영상 videoId 오류 메세지</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="movieClipThumb" class="col-sm-2 control-label" th:text="#{admin.contents.movieClipThumb}">영화 클립 썸네일</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="movieClipThumb" th:field="*{movieClipThumb}" th:placeholder="#{admin.contents.movieClipThumb.msg}" />
+                    <p th:if="${#fields.hasErrors('movieClipThumb')}" th:errors="*{movieClipThumb}">영화 클립 썸네일 오류 메세지</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="daumMovieId" class="col-sm-2 control-label" th:text="#{admin.contents.daumMovieId}">다음 영화 ID</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="daumMovieId" th:field="*{daumMovieId}" th:placeholder="#{admin.contents.daumMovieId.msg}" />
+                    <p th:if="${#fields.hasErrors('daumMovieId')}" th:errors="*{daumMovieId}">다음 영화 ID 오류 메세지</p>
+                </div>
+            </div>
+            <!-- 추가 정보 끝 -->
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="submit" class="btn btn-primary" th:text="#{common.modify}">수정</button>
