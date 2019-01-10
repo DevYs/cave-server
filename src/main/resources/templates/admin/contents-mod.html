@@ -13,7 +13,7 @@
 
         <form th:action="@{~/admin/contents/mod}" method="post" th:object="${contents}" class="form-horizontal">
             <input type="hidden" name="contentsNo" th:value="${contents.contentsNo}" />
-            <input type="hidden" class="form-control" id="movieId" th:field="*{movieId}" />
+            <input type="hidden" class="form-control" id="movieId" name="movieId" th:value="${clip.movieId}" />
             <div class="form-group">
                 <label for="channelNo" class="col-sm-2 control-label" th:text="#{common.channel}">채널</label>
                 <div class="col-sm-10">
@@ -95,8 +95,7 @@
             <div class="form-group">
                 <label for="youtubeVideoId" class="col-sm-2 control-label" th:text="#{admin.contents.youtubeVideoId}">유튜브 소개영상</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="youtubeVideoId" th:field="*{youtubeVideoId}" th:placeholder="#{admin.contents.youtubeVideoId.msg}" />
-                    <p th:if="${#fields.hasErrors('youtubeVideoId')}" th:errors="*{youtubeVideoId}">유튜브 소개영상 videoId 오류 메세지</p>
+                    <input type="text" class="form-control" id="youtubeVideoId" name="youtubeVideoId" th:value="${clip.youtubeVideoId}" th:placeholder="#{admin.contents.youtubeVideoId.msg}" />
                 </div>
             </div>
             <!-- 추가 정보 끝 -->

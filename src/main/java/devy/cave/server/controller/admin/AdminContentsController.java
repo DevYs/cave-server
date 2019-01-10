@@ -1,6 +1,8 @@
 package devy.cave.server.controller.admin;
 
+import devy.cave.server.db.model.Clip;
 import devy.cave.server.db.model.Contents;
+import devy.cave.server.db.service.ClipService;
 import devy.cave.server.db.service.ContentsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,9 @@ public class AdminContentsController {
 
     @Autowired
     private ContentsService contentsService;
+
+    @Autowired
+    private ClipService clipService;
 
     @GetMapping("/admin/contents")
     public String contents(@RequestParam(defaultValue = "1", required = false) int pageNo, @RequestParam(defaultValue = "", required = false) String searchWord, @RequestParam(defaultValue = "0", required = false) String channelNo, Model model) {
@@ -50,35 +55,56 @@ public class AdminContentsController {
     }
 
     @PostMapping("/admin/contents/add")
-    public String add(@Valid Contents contents, BindingResult bindingResult) {
+    public String add(@Valid Contents contents, BindingResult bindingResult, String movieId, String youtubeVideoId) {
+
+        logger.info("> contents");
+        logger.info(contents.toString());
+        logger.info("> clip");
+        logger.info("movieId " + movieId);
+        logger.info("youtubeVideoId " + youtubeVideoId);
 
         if(bindingResult.hasErrors()) {
             return "admin/contents-add";
         }
 
-        boolean isAdded = contentsService.add(contents);
-        if(isAdded) {
-            logger.info("added " + contents.toString());
+        boolean added = contentsService.add(contents, movieId, youtubeVideoId);
+
+        if(added) {
+            logger.info("Contents 등록중 오류가 발생했습니다.");
         }
+
         return "redirect:/admin/contents";
     }
 
     @GetMapping("/admin/contents/mod")
     public String mod(String contentsNo, Model model) {
         model.addAttribute("contents", contentsService.getContents(contentsNo));
+        model.addAttribute("clip", clipService.getClip(contentsNo));
         return "admin/contents-mod";
     }
 
     @PostMapping("/admin/contents/mod")
-    public String mod(@Valid Contents contents, BindingResult bindingResult) {
+    public String mod(@Valid Contents contents, BindingResult bindingResult, String movieId, String youtubeVideoId) {
+
+        logger.info("> contents");
+        logger.info(contents.toString());
+        logger.info("> clip");
+        logger.info("movieId " + movieId);
+        logger.info("youtubeVideoId " + youtubeVideoId);
 
         if(bindingResult.hasErrors()) {
             return "admin/contents-mod";
         }
 
+        Clip clip = new Clip(contents.getContentsNo(), movieId, youtubeVideoId);
+        Clip modClip = clipService.mod(clip);
+        logger.info("modified from " + clip);
+        logger.info("to " + modClip.toString());
+
         Contents mod = contentsService.mod(contents);
         logger.info("modified from " + contents.toString());
         logger.info("to " + mod.toString());
+
         return "redirect:/admin/contents";
     }
 

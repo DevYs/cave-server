@@ -143,17 +143,19 @@ function appendItem(data) {
 
         contentsList.append(listItem);
 
-        $("#" + contentsId).on("click", setOnClickEvent);
+        $("#" + contentsId).on("click", selectContentsEvent);
     }
 
     return data.length;
 }
 
-function setOnClickEvent() {
+function selectContentsEvent() {
 
     disableBtn();
 
     var contentsId = $(this).attr("id");
+
+    $("#movieId").val(contentsId);
 
     $.post(
         URL_CONTENTS,

@@ -9,6 +9,7 @@ public class QueryMap extends HashMap<String, Query> {
     public QueryMap() {
         channel();
         contents();
+        clip();
         user();
         video();
         watching();
@@ -29,6 +30,10 @@ public class QueryMap extends HashMap<String, Query> {
                 .setPrimaryDbName(Contents.DB_CONTENTS)
                 .setForeignKeyDbName(Channel.DB_CHANNEL)
                 .setKeyName(Contents.KEY_CONTENTS_CHANNEL_NO));
+    }
+
+    private void clip() {
+        put(Clip.DB_CLIP, new Query().setDbName(Clip.DB_CLIP).setKeyClass(ClipKey.class).setValueBaseClass(Clip.class));
     }
 
     private void video() {

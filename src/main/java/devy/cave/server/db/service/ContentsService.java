@@ -27,6 +27,9 @@ public class ContentsService {
     private ContentsMapper contentsMapper;
 
     @Autowired
+    private ClipService clipMapper;
+
+    @Autowired
     private VideoMapper videoMapper;
 
     @Autowired
@@ -81,9 +84,20 @@ public class ContentsService {
         return contentsList.subList(s - 1, e);
     }
 
-    public boolean add(Contents contents) {
+    public boolean add(Contents contents, String movieId, String youtubeVideoId) {
         contents.setContentsNo(DatabaseKeyCreator.createKey());
-        return contentsMapper.add(contents);
+
+        Clip clip = new Clip(contents.getContentsNo(), movieId, youtubeVideoId);
+
+        boolean added = contentsMapper.add(contents);
+        boolean addedClip = clipMapper.add(clip);
+
+        if(added && addedClip) {
+            logger.info("added " + contents.toString());
+            logger.info("added " + clip.toString());
+        }
+
+        return added && addedClip;
     }
 
     public Contents remove(String contentsNo) {
