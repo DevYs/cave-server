@@ -16,7 +16,9 @@ public class Contents {
     private String imageUrl;
     private float emphGrade;
     private List<Person> people;
-    private ClipVideo clipVideo;
+
+    // 다음 영화ID
+    private String movieId;
 
     public String getPosterUrl() {
         return posterUrl;
@@ -114,12 +116,12 @@ public class Contents {
         this.people = people;
     }
 
-    public ClipVideo getClipVideo() {
-        return clipVideo;
+    public String getMovieId() {
+        return movieId;
     }
 
-    public void setClipVideo(ClipVideo clipVideo) {
-        this.clipVideo = clipVideo;
+    public void setMovieId(String daumMovieId) {
+        this.movieId = daumMovieId;
     }
 
     @Override
@@ -137,7 +139,7 @@ public class Contents {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", emphGrade=" + emphGrade +
                 ", people=" + people +
-                ", clipVideo=" + clipVideo +
+                ", movieId='" + movieId + '\'' +
                 '}';
     }
 }

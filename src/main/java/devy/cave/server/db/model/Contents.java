@@ -51,21 +51,6 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
 
     private String story;
 
-    /**
-     * 추가 입력 정보
-     */
-
-    // 유튜브 소개 영상 videoId
-    @NotNull
-    private String youtubeVideoId;
-
-    // 영화 클립 이미지
-    private String movieClipThumb;
-
-    // 다음 영화ID
-    @NotNull
-    private String daumMovieId;
-
     public Contents() {}
 
     public Contents(String channelNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story) {
@@ -93,23 +78,6 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
         this.director = director;
         this.actor = actor;
         this.story = story;
-    }
-
-    public Contents(String channelNo, String contentsNo, String contentsPosterUrl, String contentsName, String genre, String nation, String releaseDate, String runningTime, String director, String actor, String story, String youtubeVideoId, String movieClipThumb, String daumMovieId) {
-        this.channelNo = channelNo;
-        this.contentsNo = contentsNo;
-        this.contentsPosterUrl = contentsPosterUrl;
-        this.contentsName = contentsName;
-        this.genre = genre;
-        this.nation = nation;
-        this.releaseDate = releaseDate;
-        this.runningTime = runningTime;
-        this.director = director;
-        this.actor = actor;
-        this.story = story;
-        this.youtubeVideoId = youtubeVideoId;
-        this.movieClipThumb = movieClipThumb;
-        this.daumMovieId = daumMovieId;
     }
 
     public final String getChannelNo() {
@@ -200,30 +168,6 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
         this.story = story;
     }
 
-    public String getYoutubeVideoId() {
-        return youtubeVideoId;
-    }
-
-    public void setYoutubeVideoId(String youtubeVideoId) {
-        this.youtubeVideoId = youtubeVideoId;
-    }
-
-    public String getMovieClipThumb() {
-        return movieClipThumb;
-    }
-
-    public void setMovieClipThumb(String movieClipThumb) {
-        this.movieClipThumb = movieClipThumb;
-    }
-
-    public String getDaumMovieId() {
-        return daumMovieId;
-    }
-
-    public void setDaumMovieId(String daumMovieId) {
-        this.daumMovieId = daumMovieId;
-    }
-
     @Override
     public String toString() {
         return "Contents{" +
@@ -238,9 +182,6 @@ public class Contents implements Serializable, MarshalledTupleKeyEntity {
                 ", director='" + director + '\'' +
                 ", actor='" + actor + '\'' +
                 ", story='" + story + '\'' +
-                ", youtubeVideoId='" + youtubeVideoId + '\'' +
-                ", movieClipThumb='" + movieClipThumb + '\'' +
-                ", daumMovieId='" + daumMovieId + '\'' +
                 '}';
     }
 
