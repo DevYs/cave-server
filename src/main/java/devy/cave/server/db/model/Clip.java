@@ -63,11 +63,6 @@ public class Clip implements Serializable, MarshalledTupleKeyEntity {
         this.youtubeVideoId = youtubeVideoId;
     }
 
-    public boolean isAvailable() {
-        boolean isAvailable = !this.movieId.isEmpty() && !this.youtubeVideoId.isEmpty();
-        return isAvailable;
-    }
-
     @Override
     public String toString() {
         return "Clip{" +

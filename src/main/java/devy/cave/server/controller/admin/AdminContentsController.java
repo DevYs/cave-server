@@ -78,13 +78,19 @@ public class AdminContentsController {
 
     @GetMapping("/admin/contents/mod")
     public String mod(String contentsNo, Model model) {
+        Clip clip = clipService.getClip(contentsNo);
+
+        if(clip == null) {
+            clip = new Clip(contentsNo);
+        }
+
         model.addAttribute("contents", contentsService.getContents(contentsNo));
-        model.addAttribute("clip", clipService.getClip(contentsNo));
+        model.addAttribute("clip", clip);
         return "admin/contents-mod";
     }
 
     @PostMapping("/admin/contents/mod")
-    public String mod(@Valid Contents contents, BindingResult bindingResult, String movieId, String youtubeVideoId) {
+    public String mod(@Valid Contents contents, BindingResult bindingResult, String movieId, String youtubeVideoId, Model model) {
 
         logger.info("> contents");
         logger.info(contents.toString());
@@ -93,6 +99,14 @@ public class AdminContentsController {
         logger.info("youtubeVideoId " + youtubeVideoId);
 
         if(bindingResult.hasErrors()) {
+            Clip storedClip = clipService.getClip(contents.getContentsNo());
+
+            if(storedClip == null) {
+                storedClip = new Clip(contents.getContentsNo(), movieId, youtubeVideoId);
+            }
+
+            model.addAttribute("contents", contentsService.getContents(contents.getContentsNo()));
+            model.addAttribute("clip", storedClip);
             return "admin/contents-mod";
         }
 

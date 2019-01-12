@@ -9,8 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-
 @Service
 public class ClipService {
 
@@ -31,27 +29,22 @@ public class ClipService {
         Clip storedClip = getClip(clip.getClipContentsNo());
 
         logger.info(clip.toString());
-        logger.info(storedClip.toString());
-
-        if(!storedClip.isAvailable()) {
+        if(storedClip == null) {
             add(clip);
             return clip;
+        } else {
+            logger.info(storedClip.toString());
         }
 
         return (Clip) clipMapper.mod(clip);
     }
 
     public Clip getClip(String clipContentsNo) {
-
-        Clip clip = new Clip(clipContentsNo);
-        try {
-            clip = (Clip) clipMapper.sortedMap().duplicates(new ClipKey(clipContentsNo)).iterator().next();
-        } catch(NoSuchElementException e) {
-            logger.info("등록된 클립정보가 없습니다. clipContentsNo " + clipContentsNo);
-            return clip;
+        boolean hasNext = clipMapper.sortedMap().duplicates(new ClipKey(clipContentsNo)).iterator().hasNext();
+        if(!hasNext) {
+            return null;
         }
-
-        return clip;
+        return (Clip) clipMapper.sortedMap().duplicates(new ClipKey(clipContentsNo)).iterator().next();
     }
 
     public StoredSortedValueSet<Clip> clipList() {
