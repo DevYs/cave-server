@@ -39,8 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
-        registry.addInterceptor(userInterceptor)
-                .addPathPatterns("/*", "/admin/channel", "/admin/channel/**", "/admin/contents", "/admin/contents/**");
+        registry.addInterceptor(userInterceptor).addPathPatterns("/*", "/admin/channel", "/admin/channel/**", "/admin/contents", "/admin/contents/**");
     }
 
 }

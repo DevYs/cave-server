@@ -2,15 +2,18 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <title>로그인</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="js/api/cookie.js"></script>
-    <script src="js/api/auth.js"></script>
-    <!--<script src="js/api/index.js"></script>-->
+    <script src="js/api/login.js"></script>
 </head>
 <body>
-
+    <form action="http://localhost:1042/api/user/login" method="post">
+        <input type="text" id="userId" name="userId" />
+        <input type="text" id="password" name="password" />
+        <button>로그인</button>
+    </form>
 </body>
 </html>

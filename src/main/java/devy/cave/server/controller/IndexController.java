@@ -1,7 +1,10 @@
 package devy.cave.server.controller;
 
+import devy.cave.server.api.resp.ApiStatusCode;
+import devy.cave.server.api.resp.StatusLogin;
 import devy.cave.server.db.model.Contents;
 import devy.cave.server.db.model.Deck;
+import devy.cave.server.db.model.User;
 import devy.cave.server.db.model.Watching;
 import devy.cave.server.db.service.*;
 import org.slf4j.Logger;
@@ -9,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,9 @@ public class IndexController {
 
     @Autowired
     private WatchingService watchingService;
+
+    @Autowired
+    private ApiAuthService apiAuthService;
 
     @GetMapping("/")
     public String home() {
@@ -88,6 +92,20 @@ public class IndexController {
         }
 
         return "redirect:/login";
+    }
+
+    @PostMapping("/api/user/login")
+    @ResponseBody
+    public Object apiLogin(
+            @RequestParam(value = "userId", required = true) String userId,
+            @RequestParam(value = "password", required = true) String password) {
+        User validPasswordAndUser = userService.isValidPasswordAndUser(userId, password);
+        if(validPasswordAndUser != null) {
+            String apiKey = apiAuthService.saveAuth(userId);
+            return new StatusLogin(ApiStatusCode.SUCCESS, "login success", apiKey);
+        }
+
+        return new StatusLogin(ApiStatusCode.LOGIN_FAILED, "login failed", "null");
     }
 
 }

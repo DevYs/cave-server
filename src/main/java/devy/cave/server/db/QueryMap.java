@@ -15,6 +15,7 @@ public class QueryMap extends HashMap<String, Query> {
         watching();
         deck();
         adminConfig();
+        apiAuth();
     }
 
     private void channel() {
@@ -98,6 +99,16 @@ public class QueryMap extends HashMap<String, Query> {
                 new Query().setDbName(AdminConfig.DB_ADMIN_CONFIG)
                         .setKeyClass(AdminConfigKey.class)
                         .setValueBaseClass(AdminConfig.class));
+    }
+
+    private void apiAuth() {
+        put(ApiAuth.DB_API_AUTH, new Query().setDbName(ApiAuth.DB_API_AUTH).setKeyClass(ApiAuthKey.class).setValueBaseClass(ApiAuth.class));
+        put(ApiAuth.INDEX_API_AUTH_USER_ID, new Query()
+                .setDbName(ApiAuth.INDEX_API_AUTH_USER_ID)
+                .setKeyClass(String.class)
+                .setValueBaseClass(ApiAuth.class)
+                .setKeyName(ApiAuth.KEY_API_AUTH_USER_ID)
+                .setPrimaryDbName(ApiAuth.DB_API_AUTH));
     }
 
 }
