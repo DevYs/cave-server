@@ -21,7 +21,7 @@ $(document).ready(function() {
             success: function(auth) {
                 console.log(auth);
                 if(auth.apiStatus.statusCode === SUC_LOGIN) {
-                    window.location.href = 'index.html?authKey=' + auth.contents.authKey;
+                    window.location.href = 'index.html?authKey=' + auth.contents.authKey + '&userId=' + auth.contents.userId;
                 }
             },
             error: function(xhr, textStatus) {

@@ -1,11 +1,20 @@
 $(document).ready(function() {
-//    var apiUrl = 'http://www.devycave.de:1042/api/user/index';
     var apiUrl = 'http://localhost:1042/api/user/index';
-    var parameters = {'param1': 'devy', 'param2': 1042};
+    var authKey = $.getParameter('authKey');
+    var userId = $.getParameter('userId');
 
-    $.ajaxSetup(AJAX_SETUP(apiUrl, parameters));
+    if(!authKey) {
+        window.location.href = 'login.html';
+    }
+
+    console.log('authKey ' + authKey);
+    console.log('userId ' + userId);
 
     $.ajax({
+        url: apiUrl,
+        method: 'POST',
+        dataType: 'json',
+        data: { 'authKey': authKey, 'userId': userId },
         success: function(data) {
             console.log(data);
             $("body").text(data.statusCode);
@@ -17,3 +26,15 @@ $(document).ready(function() {
     });
 
 });
+
+$.getParameter = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
+
+$.href = function(page) {
+    window.location.href = page + '?authKey=' + authKey;
+}
