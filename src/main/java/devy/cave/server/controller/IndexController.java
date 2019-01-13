@@ -101,8 +101,8 @@ public class IndexController {
             @RequestParam(value = "password", required = true) String password) {
         User validPasswordAndUser = userService.isValidPasswordAndUser(userId, password);
         if(validPasswordAndUser != null) {
-            String apiKey = apiAuthService.saveAuth(userId);
-            return new StatusLogin(ApiStatusCode.SUCCESS, "login success", apiKey);
+            String authKey = apiAuthService.saveAuth(userId);
+            return new StatusLogin(ApiStatusCode.SUCCESS, "login success", authKey);
         }
 
         return new StatusLogin(ApiStatusCode.LOGIN_FAILED, "login failed", "null");
