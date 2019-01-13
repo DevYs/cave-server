@@ -31,7 +31,7 @@ public class ApiAuthService {
      * @param userId 사용자 ID
      * @return boolean
      */
-    public String saveAuth(String userId) {
+    public ApiAuth saveAuth(String userId) {
         String authKey = UUID.randomUUID().toString();
         String expiredDate = LocalDateTime.now().plusDays(EXPIRES_PLUS_DAYS).toString();
         ApiAuth apiAuth = new ApiAuth(authKey, userId, expiredDate);
@@ -46,7 +46,7 @@ public class ApiAuthService {
 
         logger.info("added auth " + apiAuth.toString());
 
-        return apiAuth.getAuthKey();
+        return apiAuth;
     }
 
     /**
