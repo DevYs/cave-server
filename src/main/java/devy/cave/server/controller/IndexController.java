@@ -1,11 +1,10 @@
 package devy.cave.server.controller;
 
+import devy.cave.server.api.resp.ApiResponse;
+import devy.cave.server.api.resp.ApiStatus;
 import devy.cave.server.api.resp.ApiStatusCode;
 import devy.cave.server.api.resp.StatusLogin;
-import devy.cave.server.db.model.Contents;
-import devy.cave.server.db.model.Deck;
-import devy.cave.server.db.model.User;
-import devy.cave.server.db.model.Watching;
+import devy.cave.server.db.model.*;
 import devy.cave.server.db.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -101,11 +100,11 @@ public class IndexController {
             @RequestParam(value = "password", required = true) String password) {
         User validPasswordAndUser = userService.isValidPasswordAndUser(userId, password);
         if(validPasswordAndUser != null) {
-            String authKey = apiAuthService.saveAuth(userId);
-            return new StatusLogin(ApiStatusCode.SUCCESS, "login success", authKey);
+            ApiAuth apiAuth = apiAuthService.saveAuth(userId);
+            return new ApiResponse(ApiStatus.SUCCESS_LOGIN, apiAuth);
         }
 
-        return new StatusLogin(ApiStatusCode.LOGIN_FAILED, "login failed", "null");
+        return new ApiResponse(ApiStatus.FAILED_LOGIN, null);
     }
 
 }
