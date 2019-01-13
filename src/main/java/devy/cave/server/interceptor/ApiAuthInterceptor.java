@@ -1,11 +1,14 @@
 package devy.cave.server.interceptor;
 
 import devy.cave.server.api.resp.ApiStatusCode;
+import devy.cave.server.db.model.ApiAuth;
 import devy.cave.server.db.service.ApiAuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,16 +24,24 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String authKey = request.getHeader("authKey");
+        String authKey = request.getParameter("authKey");
+        logger.info("authKey " + authKey);
 
-        logger.info("authKey is " + authKey);
-
-        boolean auth = apiAuthService.auth(authKey);
-        if(!auth) {
+        ApiAuth auth = apiAuthService.auth(authKey);
+        if(auth == null) {
             response.sendError(ApiStatusCode.UNAUTHORIZED, ApiStatusCode.UNAUTHORIZED_MSG);
         }
 
         return super.preHandle(request, response, handler);
     }
 
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        super.postHandle(request, response, handler, modelAndView);
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        super.afterCompletion(request, response, handler, ex);
+    }
 }

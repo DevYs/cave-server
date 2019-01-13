@@ -71,12 +71,12 @@ public class ApiAuthService {
      * @param authKey 인증키
      * @return boolean
      */
-    public boolean auth(String authKey) {
+    public ApiAuth auth(String authKey) {
 
         // 저장된 인증 정보 조회
         Iterator iterator = apiAuthMapper.sortedMap().duplicates(new ApiAuthKey(authKey)).iterator();
         if(!iterator.hasNext()) {
-            return false;
+            return null;
         }
 
         // 인증키 만료일 비교
@@ -89,13 +89,12 @@ public class ApiAuthService {
             ApiAuth removedApiAuth = (ApiAuth) apiAuthMapper.remove(new ApiAuthKey(authKey));
             logger.info("인증키가 만료되어 인증이 삭제되었습니다.");
             logger.info("removed " + removedApiAuth.toString());
-            return false;
+            return null;
         }else {
-            apiAuth.setExpiredDate(now.toString());
-            apiAuthMapper.map().replace(new ApiAuthKey(authKey), apiAuth);
+            apiAuth.setExpiredDate(now.plusDays(EXPIRES_PLUS_DAYS).toString());
         }
 
-        return true;
+        return (ApiAuth) apiAuthMapper.map().replace(new ApiAuthKey(authKey), apiAuth);
     }
 
 }
