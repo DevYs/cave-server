@@ -99,10 +99,10 @@ public class IndexController {
         User validPasswordAndUser = userService.isValidPasswordAndUser(userId, password);
         if(validPasswordAndUser != null) {
             ApiAuth apiAuth = apiAuthService.saveAuth(userId);
-            return new ApiResponse(ApiStatus.SUCCESS_LOGIN, apiAuth);
+            return new ApiResponse(ApiStatus.SUCCESS_LOGIN, null, apiAuth);
         }
 
-        return new ApiResponse(ApiStatus.FAILED_LOGIN, null);
+        return new ApiResponse(ApiStatus.FAILED_LOGIN, null,null);
     }
 
 }
