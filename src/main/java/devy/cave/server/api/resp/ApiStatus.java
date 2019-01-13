@@ -2,6 +2,11 @@ package devy.cave.server.api.resp;
 
 public class ApiStatus {
 
+    public static final ApiStatus SUCCESS = new ApiStatus(ApiStatusCode.SUCCESS, ApiStatusCode.SUCCESS_MSG);
+    public static final ApiStatus SUCCESS_LOGIN = new ApiStatus(ApiStatusCode.SUCCESS, ApiStatusCode.LOGIN_SUCCESS_MSG);
+    public static final ApiStatus UNAUTHORIZED = new ApiStatus(ApiStatusCode.UNAUTHORIZED, ApiStatusCode.UNAUTHORIZED_MSG);
+    public static final ApiStatus FAILED_LOGIN = new ApiStatus(ApiStatusCode.LOGIN_FAILED, ApiStatusCode.LOGIN_FAILED_MSG);
+
     protected int statusCode;
     protected String statusMessage;
 

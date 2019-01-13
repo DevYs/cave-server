@@ -1,44 +1,19 @@
 $(document).ready(function() {
+//    var apiUrl = 'http://www.devycave.de:1042/api/user/index';
+    var apiUrl = 'http://localhost:1042/api/user/index';
+    var parameters = {'param1': 'devy', 'param2': 1042};
 
-    var param1 = "admin";
-    var param2 = "hanys1042";
-//    var apiKey = "1234";
-
-    var param = { "userId": param1, "password": param2 };
+    $.ajaxSetup(AJAX_SETUP(apiUrl, parameters));
 
     $.ajax({
-        url: 'http://localhost:1042/api/user/login',
-        method: 'POST',
-        dataType: 'json',
-        data: param,
-        success: function(result) {
-            console.log(result);
+        success: function(data) {
+            console.log(data);
+            $("body").text(data.statusCode);
         },
-        error: function(xhr, textStatus) {
-            console.log(xhr);
-            console.log('status ' + xhr.status);
-            console.log('textStatus ' + textStatus);
+        error: function(e) {
+            console.log(e);
+            window.location.href = "login.html";
         }
-
     });
-
-//    $.ajax({
-//            url: 'http://localhost:1042/api/user/index',
-//            method: 'POST',
-//            dataType: 'json',
-//            headers: {
-//                'apiKey': apiKey
-//            },
-//            data: param,
-//            success: function(result) {
-//                console.log(result);
-//            },
-//            error: function(xhr, textStatus) {
-//                console.log(xhr);
-//                console.log('status ' + xhr.status);
-//                console.log('textStatus ' + textStatus);
-//            }
-//
-//        });
 
 });
