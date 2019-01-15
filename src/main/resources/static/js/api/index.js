@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    var apiUrl = 'http://localhost:1042/api/user/index';
+//    var apiUrl = 'http://localhost:1042/api/user/index';
+    var apiUrl = 'http://www.devycave.de:1042/api/user/index';
     var authKey = $.getParameter('authKey');
     var userId = $.getParameter('userId');
 

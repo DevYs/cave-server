@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
@@ -79,7 +80,20 @@ public class PlayService {
     }
 
     public Collection<Video> videoList(String contentsNo) {
-        return videoMapper.sortedSetByContentsNo().duplicates(new ContentsKey(contentsNo));
+        Collection<Video> videoList = videoMapper.sortedSetByContentsNo().duplicates(new ContentsKey(contentsNo));
+        for(Video video : videoList) {
+            String image = video.getImage();
+            if(image == null || image.isEmpty()) {
+                try {
+                    video.parseShareLink();
+                    videoMapper.map().replace(new VideoKey(video.getVideoNo()), video);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return videoList;
     }
 
 }

@@ -1,5 +1,6 @@
 package devy.cave.server.controller;
 
+import devy.cave.server.api.req.ApiReqLogin;
 import devy.cave.server.api.resp.ApiResponse;
 import devy.cave.server.api.resp.ApiStatus;
 import devy.cave.server.db.model.*;
@@ -91,14 +92,16 @@ public class IndexController {
         return "redirect:/login";
     }
 
+    @CrossOrigin
     @PostMapping("/api/user/login")
     @ResponseBody
-    public Object apiLogin(
-            @RequestParam(value = "userId", required = true) String userId,
-            @RequestParam(value = "password", required = true) String password) {
-        User validPasswordAndUser = userService.isValidPasswordAndUser(userId, password);
+    public Object apiLogin(ApiReqLogin apiReqLogin) {
+        logger.info("userId " + apiReqLogin.getUserId());
+        logger.info("password " + apiReqLogin.getPassword());
+
+        User validPasswordAndUser = userService.isValidPasswordAndUser(apiReqLogin.getUserId(), apiReqLogin.getPassword());
         if(validPasswordAndUser != null) {
-            ApiAuth apiAuth = apiAuthService.saveAuth(userId);
+            ApiAuth apiAuth = apiAuthService.saveAuth(apiReqLogin.getUserId());
             return new ApiResponse(ApiStatus.SUCCESS_LOGIN, null, apiAuth);
         }
 

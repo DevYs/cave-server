@@ -1,10 +1,11 @@
 package devy.cave.server.db.service;
 
+import devy.cave.server.api.req.ApiReqSearch;
 import devy.cave.server.db.mapper.ChannelMapper;
+import devy.cave.server.db.mapper.ClipMapper;
 import devy.cave.server.db.mapper.ContentsMapper;
-import devy.cave.server.db.model.Channel;
-import devy.cave.server.db.model.ChannelKey;
-import devy.cave.server.db.model.Contents;
+import devy.cave.server.db.model.*;
+import devy.cave.server.db.model.api.Movie;
 import devy.cave.server.util.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,9 @@ public class SearchService {
 
     @Autowired
     private ChannelMapper channelMapper;
+
+    @Autowired
+    private ClipMapper clipMapper;
 
     public List<Contents> searchContents(String searchWord, String channelNo) {
         List<Contents> contentsList = new ArrayList<>();
@@ -93,6 +97,27 @@ public class SearchService {
         }
 
         return contentsList.subList(s - 1, e);
+    }
+
+    public List<Movie> movieList(ApiReqSearch apiReqSearch) {
+        List<Movie> movieList = new ArrayList<>();
+
+        List<Contents> contents = contentsList(apiReqSearch.getPageNo(), apiReqSearch.getSearchWord(), apiReqSearch.getChannelNo(), apiReqSearch.getPagePerSize());
+
+        for(Contents c : contents) {
+            Movie movie = new Movie();
+            movie.setContents(c);
+
+            Iterator iterator = clipMapper.map().duplicates(new ClipKey(c.getContentsNo())).iterator();
+            if(iterator.hasNext()) {
+                Clip clip = (Clip) iterator.next();
+                movie.setClip(clip);
+            }
+
+            movieList.add(movie);
+        }
+
+        return movieList;
     }
 
     public Channel getChannel(String channelNo) {
