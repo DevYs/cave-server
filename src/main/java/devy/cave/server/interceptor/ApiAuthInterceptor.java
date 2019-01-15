@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -24,11 +23,17 @@ public class ApiAuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String authKey = request.getParameter("authKey");
+        String authKey = request.getHeader("authKey");
+        String userId = request.getHeader("userId");
         logger.info("authKey " + authKey);
+        logger.info("userId " + userId);
 
         ApiAuth auth = apiAuthService.auth(authKey);
         if(auth == null) {
+            response.sendError(ApiStatusCode.UNAUTHORIZED, ApiStatusCode.UNAUTHORIZED_MSG);
+        }
+
+        if(userId == null || userId.isEmpty()) {
             response.sendError(ApiStatusCode.UNAUTHORIZED, ApiStatusCode.UNAUTHORIZED_MSG);
         }
 
