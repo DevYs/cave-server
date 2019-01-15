@@ -1,6 +1,5 @@
 package devy.cave.server.config;
 
-import devy.cave.server.interceptor.ApiAuthInterceptor;
 import devy.cave.server.interceptor.UserInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +22,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Autowired
     private UserInterceptor userInterceptor;
 
-    @Autowired
-    private ApiAuthInterceptor apiAuthInterceptor;
-
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
@@ -44,7 +40,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
         registry.addInterceptor(userInterceptor).addPathPatterns("/*", "/admin/channel", "/admin/channel/**", "/admin/contents", "/admin/contents/**");
-        registry.addInterceptor(apiAuthInterceptor).addPathPatterns("/api/user/**").excludePathPatterns("/api/user/login");
     }
 
 }
