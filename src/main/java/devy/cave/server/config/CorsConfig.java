@@ -19,7 +19,6 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        // 하단의 allowdMethods 설정에서 OPTIONS 값이 포함될 경우 client에서 cors 오류 발생함
         registry.addMapping("/api/user/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET,POST,PUT,DELETE,OPTIONS")
