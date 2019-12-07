@@ -1,6 +1,6 @@
 var page = 1;
 
-var contentsTemp = "<div class='idx-thumb col-xs-4 col-sm-3 col-md-2'>" +
+var contentsTemp = "<div class='idx-thumb poster col-xs-4 col-sm-3 col-md-2'>" +
                     "<a href='/contents?contentsNo=${contentsNo1}'>" +
                         "<img class='img-responsive' src='${contentsPosterUrl}' alt='${alt}' />" +
                     "</a>" +

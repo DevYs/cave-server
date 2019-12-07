@@ -13,7 +13,7 @@
         <div class="row">
             <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
 
-            <div th:if="0 < ${newContentsSize}" th:each="newContents : ${newContentsList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+            <div th:if="0 < ${newContentsSize}" th:each="newContents : ${newContentsList}" class="idx-thumb poster col-xs-4 col-sm-3 col-md-2">
                 <a th:href="@{~/contents(contentsNo=${newContents.contentsNo})}">
                     <img class="img-responsive" th:src="${#strings.equals(newContents.contentsPosterUrl, '')} ? '/img/empty.png' : ${newContents.contentsPosterUrl}" th:alt="#{common.contents.poster(${newContents.contentsName})}" />
                 </a>
@@ -43,7 +43,7 @@
         <div class="row">
             <p th:if="${deckSize} == 0" class="idx-lst-empt-msg" th:text="#{index.afterwards.emptMsg}">나중에 감상할 콘텐츠</p>
 
-            <div th:if="0 < ${deckSize}" th:each="deck : ${deckList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+            <div th:if="0 < ${deckSize}" th:each="deck : ${deckList}" class="idx-thumb poster col-xs-4 col-sm-3 col-md-2">
                 <a th:href="@{~/deck/remove(contentsNo=${deck.contentsNo})}">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>

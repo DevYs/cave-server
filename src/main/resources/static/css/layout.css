@@ -182,6 +182,15 @@ a.search-item:hover {
     padding-bottom:10px;
 }
 
+.poster a:first-child {
+    height:168.72px;
+    display:block;
+}
+
+.poster a:first-child img {
+    height:100%;
+}
+
 .idx-thumb-tl {
     display:block;
     margin:0px 5px;
@@ -215,4 +224,16 @@ a.search-item:hover {
 
 #select-subtitle {
     min-width: inherit;
+}
+
+@media (max-width:1199px) {
+    .poster a:first-child {
+        height:132.45px;
+    }
+}
+
+@media (max-width:368px) {
+    .poster a:first-child {
+        height:35.989vw;
+    }
 }

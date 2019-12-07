@@ -47,7 +47,7 @@
                         <a class="idx-thumb-tl text-center" th:href="@{~/admin/contents/add}" th:text="#{admin.contents.add}">콘텐츠추가</a>
                     </div>
 
-                    <div th:each="contents : ${contentsList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
+                    <div th:each="contents : ${contentsList}" class="cont-thumb poster col-xs-4 col-sm-3 col-md-2">
                         <a th:href="@{~/admin/contents/view(contentsNo=${contents.contentsNo})}">
                             <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contents.contentsName})}" />
                         </a>

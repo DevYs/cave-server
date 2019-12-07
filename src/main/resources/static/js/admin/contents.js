@@ -1,6 +1,6 @@
 var page = 1;
 
-var userTemp = "<div class='cont-thumb col-xs-4 col-sm-3 col-md-2'>" +
+var userTemp = "<div class='cont-thumb poster col-xs-4 col-sm-3 col-md-2'>" +
                     "<a href='/admin/contents/view?contentsNo=${contentsNo}'>" +
                         "<img class='img-responsive' src='${contentsPosterUrl}' alt='${alt}' />" +
                     "</a>" +

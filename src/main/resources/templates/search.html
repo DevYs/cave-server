@@ -11,7 +11,7 @@
 <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
     <h3 class="idx-h3 idx-h3-frst" th:text="#{search.searching(${searchChannel.channelName}, ${searchWord}, ${searchTotal})}"></h3>
     <div id="contentsList" class="row">
-        <div th:each="contents : ${contentsList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+        <div th:each="contents : ${contentsList}" class="idx-thumb poster col-xs-4 col-sm-3 col-md-2">
             <a th:href="@{~/contents(contentsNo=${contents.contentsNo})}">
                 <img class="img-responsive" th:src="${#strings.equals(contents.contentsPosterUrl, '')} ? '/img/empty.png' : ${contents.contentsPosterUrl}" th:alt="#{common.contents.poster(${contents.contentsName})}" />
             </a>
