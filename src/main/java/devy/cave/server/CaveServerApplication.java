@@ -9,9 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.File;
 
 @SpringBootApplication
-public class KaveServerApplication {
+public class CaveServerApplication {
 
-    private static Logger logger = LoggerFactory.getLogger(KaveServerApplication.class);
+    private static Logger logger = LoggerFactory.getLogger(CaveServerApplication.class);
 
 	public static void main(String[] args) {
         File file = new File(EnvironmentBuilder.defaultDbDir);
@@ -22,7 +22,7 @@ public class KaveServerApplication {
             logger.info("Already Created bdb directory");
         }
 
-        SpringApplication.run(KaveServerApplication.class, args);
+        SpringApplication.run(CaveServerApplication.class, args);
 
     }
 
