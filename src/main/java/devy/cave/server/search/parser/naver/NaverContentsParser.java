@@ -20,7 +20,6 @@ public class NaverContentsParser implements IParser {
     public Object parse(Document document) {
 
         Contents contents = new Contents();
-//        String posterUrl = document.selectFirst(".poster a img") != null ? document.selectFirst(".poster a img").attr("src") : "";
         String posterUrl = document.selectFirst("meta[property=og:image]") != null ? document.selectFirst("meta[property=og:image]").attr("content") : "";
         if(posterUrl.indexOf("//") == 0) {
             posterUrl = "http:" + posterUrl;
