@@ -1,4 +1,4 @@
-var ROLE_NAME_ACTOR = "배우";
+var ROLE_NAME_ACTOR = "출연";
 var ROLE_NAME_ACTOR_2 = "주연";
 var ROLE_NAME_ACTOR_3 = "조연";
 var ROLE_NAME_DIRECTOR = "감독";
@@ -93,7 +93,7 @@ function requestContentsList(direction) {
         {searchText: searchText, page: page},
         function(data) {
 
-            if(data.totalCount < 1) {
+            if(data.itemList.length < 1) {
                 alert("검색된 콘텐츠가 없습니다.");
             }
 
@@ -189,7 +189,7 @@ function setValues(data) {
             var actor = "";
 
             for(var i=0; i<data.people.length; i++) {
-                if(data.people[i].repRoleNm == ROLE_NAME_ACTOR) {
+                if(-1 < data.people[i].repRoleNm.indexOf(ROLE_NAME_ACTOR)) {
                     actor = people(actor, data.people[i].peopleNm);
                 } else if(data.people[i].repRoleNm == ROLE_NAME_ACTOR_2) {
                     actor = people(actor, data.people[i].peopleNm);

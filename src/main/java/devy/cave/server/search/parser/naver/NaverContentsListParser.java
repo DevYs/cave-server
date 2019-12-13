@@ -60,13 +60,14 @@ public class NaverContentsListParser implements IParser {
             listItems.add(listItem);
         }
 
-        result.setTotalCount(1);
-        result.setItemList(listItems);
-        result.setLastPage(1);
-        result.setPage(1);
-        result.setSizePerPage(10);
+        Element prev = document.selectFirst(".pagenavigation td.pre");
+        Element next = document.selectFirst(".pagenavigation td.next");
+        Elements pageNumbers = document.select(".pagenavigation").select("td:not(.pre)").select("td:not(.next)");
 
-        logger.info(result.toString());
+        result.setLastPage(Integer.valueOf(pageNumbers.last().text()));
+
+        logger.info("size " + pageNumbers.size());
+        result.setItemList(listItems);
 
         return result;
     }

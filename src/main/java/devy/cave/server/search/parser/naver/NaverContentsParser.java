@@ -19,42 +19,50 @@ public class NaverContentsParser implements IParser {
     @Override
     public Object parse(Document document) {
 
-        logger.info(document.toString());
-
         Contents contents = new Contents();
-        String posterUrl = document.selectFirst(".poster a img").attr("src");
-        String title = document.selectFirst(".mv_info_area .mv_info h3.h_movie a").attr("src");
-        String titleEng = document.selectFirst(".mv_info_area .mv_info strong").text().split(",")[0].trim();
-        String releaseDate = document.selectFirst(".mv_info_area .mv_info strong").text().split(",")[1].trim();
-        String genre = document.select(".mv_info_area .mv_info .info_spec dd").get(0).select("p span").get(0).text();
-        String nation = document.select(".mv_info_area .mv_info .info_spec dd").get(0).select("p span").get(1).text();
-        String runningTime = document.select(".mv_info_area .mv_info .info_spec dd").get(0).select("p span").get(2).text();
+        String posterUrl = document.selectFirst(".poster a img") != null ? document.selectFirst(".poster a img").attr("src") : "";
+        if(posterUrl.indexOf("//") == 0) {
+            posterUrl = "http:" + posterUrl;
+        }
+
+        String title = document.selectFirst(".mv_info_area .mv_info h3.h_movie a").text();
+        String titleEng = "";
+
+        String releaseDate = "";
+        String[] split = document.selectFirst(".mv_info_area .mv_info strong").attr("title").split(",");
+        releaseDate = split[split.length - 1].trim();
+
+        String genre = "";
+        String nation = "";
+        String runningTime = "";
+        Elements mvInfoArea = document.select(".mv_info_area .mv_info .info_spec dd p span");
+        for(Element mvInfo : mvInfoArea) {
+
+            Elements tagA = mvInfo.select("a");
+            if(0 < tagA.size()) {
+                if(-1 < tagA.get(0).attr("href").indexOf("genre")) {
+                    genre = genre.length() == 0 ? mvInfo.select("a").text() : mvInfo.select("a").text() + ", ";
+                }else if(-1 < tagA.get(0).attr("href").indexOf("nation")) {
+                    nation = nation.length() == 0 ? mvInfo.select("a").text() : mvInfo.select("a").text() + ", ";
+                }
+            } else {
+                if(mvInfo.text() != null && -1 < mvInfo.text().indexOf("분")) {
+                    runningTime = mvInfo.text();
+                }
+            }
+
+        }
+
         String age = "";
         String story = document.select(".story_area .con_tx").text();
         float emphGrade = 0.0f;
         String imageUrl = document.select("meta[property='og:image']").attr("content");
 
         List<Person> people = new ArrayList<>();
-        document.select(".mv_info_area .mv_info .info_spec dd").get(1);
+        getDirectors(document, people);
+        getActors(document, people);
 
-        if(posterUrl.indexOf("//") == 0) {
-            posterUrl = "http:" + posterUrl;
-        }
-
-        title = title.substring(0, title.indexOf("(")).trim();
-
-        Elements pList = document.select(".type_ellipsis");
-        for(Element p : pList) {
-            Person person = new Person();
-            if(p.text().contains("(감독)")) {
-                person.setPeopleNm(p.text().replace("(감독)", "").trim());
-                person.setRepRoleNm("감독");
-            } else {
-                person.setPeopleNm(p.text().replace("(주연)", "").trim());
-                person.setRepRoleNm("주연");
-            }
-            people.add(person);
-        }
+        logger.info(people.toString());
 
         contents.setPosterUrl(posterUrl);
         contents.setTitle(title);
@@ -75,5 +83,42 @@ public class NaverContentsParser implements IParser {
     @Override
     public Object parse(String html) {
         throw new UnsupportedOperationException();
+    }
+
+    private void getActors(Document document, List<Person> people) {
+        if(document.select(".step3").size() == 0) {
+            return;
+        }
+
+        Element element = document.select(".step3").next("dd").get(0);
+        Elements actors = element.select("a");
+        logger.info(actors.toString());
+        for(Element actor : actors) {
+            if(-1 < actor.text().indexOf("더보기")) {
+                continue;
+            }
+
+            actor.select("span").remove();
+            Person person = new Person();
+            person.setPeopleNm(actor.text());
+            person.setRepRoleNm("출연");
+            people.add(person);
+        }
+    }
+
+    private void getDirectors(Document document, List<Person> people) {
+        if(document.select(".step2").size() == 0) {
+            return;
+        }
+
+        Element element = document.select(".step2").next("dd").get(0);
+        Elements directors = element.select("a");
+        for(Element director : directors) {
+            director.select("span").remove();
+            Person person = new Person();
+            person.setPeopleNm(director.text());
+            person.setRepRoleNm("감독");
+            people.add(person);
+        }
     }
 }
