@@ -17,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 @Component
 public class DocumentParser {
@@ -31,7 +32,13 @@ public class DocumentParser {
     }
 
     public Object parseHtml(String url, IParser iParser) {
-        return iParser.parse(Jsoup.parse(request(url)));
+        try {
+            return iParser.parse(Jsoup.connect(url).get());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public Object parseJson(String url, IParser iParser) {
@@ -43,6 +50,7 @@ public class DocumentParser {
         HttpClient client = HttpClients.custom().build();
         HttpUriRequest request = RequestBuilder.get()
                 .setUri(url)
+                .setCharset(Charset.forName("utf-8"))
                 .setHeader(HttpHeaders.CONTENT_TYPE, "text/*")
                 .build();
         InputStream is = null;

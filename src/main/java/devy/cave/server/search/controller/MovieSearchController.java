@@ -2,9 +2,10 @@ package devy.cave.server.search.controller;
 
 import devy.cave.server.search.model.ClipVideo;
 import devy.cave.server.search.model.Contents;
-import devy.cave.server.search.service.daum.DaumContentsListService;
 import devy.cave.server.search.service.daum.DaumContentsService;
 import devy.cave.server.search.service.daum.DaumVideoService;
+import devy.cave.server.search.service.naver.NaverContentsListService;
+import devy.cave.server.search.service.naver.NaverContentsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @Controller
-public class DaumSearchController {
+public class MovieSearchController {
 
-    private final Logger logger = LoggerFactory.getLogger(DaumSearchController.class);
-
-    @Autowired
-    private DaumContentsListService contentsListService;
+    private final Logger logger = LoggerFactory.getLogger(MovieSearchController.class);
 
     @Autowired
-    private DaumContentsService contentsService;
+    private NaverContentsListService contentsListService;
+
+    @Autowired
+    private NaverContentsService contentsService;
 
     @Autowired
     private DaumVideoService videoService;
