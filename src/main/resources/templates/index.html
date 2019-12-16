@@ -29,7 +29,7 @@
             <p th:if="${watchingSize} == 0" class="idx-lst-empt-msg" th:text="#{index.watching.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
 
             <div th:if="0 < ${watchingSize}" th:each="watching : ${watchingList}" class=" idx-thumb col-xs-6 col-sm-4 col-md-4">
-                <a th:href="@{~/watching/remove(videoNo=${watching.videoNo})}">
+                <a class="remove" th:href="@{~/watching/remove(videoNo=${watching.videoNo})}">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
                 <a th:id="${watching.videoNo}" class="video-poster" th:href="@{~/play(videoNo=${watching.videoNo})}">
@@ -45,7 +45,7 @@
             <p th:if="${deckSize} == 0" class="idx-lst-empt-msg" th:text="#{index.afterwards.emptMsg}">나중에 감상할 콘텐츠</p>
 
             <div th:if="0 < ${deckSize}" th:each="deck : ${deckList}" class="idx-thumb poster col-xs-4 col-sm-3 col-md-2">
-                <a th:href="@{~/deck/remove(contentsNo=${deck.contentsNo})}">
+                <a class="remove" th:href="@{~/deck/remove(contentsNo=${deck.contentsNo})}">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
                 <a th:href="@{~/contents(contentsNo=${deck.contentsNo})}">

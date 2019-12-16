@@ -187,6 +187,10 @@ a.search-item:hover {
     display:block;
 }
 
+.poster a.remove {
+    height:auto;
+}
+
 .poster a:first-child img {
     height:100%;
 }
