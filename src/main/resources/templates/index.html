@@ -4,6 +4,7 @@
       layout:decorate="~{default}">
 <head>
     <title th:text="#{index.title}">Cave</title>
+    <script th:src="@{~/js/index.js}"></script>
 </head>
 
 <body>
@@ -27,11 +28,11 @@
         <div class="row">
             <p th:if="${watchingSize} == 0" class="idx-lst-empt-msg" th:text="#{index.watching.emptMsg}">감상중인 콘텐츠가 없습니다.</p>
 
-            <div th:if="0 < ${watchingSize}" th:each="watching : ${watchingList}" class="idx-thumb col-xs-4 col-sm-3 col-md-2">
+            <div th:if="0 < ${watchingSize}" th:each="watching : ${watchingList}" class=" idx-thumb col-xs-6 col-sm-4 col-md-4">
                 <a th:href="@{~/watching/remove(videoNo=${watching.videoNo})}">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </a>
-                <a th:href="@{~/play(videoNo=${watching.videoNo})}">
+                <a th:id="${watching.videoNo}" class="video-poster" th:href="@{~/play(videoNo=${watching.videoNo})}">
                     <img class="img-responsive" th:src="${#strings.equals(watching.video.videoPosterUrl, '')} ? '/img/empty.png' : ${watching.video.videoPosterUrl}" th:alt="#{common.contents.video.poster(${watching.contents.contentsName}, ${watching.video.videoName})}" />
                 </a>
                 <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${watching.videoNo})}" th:text="${watching.contents.contentsName}">콘텐츠명</a>

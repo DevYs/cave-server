@@ -4,6 +4,7 @@
       layout:decorate="~{default}">
 <head>
     <title th:text="#{contents.title(${contents.contentsName})}">콘텐츠명</title>
+    <script th:src="@{~/js/video-poster.js}"></script>
 </head>
 
 <body>
@@ -44,8 +45,8 @@
 
                 <p class="idx-lst-empt-msg" th:if="${videoSize} == 0" th:text="#{contents.empty.video}">추가된 영상이 없습니다.</p>
 
-                <li th:if="0 < ${videoSize}" th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
-                    <a th:href="@{~/play(videoNo=${video.videoNo})}">
+                <li th:if="0 < ${videoSize}" th:each="video : ${videoList}" class="cont-thumb col-xs-6 col-sm-4 col-md-4">
+                    <a class="video-poster" th:id="${video.videoNo}" th:href="@{~/play(videoNo=${video.videoNo})}">
                         <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="#{common.contents.poster(${video.videoName})}" />
                     </a>
                     <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${video.videoNo})}" th:text="${video.videoName}"></a>

@@ -2,7 +2,6 @@ package devy.cave.server.search.service.naver;
 
 import devy.cave.server.search.model.Contents;
 import devy.cave.server.search.parser.DocumentParser;
-import devy.cave.server.search.parser.daum.DaumContentsParser;
 import devy.cave.server.search.parser.naver.NaverContentsParser;
 import devy.cave.server.search.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;

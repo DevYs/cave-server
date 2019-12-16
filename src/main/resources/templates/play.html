@@ -47,9 +47,9 @@
 
         <div class="row">
             <ul class="cont-video">
-                <li th:each="video : ${videoList}" class="cont-thumb col-xs-4 col-sm-3 col-md-2">
+                <li th:each="video : ${videoList}" class="cont-thumb col-xs-6 col-sm-4 col-md-4">
                     <p th:if="${watching.videoNo == video.videoNo}" class="b-icon" th:text="#{common.watching}">감상중</p>
-                    <a th:href="@{~/play(videoNo=${video.videoNo})}">
+                    <a th:id="${video.videoNo}" class="video-poster" th:href="@{~/play(videoNo=${video.videoNo})}">
                         <img class="img-responsive" th:src="${#strings.equals(video.videoPosterUrl, '')} ? '/img/empty.png' : ${video.videoPosterUrl}" th:alt="#{common.contents.video.poster(${watching.contents.contentsName}, ${video.videoName})}" />
                     </a>
                     <a class="idx-thumb-tl" th:href="@{~/play(videoNo=${video.videoNo})}" th:text="${video.videoName}">영상이름</a>

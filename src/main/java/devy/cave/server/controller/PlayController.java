@@ -3,12 +3,15 @@ package devy.cave.server.controller;
 import devy.cave.server.db.model.Video;
 import devy.cave.server.db.model.Watching;
 import devy.cave.server.db.service.PlayService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -48,6 +51,28 @@ public class PlayController {
         model.addAttribute("videoList", videoList);
 
         return "play";
+    }
+
+    @GetMapping("/api/video/poster/{videoNo}")
+    @ResponseBody
+    public Video videoPoster(@PathVariable String videoNo) {
+        logger.info("videoNo " + videoNo);
+        Video video = playService.getVideo(videoNo);
+
+
+        try {
+            Document document = Jsoup.connect(video.getShareLinkUrl()).get();
+            Element videoPoster = document.selectFirst("meta[property=og:image]");
+            if(videoPoster != null) {
+                video.setVideoPosterUrl(videoPoster.attr("content"));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        logger.info(video.toString());
+
+        return video;
     }
 
     private boolean isParse(Video video) {
