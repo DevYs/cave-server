@@ -26,9 +26,13 @@ public class ContentsController {
 
     @GetMapping("/contents")
     public String contents(Principal principal, String contentsNo, @RequestParam(value = "tab", defaultValue = "cont") String tab, Model model) {
-        Deck deck = contentsService.getDeck(principal.getName(), contentsNo);
         Collection<Video> videoList = contentsService.videoList(contentsNo);
         Contents contents = contentsService.getContents(contentsNo);
+
+        Deck deck = null;
+        if(principal != null) {
+            deck = contentsService.getDeck(principal.getName(), contentsNo);
+        }
 
         boolean isDeck = deck != null;
         model.addAttribute("isDeck", isDeck);

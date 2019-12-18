@@ -47,6 +47,7 @@
             <div th:if="${param.logout}" th:text="#{login.error.loggedout}">로그아웃 되었습니다.</div>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login}">로그인</button>
+            <a class="btn btn-lg btn-success btn-block" th:href="@{~/index}" th:text="#{default.home}">홈</a>
         </form>
 
     </div> <!-- /container -->

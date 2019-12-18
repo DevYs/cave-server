@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -51,8 +52,14 @@ public class IndexController {
     @GetMapping("/index")
     public String index(Principal principal, Model model) {
         List<Contents> newContentList = indexService.newContents();
-        List<Watching> watchingList = indexService.watchingList(principal.getName());
-        List<Deck> deckList = indexService.deckList(principal.getName());
+
+        List<Watching> watchingList = new ArrayList<>();
+        List<Deck> deckList = new ArrayList<>();
+
+        if(principal != null) {
+            watchingList = indexService.watchingList(principal.getName());
+            deckList = indexService.deckList(principal.getName());
+        }
 
         model.addAttribute("deckList", deckList);
         model.addAttribute("deckSize", deckList.size());
