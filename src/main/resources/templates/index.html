@@ -10,6 +10,15 @@
 <body>
     <div class="col-xs-12 col-sm-9" layout:fragment="~{contents}">
 
+        <div class="row">
+            <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
+            <div id="youtube-playlist">
+                <ul>
+<!--                    <li> <iframe src="https://www.youtube.com/embed/n0CvxNbvSXk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </li>-->
+                </ul>
+            </div>
+        </div>
+
         <h3 class="idx-h3 idx-h3-frst" th:text="#{index.recently}">최근 추가된 콘텐츠</h3>
         <div class="row">
             <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
