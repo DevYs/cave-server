@@ -233,6 +233,7 @@ a.search-item:hover {
 #youtube-playlist {
     margin:0 15px;
     background:#000;
+    position:relative;
 }
 
 #youtube-playlist ul {
@@ -248,22 +249,22 @@ a.search-item:hover {
     width:100%;
     height:100%;
     opacity:0;
-    left:0;
     transition:left 0.3s;
 }
 
 #youtube-playlist ul li.show {
+    left:0;
     opacity:1;
-    z-index:2;
+    z-index:1;
 }
 
-#youtube-playlist ul li.left {
+#youtube-playlist ul li.prev {
     left:-100%;
     opacity:1;
     z-index:1;
 }
 
-#youtube-playlist ul li.right {
+#youtube-playlist ul li.next {
     left:100%;
     opacity:1;
     z-index:1;
@@ -273,6 +274,54 @@ a.search-item:hover {
     vertical-align:middle;
     width:100%;
     height:100%;
+}
+
+#control {
+    text-align:center;
+}
+
+#pager {
+    display:inline-block;
+    text-align:center;
+}
+
+#pager a {
+    display:inline-block;
+    height:14px;
+    width:14px;
+    background-color:#fff;
+    border:1px solid #555;
+    border-radius:14px;
+    font-size:0px;
+    margin:0 2px;
+    vertical-align:middle;
+}
+
+#pager a:hover,
+#pager a.selected {
+    background-color:#555;
+}
+
+#pager-control {
+    height:15px;
+    display:inline-block;
+    position:relative;
+}
+
+#pager-control a {
+    display:none;
+    height:14px;
+    width:14px;
+    position:absolute;
+}
+
+#pager-control a.active {
+    display:inline-block;
+}
+
+#pager-control a img {
+    height:100%;
+    width:100%;
 }
 
 @media (max-width:1199px) {

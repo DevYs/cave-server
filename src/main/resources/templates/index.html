@@ -13,9 +13,18 @@
         <div class="row">
             <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
             <div id="youtube-playlist">
-                <ul>
-<!--                    <li> <iframe src="https://www.youtube.com/embed/n0CvxNbvSXk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> </li>-->
-                </ul>
+                <ul></ul>
+            </div>
+            <div id="control">
+                <div id="pager"></div>
+                <div id="pager-control">
+                    <a href="#">
+                        <img th:src="@{~/img/play.png}" alt="play" />
+                    </a>
+                    <a class="active" href="#">
+                        <img th:src="@{~/img/pause.png}" alt="pause" />
+                    </a>
+                </div>
             </div>
         </div>
 
