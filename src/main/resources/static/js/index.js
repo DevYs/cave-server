@@ -62,9 +62,9 @@ function requestYoutubeList() {
             makePager(result);
             makeIndicator(result);
             initPager(result);
-            setTimeout(function() {
+            $('#youtube-playlist ul li').eq(0).find('iframe').on('load', function() {
                 start();
-            }, START_DELAY);
+            });
         }
     });
 }
@@ -76,9 +76,9 @@ function start() {
         }
         ytbShow = ytbShow + 1;
         setIndex();
-        console.log(ytbPrev, ytbShow, ytbNext);
     }, PERIOD);
 }
+
 
 function initPager(result) {
     var length = result.items.length;
