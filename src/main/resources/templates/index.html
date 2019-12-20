@@ -14,22 +14,29 @@
             <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
             <div id="youtube-playlist">
                 <ul></ul>
+                <a id="play-video" href="#"></a>
             </div>
             <div id="control">
                 <div id="pager"></div>
                 <div id="pager-control">
-                    <a href="#">
-                        <img th:src="@{~/img/play.png}" alt="play" />
+                    <a class="pager-control-prev" href="#">
+                        <img th:src="@{~/img/prev.png}" alt="이전" />
                     </a>
-                    <a class="active" href="#">
-                        <img th:src="@{~/img/pause.png}" alt="pause" />
+                    <a class="onOff" href="#">
+                        <img th:src="@{~/img/play.png}" alt="시작" />
+                    </a>
+                    <a class="active onOff" href="#">
+                        <img th:src="@{~/img/pause.png}" alt="정지" />
+                    </a>
+                    <a class="pager-control-next" href="#">
+                        <img th:src="@{~/img/next.png}" alt="다음" />
                     </a>
                 </div>
             </div>
         </div>
 
         <h3 class="idx-h3 idx-h3-frst" th:text="#{index.recently}">최근 추가된 콘텐츠</h3>
-        <div class="row">
+        <div class="row recent">
             <p class="idx-lst-empt-msg" th:if="${newContentsSize} == 0" th:text="#{index.recently.emptMsg}">최근에 추가된 콘텐츠가 없습니다.</p>
 
             <div th:if="0 < ${newContentsSize}" th:each="newContents : ${newContentsList}" class="idx-thumb poster col-xs-4 col-sm-3 col-md-2">

@@ -4,7 +4,10 @@ var MAX_RESUSLTS = 12;
 var KEY = 'AIzaSyASag-hnXY1mqkhNHJ3NXgkLkOlhaw362A';
 var PLAYLIST_URL = 'https://www.googleapis.com/youtube/v3/playlistItems?playlistId=' + PLAYLIST_ID + '&part=' + PART + '&maxResults=' + MAX_RESUSLTS + '&key=' + KEY;
 var YOUTUBE_ID = '{youtube_id}';
-var YOUTUBE_IFRAME = '<li><iframe src="https://www.youtube.com/embed/' + YOUTUBE_ID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>';
+var YOUTUBE_TITLE = '{youtube_title}';
+var YOUTUBE_THUMBNAIL = '{youtube_thumbnail}';
+var YOUTUBE_DESC = '{youtube_desc}';
+var YOUTUBE_ITEM = '<li><h4>' + YOUTUBE_TITLE + '</h4><img src="' + YOUTUBE_THUMBNAIL + '" alt= "' + YOUTUBE_DESC + '" /></li>';
 
 var INDICATOR_ITEM_NO = '{indicatorItemNo}';
 var INDICATOR_ITEM = '<a href="#">' + INDICATOR_ITEM_NO + '</a>';
@@ -15,14 +18,26 @@ var PERIOD = 1000 * 3;
 var ytbShow = 0;
 var ytbPrev = 0;
 var ytbNext = 0;
+var isRunning = true;
 
 $(document).ready(function() {
     requestYoutubeList();
 
-    $('#youtube-playlist').on('mouseenter', function() {
-        isOnPager(0);
+    $('#play-video').on('click', function(e) {
+        e.preventDefault();
+        var index = $('#youtube-playlist ul li').index($('#youtube-playlist ul li.show'));
+        location.href = $('.recent .poster a:first-child').eq(index).attr('href');
     });
-    $('#pager-control a').on('click', onClickPagerControl);
+
+    $('#pager-control .onOff').on('click', onClickPagerControl);
+    $('#pager-control .pager-control-prev').on('click', onClickPrev);
+    $('#pager-control .pager-control-next').on('click', onClickNext);
+    $('#pager-control .pager-control-prev').on('mouseleave', function(e) {
+        isOnPager(1);
+    });
+    $('#pager-control .pager-control-next').on('mouseleave', function(e){
+        isOnPager(1);
+    });
 
     $('.video-poster').each(function(e) {
         var v = $(this).find('img');
@@ -37,15 +52,13 @@ $(document).ready(function() {
 
 function onClickPagerControl(e) {
     e.preventDefault();
-    var isOn = $('#pager-control a').index($(this));
+    var isOn = $('#pager-control .onOff').index($(this));
     isOnPager(!isOn);
 }
 
-var isRunning = true;
-
 function isOnPager(isOn) {
-    $('#pager-control a').removeClass('active');
-    $('#pager-control a').eq(isOn).addClass('active');
+    $('#pager-control .onOff').removeClass('active');
+    $('#pager-control .onOff').eq(isOn).addClass('active');
 
     if(isOn) {
         isRunning = true;
@@ -60,9 +73,8 @@ function requestYoutubeList() {
         url: PLAYLIST_URL,
         success:function(result) {
             makePager(result);
-            makeIndicator(result);
             initPager(result);
-            $('#youtube-playlist ul li').eq(0).find('iframe').on('load', function() {
+            $('#youtube-playlist ul li').eq(0).find('img').on('load', function() {
                 start();
             });
         }
@@ -79,7 +91,6 @@ function start() {
     }, PERIOD);
 }
 
-
 function initPager(result) {
     var length = result.items.length;
     ytbShow = 0;
@@ -92,29 +103,41 @@ function initPager(result) {
 }
 
 function makePager(result) {
+    console.log(result);
     var length = result.items.length;
     for(var i=0; i<length; i++) {
-        var item = YOUTUBE_IFRAME.replace(YOUTUBE_ID, result.items[i].snippet.resourceId.videoId);
+        var item = YOUTUBE_ITEM.replace(YOUTUBE_THUMBNAIL, result.items[i].snippet.thumbnails.high.url)
+                                .replace(YOUTUBE_TITLE, result.items[i].snippet.title);
         $('#youtube-playlist ul').append(item);
     }
-}
 
-function makeIndicator(result) {
-    var length = result.items.length;
-    for(var i=1; i<=length; i++) {
-        var indicatorItem = INDICATOR_ITEM.replace(INDICATOR_ITEM_NO, i);
-        $('#pager').append(indicatorItem);
-    }
-    $('#pager a').eq(0).addClass('selected');
+    $('#youtube-playlist ul li a').on('mouseenter', function(e) {
 
-    $('#pager a').on('click', function(e) {
-        e.preventDefault();
-        ytbShow = $('#pager a').index($(this));
-        setIndex();
     });
 }
 
+function onClickPrev(e) {
+    isOnPager(0);
+
+    ytbShow = ytbShow - 1;
+    if(ytbShow < 0) {
+        ytbShow = $('#youtube-playlist ul li').length - 1;
+    }
+    setIndex();
+}
+
+function onClickNext(e) {
+    isOnPager(0);
+
+    ytbShow = ytbShow + 1;
+    if($('#youtube-playlist ul li').length - 1 < ytbShow) {
+        ytbShow = 0;
+    }
+    setIndex();
+}
+
 function setIndex() {
+    var length = $('#youtube-playlist ul li').length;
     ytbNext = ytbShow + 1;
     ytbPrev = ytbShow - 1;
 
@@ -132,11 +155,12 @@ function setIndex() {
         ytbPrev = length - 1;
     }
 
+    console.log(ytbPrev, ytbShow, ytbNext);
+
     $('#youtube-playlist ul li.prev').removeClass('prev');
     $('#youtube-playlist ul li').eq(ytbPrev).addClass('prev');
     $('#youtube-playlist ul li.show').removeClass('show');
     $('#youtube-playlist ul li').eq(ytbShow).addClass('show');
     $('#youtube-playlist ul li.next').removeClass('next');
     $('#youtube-playlist ul li').eq(ytbNext).addClass('next');
-    $('#pager a').removeClass('selected').eq(ytbShow).addClass('selected');
 }
