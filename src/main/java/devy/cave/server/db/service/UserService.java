@@ -15,6 +15,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +35,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -46,7 +44,7 @@ public class UserService implements UserDetailsService {
         try {
             user = getUserByUserId(username);
         } catch(Exception e) {
-            user.setPassword(passwordEncoder.encode(""));
+            user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(""));
             logger.info("'" + username + "' is not User");
         }
 
@@ -60,7 +58,7 @@ public class UserService implements UserDetailsService {
 
     public User isValidPasswordAndUser(String userId, String inputPassword) {
         User user = getUserByUserId(userId);
-        return passwordEncoder.matches(inputPassword, user.getPassword()) ? user : null;
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(inputPassword, user.getPassword()) ? user : null;
     }
 
     public User getUserByUserId(String userId) {
@@ -69,13 +67,13 @@ public class UserService implements UserDetailsService {
 
     public boolean add(User user) {
         user.setUserNo(DatabaseKeyCreator.createKey());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getPassword()));
         return userMapper.add(user);
     }
 
     public User mod(User user) {
         if(!user.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(user.getPassword()));
         } else {
             User storedUser = (User) userMapper.map().duplicates(new UserKey(user.getUserNo())).iterator().next();
             user.setPassword(storedUser.getPassword());
