@@ -155,8 +155,6 @@ function setIndex() {
         ytbPrev = length - 1;
     }
 
-    console.log(ytbPrev, ytbShow, ytbNext);
-
     $('#youtube-playlist ul li.prev').removeClass('prev');
     $('#youtube-playlist ul li').eq(ytbPrev).addClass('prev');
     $('#youtube-playlist ul li.show').removeClass('show');
