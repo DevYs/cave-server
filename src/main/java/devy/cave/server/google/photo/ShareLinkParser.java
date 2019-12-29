@@ -18,6 +18,8 @@ public class ShareLinkParser {
         ShareLink shareLink = new ShareLink();
 
         Document document = Jsoup.parse(new URL(shareLinkUrl), TIMEOUT_MILLIS);
+        String dataDestination = document.selectFirst("div[data-destination]").attr("data-destination");
+        document = Jsoup.connect(dataDestination).get();
         Element ogImage = document.selectFirst("meta[property=og:image]");
         Element ogVideo = document.selectFirst("meta[property=og:video]");
         Element ogVideoSecureUrl = document.selectFirst("meta[property=og:video:secure_url]");

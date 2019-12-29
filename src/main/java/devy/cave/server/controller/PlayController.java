@@ -59,9 +59,10 @@ public class PlayController {
         logger.info("videoNo " + videoNo);
         Video video = playService.getVideo(videoNo);
 
-
         try {
             Document document = Jsoup.connect(video.getShareLinkUrl()).get();
+            String dataDestination = document.selectFirst("div[data-destination]").attr("data-destination");
+            document = Jsoup.connect(dataDestination).get();
             Element videoPoster = document.selectFirst("meta[property=og:image]");
             if(videoPoster != null) {
                 video.setVideoPosterUrl(videoPoster.attr("content"));

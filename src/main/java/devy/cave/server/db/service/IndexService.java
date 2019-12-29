@@ -5,6 +5,7 @@ import devy.cave.server.db.model.*;
 import devy.cave.server.util.Sort;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,9 +74,12 @@ public class IndexService {
                 Document document = null;
                 try {
                     document = Jsoup.connect(video.getShareLinkUrl()).get();
+                    String dataDestination = document.selectFirst("div[data-destination]").attr("data-destination");
+                    document = Jsoup.connect(dataDestination).get();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 image = document.selectFirst("meta[property='og:image']").attr("content");
                 video.setImage(image);
                 videoMapper.map().replace(new VideoKey(watching.getVideoNo()), video);
