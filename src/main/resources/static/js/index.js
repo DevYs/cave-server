@@ -105,15 +105,11 @@ function initPager(result) {
 function makePager(result) {
     console.log(result);
     var length = result.items.length;
-    for(var i=0; i<length; i++) {
+    for(var i=length-1; i>=0; i--) {
         var item = YOUTUBE_ITEM.replace(YOUTUBE_THUMBNAIL, result.items[i].snippet.thumbnails.high.url)
                                 .replace(YOUTUBE_TITLE, result.items[i].snippet.title);
         $('#youtube-playlist ul').append(item);
     }
-
-    $('#youtube-playlist ul li a').on('mouseenter', function(e) {
-
-    });
 }
 
 function onClickPrev(e) {
